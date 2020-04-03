@@ -73,6 +73,10 @@ $('#sidebar-hide-btn').click(function() {
   animateSidebar();
   return false;
 });
+$('#sidebar-show-btn').click(function() {
+  animateSidebar();
+  return false;
+});
 
 function animateSidebar() {
   $('#sidebar').animate(

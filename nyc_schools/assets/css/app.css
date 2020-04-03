@@ -40,6 +40,12 @@ input[type="radio"], input[type="checkbox"] {
 #sidebar-hide-btn {
   margin-top: -2px;
 }
+#sidebar-show-btn {
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 10px;
+  z-index: 20;
+}
 #aboutTabsContent {
   padding-top: 10px;
 }
