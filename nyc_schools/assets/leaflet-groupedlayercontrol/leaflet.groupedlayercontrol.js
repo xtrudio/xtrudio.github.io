@@ -10,7 +10,7 @@ L.Control.GroupedLayers = L.Control.extend({
     autoZIndex: true
   },
 
-  initialize: function (baseLayers, groupedOverlays, options) {
+  initialize: function (closeBtn, groupedOverlays, options) {
     var i, j;
     L.Util.setOptions(this, options);
 
@@ -286,6 +286,6 @@ L.Control.GroupedLayers = L.Control.extend({
   }
 });
 
-L.control.groupedLayers = function (baseLayers, groupedOverlays, options) {
-  return new L.Control.GroupedLayers(baseLayers, groupedOverlays, options);
+L.control.groupedLayers = function (closeBtn, groupedOverlays, options) {
+  return new L.Control.GroupedLayers(closeBtn, groupedOverlays, options);
 };

@@ -96,7 +96,7 @@ function clearHighlight() {
 
 function sidebarClick(id) {
   var layer = markerClusters.getLayer(id);
-  map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
+  map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 16);
   layer.fire('click');
   /* Hide sidebar and go to the map on small screens */
   if (document.body.clientWidth <= 767) {
@@ -180,7 +180,7 @@ var cartoLight = L.tileLayer(
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
   {
     minZoom: 10,
-    maxZoom: 18,
+    maxZoom: 16,
     attribution:
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
   }
@@ -191,32 +191,9 @@ var highlight = L.geoJson(null);
 var highlightStyle = {
   stroke: false,
   fillColor: '#00FFFF',
-  fillOpacity: 0.7,
+  fillOpacity: 0.5,
   radius: 10
 };
-
-// /* Boros Layer */
-// var boroughs = L.geoJson(null, {
-//   style: function(feature) {
-//     return {
-//       color: 'black',
-//       fill: false,
-//       opacity: 1,
-//       clickable: false
-//     };
-//   },
-//   onEachFeature: function(feature, layer) {
-//     boroughSearch.push({
-//       name: layer.feature.properties.BoroName,
-//       source: 'Boroughs',
-//       id: L.stamp(layer),
-//       bounds: layer.getBounds()
-//     });
-//   }
-// });
-// $.getJSON('data/boroughs.geojson', function(data) {
-//   boroughs.addData(data);
-// });
 
 /* Districts Layer */
 var districts = L.geoJson(null, {
@@ -324,7 +301,7 @@ var markerClusters = new L.MarkerClusterGroup({
   spiderfyOnMaxZoom: true,
   showCoverageOnHover: false,
   zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 16
+  disableClusteringAtZoom: 15
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove stations to markerClusters layer */
@@ -672,7 +649,7 @@ $.getJSON('data/high.json', function(data) {
 
 map = L.map('map', {
   zoom: 10,
-  center: [40.702222, -73.979378],
+  center: [40.7, -73.97],
   layers: [cartoLight, districts, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
@@ -741,11 +718,105 @@ attributionControl.onAdd = function(map) {
 };
 map.addControl(attributionControl);
 
-var zoomControl = L.control
-  .zoom({
-    position: 'bottomright'
-  })
-  .addTo(map);
+// var zoomControl = L.control
+//   .zoom({
+//     position: 'bottomright'
+//   })
+//   .addTo(map);
+
+// custom zoom bar control that includes a Zoom Home function
+L.Control.zoomHome = L.Control.extend({
+  options: {
+    position: 'bottomright',
+    zoomInText: '<i class="fa fa-plus";></i>',
+    zoomInTitle: 'Zoom in',
+    zoomOutText: '<i class="fa fa-minus";></i>',
+    zoomOutTitle: 'Zoom out',
+    zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
+    zoomHomeTitle: 'Zoom home'
+  },
+
+  onAdd: function(map) {
+    var controlName = 'gin-control-zoom',
+      container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
+      options = this.options;
+
+    this._zoomInButton = this._createButton(
+      options.zoomInText,
+      options.zoomInTitle,
+      controlName + '-in',
+      container,
+      this._zoomIn
+    );
+    this._zoomHomeButton = this._createButton(
+      options.zoomHomeText,
+      options.zoomHomeTitle,
+      controlName + '-home',
+      container,
+      this._zoomHome
+    );
+    this._zoomOutButton = this._createButton(
+      options.zoomOutText,
+      options.zoomOutTitle,
+      controlName + '-out',
+      container,
+      this._zoomOut
+    );
+
+    this._updateDisabled();
+    map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+
+    return container;
+  },
+
+  onRemove: function(map) {
+    map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+  },
+
+  _zoomIn: function(e) {
+    this._map.zoomIn(e.shiftKey ? 3 : 1);
+  },
+
+  _zoomOut: function(e) {
+    this._map.zoomOut(e.shiftKey ? 3 : 1);
+  },
+
+  _zoomHome: function(e) {
+    map.setView([40.7, -73.97], 10);
+  },
+
+  _createButton: function(html, title, className, container, fn) {
+    var link = L.DomUtil.create('a', className, container);
+    link.innerHTML = html;
+    link.href = '#';
+    link.title = title;
+
+    L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+      .on(link, 'click', L.DomEvent.stop)
+      .on(link, 'click', fn, this)
+      .on(link, 'click', this._refocusOnMap, this);
+
+    return link;
+  },
+
+  _updateDisabled: function() {
+    var map = this._map,
+      className = 'leaflet-disabled';
+
+    L.DomUtil.removeClass(this._zoomInButton, className);
+    L.DomUtil.removeClass(this._zoomOutButton, className);
+
+    if (map._zoom === map.getMinZoom()) {
+      L.DomUtil.addClass(this._zoomOutButton, className);
+    }
+    if (map._zoom === map.getMaxZoom()) {
+      L.DomUtil.addClass(this._zoomInButton, className);
+    }
+  }
+});
+// add the new control to the map
+var zoomHome = new L.Control.zoomHome();
+zoomHome.addTo(map);
 
 /* GPS enabled geolocation control set to follow the user's location */
 var locateControl = L.control
@@ -772,7 +843,7 @@ var locateControl = L.control
       outsideMapBoundsMsg: 'You seem located outside the boundaries of the map'
     },
     locateOptions: {
-      maxZoom: 18,
+      maxZoom: 16,
       watch: true,
       enableHighAccuracy: true,
       maximumAge: 10000,
@@ -787,26 +858,28 @@ if (document.body.clientWidth <= 767) {
 } else {
   var isCollapsed = false;
 }
+var closeBtn = 'X';
 
 var baseLayers = {
-  'Street Map': cartoLight
+  'X': closeBtn
 };
 
 var groupedOverlays = {
   Schools: {
-    "<img src='assets/img/elementary.png' width='24' height='28'>&nbsp;Elementary": elementaryLayer,
-    "<img src='assets/img/middle.png' width='24' height='28'>&nbsp;Middle": middleLayer,
-    "<img src='assets/img/high.png' width='24' height='28'>&nbsp;High": highLayer
+    "<img src='assets/img/elementary.png' width='16' height='18'>&nbsp;Elementary": elementaryLayer,
+    "<img src='assets/img/middle.png' width='16' height='18'>&nbsp;Middle": middleLayer,
+    "<img src='assets/img/high.png' width='16' height='18'>&nbsp;High": highLayer
   },
   Reference: {
-    Districts: districts,
-    'Subway Lines': subwayLines,
-    Stations: stations
+    "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
+    "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
+    "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations
   }
 };
 
 var layerControl = L.control
-  .groupedLayers(baseLayers, groupedOverlays, {
+
+  .groupedLayers( closeBtn, groupedOverlays, {
     collapsed: isCollapsed
   })
   .addTo(map);
@@ -935,7 +1008,7 @@ $(document).one('ajaxStop', function() {
       },
       {
         name: 'Districts',
-        displayKey: 'SchoolDist',
+        displayKey: 'name',
         source: districtsBH.ttAdapter(),
         templates: {
           header: "<h5 class='typeahead-header'>Districts</h5>"
@@ -995,7 +1068,7 @@ $(document).one('ajaxStop', function() {
         if (!map.hasLayer(elementaryLayer)) {
           map.addLayer(elementaryLayer);
         }
-        map.setView([datum.lat, datum.lng], 17);
+        map.setView([datum.lat, datum.lng], 16);
         if (map._layers[datum.id]) {
           map._layers[datum.id].fire('click');
         }
@@ -1004,7 +1077,7 @@ $(document).one('ajaxStop', function() {
         if (!map.hasLayer(middleLayer)) {
           map.addLayer(middleLayer);
         }
-        map.setView([datum.lat, datum.lng], 17);
+        map.setView([datum.lat, datum.lng], 16);
         if (map._layers[datum.id]) {
           map._layers[datum.id].fire('click');
         }
@@ -1013,7 +1086,7 @@ $(document).one('ajaxStop', function() {
         if (!map.hasLayer(highLayer)) {
           map.addLayer(highLayer);
         }
-        map.setView([datum.lat, datum.lng], 17);
+        map.setView([datum.lat, datum.lng], 16);
         if (map._layers[datum.id]) {
           map._layers[datum.id].fire('click');
         }
@@ -1044,14 +1117,14 @@ $(document).one('ajaxStop', function() {
 });
 
 map.on('zoomend', function(e) {
-  if (map.getZoom() <= 19 && map.getZoom() >= 16) {
+  if (map.getZoom() <= 16 && map.getZoom() >= 15) {
     map.addLayer(subwayLines);
-  } else if (map.getZoom() > 19 || map.getZoom() < 16) {
+  } else if (map.getZoom() > 16 || map.getZoom() < 15) {
     map.removeLayer(subwayLines);
   }
-  if (map.getZoom() <= 19 && map.getZoom() >= 16) {
+  if (map.getZoom() <= 16 && map.getZoom() >= 15) {
     map.addLayer(stations);
-  } else if (map.getZoom() > 19 || map.getZoom() < 16) {
+  } else if (map.getZoom() > 16 || map.getZoom() < 15) {
     map.removeLayer(stations);
   }
 });
