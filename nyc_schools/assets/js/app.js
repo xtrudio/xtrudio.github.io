@@ -56,6 +56,7 @@ $('#login-btn').click(function() {
 
 $('#list-btn').click(function() {
   animateSidebar();
+  hideBtn();
   return false;
 });
 
@@ -66,17 +67,43 @@ $('#nav-btn').click(function() {
 
 $('#sidebar-toggle-btn').click(function() {
   animateSidebar();
+  hideBtn();
   return false;
 });
 
 $('#sidebar-hide-btn').click(function() {
   animateSidebar();
+  hideBtn();
   return false;
 });
+
 $('#sidebar-show-btn').click(function() {
+  hideBtn();
   animateSidebar();
   return false;
 });
+
+$('#legend-hide-btn').click(function() {
+  hideLegend();
+  return false;
+});
+
+function hideBtn(){
+  if (document.getElementById("sidebar-show-btn").style.display === "none") {
+    document.getElementById("sidebar-show-btn").style.display = "block";
+  } else {
+    document.getElementById("sidebar-show-btn").style.display = "none";
+  }
+}
+function hideLegend(){
+  let x =document.getElementsByClassName("leaflet-control-layers");
+  if (x[0].style.display === "none") {
+    x[0].style.display = "block";
+  }
+  else {
+    x[0].style.display = "none";
+  }
+}
 
 function animateSidebar() {
   $('#sidebar').animate(
@@ -653,7 +680,7 @@ $.getJSON('data/high.json', function(data) {
 
 map = L.map('map', {
   zoom: 10,
-  center: [40.7, -73.97],
+  center: [40.70, -73.97],
   layers: [cartoLight, districts, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
@@ -731,91 +758,76 @@ map.addControl(attributionControl);
 // custom zoom bar control that includes a Zoom Home function
 L.Control.zoomHome = L.Control.extend({
   options: {
-    position: 'bottomright',
-    zoomInText: '<i class="fa fa-plus";></i>',
-    zoomInTitle: 'Zoom in',
-    zoomOutText: '<i class="fa fa-minus";></i>',
-    zoomOutTitle: 'Zoom out',
-    zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
-    zoomHomeTitle: 'Zoom home'
+      position: 'bottomright',
+      zoomInText: '<i class="fa fa-plus";></i>',
+      zoomInTitle: 'Zoom in',
+      zoomOutText: '<i class="fa fa-minus";></i>',
+      zoomOutTitle: 'Zoom out',
+      zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
+      zoomHomeTitle: 'Zoom home'
   },
 
-  onAdd: function(map) {
-    var controlName = 'gin-control-zoom',
-      container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
-      options = this.options;
+  onAdd: function (map) {
+      var controlName = 'gin-control-zoom',
+          container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
+          options = this.options;
 
-    this._zoomInButton = this._createButton(
-      options.zoomInText,
-      options.zoomInTitle,
-      controlName + '-in',
-      container,
-      this._zoomIn
-    );
-    this._zoomHomeButton = this._createButton(
-      options.zoomHomeText,
-      options.zoomHomeTitle,
-      controlName + '-home',
-      container,
-      this._zoomHome
-    );
-    this._zoomOutButton = this._createButton(
-      options.zoomOutText,
-      options.zoomOutTitle,
-      controlName + '-out',
-      container,
-      this._zoomOut
-    );
+      this._zoomInButton = this._createButton(options.zoomInText, options.zoomInTitle,
+      controlName + '-in', container, this._zoomIn);
+      this._zoomHomeButton = this._createButton(options.zoomHomeText, options.zoomHomeTitle,
+      controlName + '-home', container, this._zoomHome);
+      this._zoomOutButton = this._createButton(options.zoomOutText, options.zoomOutTitle,
+      controlName + '-out', container, this._zoomOut);
 
-    this._updateDisabled();
-    map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+      this._updateDisabled();
+      map.on('zoomend zoomlevelschange', this._updateDisabled, this);
 
-    return container;
+      return container;
   },
 
-  onRemove: function(map) {
-    map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+  onRemove: function (map) {
+      map.off('zoomend zoomlevelschange', this._updateDisabled, this);
   },
 
-  _zoomIn: function(e) {
-    this._map.zoomIn(e.shiftKey ? 3 : 1);
+  _zoomIn: function (e) {
+      this._map.zoomIn(e.shiftKey ? 3 : 1);
   },
 
-  _zoomOut: function(e) {
-    this._map.zoomOut(e.shiftKey ? 3 : 1);
+  _zoomOut: function (e) {
+      this._map.zoomOut(e.shiftKey ? 3 : 1);
   },
 
-  _zoomHome: function(e) {
-    map.setView([40.7, -73.97], 10);
+  _zoomHome: function (e) {
+      map.setView([40.70, -73.97], 10);
   },
 
-  _createButton: function(html, title, className, container, fn) {
-    var link = L.DomUtil.create('a', className, container);
-    link.innerHTML = html;
-    link.href = '#';
-    link.title = title;
+  _createButton: function (html, title, className, container, fn) {
+      var link = L.DomUtil.create('a', className, container);
+      link.innerHTML = html;
+      link.href = '#';
+      link.title = title;
 
-    L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
-      .on(link, 'click', L.DomEvent.stop)
-      .on(link, 'click', fn, this)
-      .on(link, 'click', this._refocusOnMap, this);
+      L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+          .on(link, 'click', L.DomEvent.stop)
+          .on(link, 'click', fn, this)
+          .on(link, 'click', this._refocusOnMap, this);
 
-    return link;
+      return link;
   },
 
-  _updateDisabled: function() {
-    var map = this._map,
-      className = 'leaflet-disabled';
+  _updateDisabled: function () {
+      var map = this._map,
+          className = 'leaflet-disabled';
 
-    L.DomUtil.removeClass(this._zoomInButton, className);
-    L.DomUtil.removeClass(this._zoomOutButton, className);
+      L.DomUtil.removeClass(this._zoomInButton, className);
+      L.DomUtil.removeClass(this._zoomOutButton, className);
 
-    if (map._zoom === map.getMinZoom()) {
-      L.DomUtil.addClass(this._zoomOutButton, className);
-    }
-    if (map._zoom === map.getMaxZoom()) {
-      L.DomUtil.addClass(this._zoomInButton, className);
-    }
+      if (map._zoom === map.getMinZoom()) {
+          L.DomUtil.addClass(this._zoomOutButton, className);
+      }
+      if (map._zoom === map.getMaxZoom()) {
+          L.DomUtil.addClass(this._zoomInButton, className);
+      }
   }
 });
 // add the new control to the map
@@ -862,10 +874,9 @@ if (document.body.clientWidth <= 767) {
 } else {
   var isCollapsed = false;
 }
-var closeBtn = 'X';
 
 var baseLayers = {
-  'X': closeBtn
+  'Street Map': cartoLight
 };
 
 var groupedOverlays = {
@@ -882,8 +893,7 @@ var groupedOverlays = {
 };
 
 var layerControl = L.control
-
-  .groupedLayers( closeBtn, groupedOverlays, {
+  .groupedLayers(baseLayers, groupedOverlays, {
     collapsed: isCollapsed
   })
   .addTo(map);

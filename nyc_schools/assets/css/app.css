@@ -1,4 +1,6 @@
-html, body, #container {
+html,
+body,
+#container {
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -6,7 +8,8 @@ html, body, #container {
 body {
   padding-top: 50px;
 }
-input[type="radio"], input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
   margin: 0;
 }
 #sidebar {
@@ -19,7 +22,7 @@ input[type="radio"], input[type="checkbox"] {
 #map {
   width: auto;
   height: 100%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 #loading {
   position: absolute;
@@ -35,7 +38,7 @@ input[type="radio"], input[type="checkbox"] {
   border: none;
   border-radius: 0px;
   -webkit-box-shadow: none;
-    box-shadow: none;
+  box-shadow: none;
 }
 #sidebar-hide-btn {
   margin-top: -2px;
@@ -46,6 +49,14 @@ input[type="radio"], input[type="checkbox"] {
   margin-left: 10px;
   z-index: 20;
 }
+#legend-hide-btn {
+  display: block;
+  position: fixed;
+  right: -86px;
+  margin-top: 14px;
+  margin-right: 100px;
+  z-index: 2000;
+}
 #aboutTabsContent {
   padding-top: 10px;
 }
@@ -53,12 +64,12 @@ input[type="radio"], input[type="checkbox"] {
   width: 100%;
 }
 .white {
-  color: #FFFFFF;
+  color: #ffffff;
 }
-.panel-heading{
-   width: 250px;
+.panel-heading {
+  width: 250px;
 }
-.panel-body{
+.panel-body {
   width: 250px;
 }
 .feature-row {
@@ -79,12 +90,14 @@ input[type="radio"], input[type="checkbox"] {
 }
 .leaflet-control-layers {
   overflow: auto;
+  /* z-index: 200; */
 }
 .leaflet-control-layers label {
   font-weight: normal;
   margin-bottom: 0px;
 }
-.leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
+.leaflet-control-layers-list input[type='radio'],
+input[type='checkbox'] {
   margin: 2px;
 }
 .table {
@@ -93,7 +106,7 @@ input[type="radio"], input[type="checkbox"] {
 .navbar .navbar-brand {
   font-weight: bold;
   font-size: 24px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .navbar-collapse.in {
   overflow-y: hidden;
@@ -109,10 +122,10 @@ input[type="radio"], input[type="checkbox"] {
   margin-left: 25px;
 }
 .typeahead {
-  background-color: #FFFF00;
+  background-color: #ffff00;
 }
 .tt-dropdown-menu {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px 4px 4px 4px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -128,8 +141,8 @@ input[type="radio"], input[type="checkbox"] {
   padding: 3px 10px;
 }
 .tt-suggestion.tt-cursor {
-  background-color: #0097CF;
-  color: #FFFFFF;
+  background-color: #0097cf;
+  color: #ffffff;
   cursor: pointer;
 }
 .tt-suggestion p {
@@ -158,7 +171,10 @@ input[type="radio"], input[type="checkbox"] {
     font-size: 18px;
   }
 }
-@media (max-width: 767px){
+@media (max-width: 767px) {
+  #legend-hide-btn {
+    display: none;
+  }
   #sidebar {
     display: none;
   }
@@ -166,10 +182,10 @@ input[type="radio"], input[type="checkbox"] {
     word-break: break-all;
     word-break: break-word;
     -webkit-hyphens: auto;
-      hyphens: auto;
+    hyphens: auto;
   }
-  .dropdown-menu a i{
-    color: #FFFFFF;
+  .dropdown-menu a i {
+    color: #ffffff;
   }
 }
 /* Print Handling */
