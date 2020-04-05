@@ -55,7 +55,7 @@ input[type='checkbox'] {
   right: -86px;
   margin-top: 14px;
   margin-right: 100px;
-  z-index: 2000;
+  z-index: 1010;
 }
 #aboutTabsContent {
   padding-top: 10px;

@@ -96,12 +96,15 @@ function hideBtn(){
   }
 }
 function hideLegend(){
-  let x =document.getElementsByClassName("leaflet-control-layers");
+  let x = document.getElementsByClassName("leaflet-control-layers");
+  
   if (x[0].style.display === "none") {
     x[0].style.display = "block";
+    document.getElementById("chevron").className = "fa fa-chevron-right";
   }
   else {
     x[0].style.display = "none";
+    document.getElementById("chevron").className = "fa fa-chevron-left";
   }
 }
 
@@ -342,8 +345,8 @@ var stations = L.geoJson(null, {
     return L.marker(latlng, {
       icon: L.icon({
         iconUrl: 'assets/img/station.png',
-        iconSize: [24, 27],
-        iconAnchor: [12, 27],
+        iconSize: [16, 18],
+        iconAnchor: [8, 18],
         popupAnchor: [0, -25]
       }),
       title: feature.properties.line,

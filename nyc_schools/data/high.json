@@ -312,7 +312,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M280/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.001648, 40.711313] }
+      "geometry": { "type": "Point", "coordinates": [-74.001448, 40.711113] }
     },
     {
       "type": "Feature",
@@ -340,7 +340,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M282/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.001648, 40.711313] }
+      "geometry": { "type": "Point", "coordinates": [-74.001848, 40.711513] }
     },
     {
       "type": "Feature",
@@ -704,7 +704,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M393/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.990318, 40.763655] }
+      "geometry": { "type": "Point", "coordinates": [-73.990118, 40.763455] }
     },
     {
       "type": "Feature",
@@ -928,7 +928,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M414/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.002223, 40.742513] }
+      "geometry": { "type": "Point", "coordinates": [-74.002423, 40.742713] }
     },
     {
       "type": "Feature",
@@ -1012,7 +1012,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M419/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.002541, 40.743407] }
+      "geometry": { "type": "Point", "coordinates": [-74.002741, 40.743607] }
     },
     {
       "type": "Feature",
@@ -1040,7 +1040,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M420/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.98259, 40.732666] }
+      "geometry": { "type": "Point", "coordinates": [-73.98279, 40.732866] }
     },
     {
       "type": "Feature",
@@ -1068,7 +1068,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M422/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.002541, 40.743407] }
+      "geometry": { "type": "Point", "coordinates": [-74.002341, 40.743207] }
     },
     {
       "type": "Feature",
@@ -1103,7 +1103,7 @@
       "id": 39,
       "properties": {
         "DBN": "02M427",
-        "NAME": "MANHATTAN ACADEMY FOR ARTS & LANGUAGE",
+        "NAME": "Manhattan Academy for Arts & Language",
         "TYPE": "High School",
         "ENROLLMENT": 288,
         "SA_Rating": "Approaching Target",
@@ -1152,7 +1152,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M437/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.002541, 40.743407] }
+      "geometry": { "type": "Point", "coordinates": [-74.002741, 40.743607] }
     },
     {
       "type": "Feature",
@@ -1264,7 +1264,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M459/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.959777, 40.765638] }
+      "geometry": { "type": "Point", "coordinates": [-73.959977, 40.765838] }
     },
     {
       "type": "Feature",
@@ -1348,7 +1348,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M500/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.981071, 40.74651] }
+      "geometry": { "type": "Point", "coordinates": [-73.981271, 40.74671] }
     },
     {
       "type": "Feature",
@@ -1376,7 +1376,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M507/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.990318, 40.763655] }
+      "geometry": { "type": "Point", "coordinates": [-73.990518, 40.763855] }
     },
     {
       "type": "Feature",
@@ -1404,7 +1404,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M519/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.959777, 40.765638] }
+      "geometry": { "type": "Point", "coordinates": [-73.959577, 40.765438] }
     },
     {
       "type": "Feature",
@@ -1432,7 +1432,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/02M520/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.001648, 40.711313] }
+      "geometry": { "type": "Point", "coordinates": [-74.001848, 40.71113] }
     },
     {
       "type": "Feature",
@@ -4680,7 +4680,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/10X284/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87738] }
+      "geometry": { "type": "Point", "coordinates": [-73.912886, 40.87758] }
     },
     {
       "type": "Feature",
@@ -5072,7 +5072,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/10X477/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87738] }
+      "geometry": { "type": "Point", "coordinates": [-73.912486, 40.87718] }
     },
     {
       "type": "Feature",
@@ -5128,7 +5128,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/10X546/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87738] }
+      "geometry": { "type": "Point", "coordinates": [-73.912486, 40.87758] }
     },
     {
       "type": "Feature",
@@ -5436,7 +5436,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/11X299/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.86073, 40.860444] }
+      "geometry": { "type": "Point", "coordinates": [-73.86093, 40.860644] }
     },
     {
       "type": "Feature",
@@ -5520,7 +5520,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/11X508/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.86073, 40.860444] }
+      "geometry": { "type": "Point", "coordinates": [-73.86053, 40.860644] }
     },
     {
       "type": "Feature",
@@ -5548,7 +5548,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/11X509/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.86073, 40.860444] }
+      "geometry": { "type": "Point", "coordinates": [-73.86053, 40.860744] }
     },
     {
       "type": "Feature",
@@ -5632,7 +5632,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/11X542/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.86073, 40.860444] }
+      "geometry": { "type": "Point", "coordinates": [-73.86093, 40.860244] }
     },
     {
       "type": "Feature",
@@ -8264,7 +8264,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/19K618/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.869305, 40.693003] }
+      "geometry": { "type": "Point", "coordinates": [-73.869105, 40.692903] }
     },
     {
       "type": "Feature",
@@ -8292,7 +8292,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/19K639/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.869305, 40.693003] }
+      "geometry": { "type": "Point", "coordinates": [-73.869505, 40.693203] }
     },
     {
       "type": "Feature",
@@ -8320,7 +8320,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/19K659/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.869305, 40.693003] }
+      "geometry": { "type": "Point", "coordinates": [-73.869505, 40.692903] }
     },
     {
       "type": "Feature",
@@ -8432,7 +8432,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/19K764/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.869305, 40.693003] }
+      "geometry": { "type": "Point", "coordinates": [-73.869105, 40.693203] }
     },
     {
       "type": "Feature",
@@ -11456,7 +11456,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/31R064/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.159343, 40.581959] }
+      "geometry": { "type": "Point", "coordinates": [-74.159143, 40.581759] }
     },
     {
       "type": "Feature",
@@ -11484,7 +11484,7 @@
         "STATE": "NY",
         "URL": "https://tools.nycenet.edu/snapshot/2019/31R080/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-74.105883, 40.607638] }
+      "geometry": { "type": "Point", "coordinates": [-74.1058883, 40.607638] }
     },
     {
       "type": "Feature",
@@ -13248,7 +13248,7 @@
         "STATE": null,
         "URL": "https://tools.nycenet.edu/snapshot/2019/84X539/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87738] }
+      "geometry": { "type": "Point", "coordinates": [-73.912886, 40.87718] }
     },
     {
       "type": "Feature",
@@ -13276,7 +13276,7 @@
         "STATE": null,
         "URL": "https://tools.nycenet.edu/snapshot/2019/84X553/HS/"
       },
-      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87738] }
+      "geometry": { "type": "Point", "coordinates": [-73.912686, 40.87768] }
     },
     {
       "type": "Feature",
