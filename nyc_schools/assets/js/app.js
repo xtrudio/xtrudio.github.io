@@ -430,12 +430,29 @@ var elementarys = L.geoJson(null, {
     if (feature.properties) {
       var content =
         "<table class='table table-striped table-bordered table-condensed'>" +
+        '<tr><th>Address</th><td>' +
+        feature.properties.ADDRESS +
+        '</td></tr>' +
+        '<tr><th>Type</th><td>' +
+        feature.properties.TYPE +
+        '</td></tr>' +
+        '<tr><th>Grades</th><td>' +
+        feature.properties.GRADES +
+        '</td></tr>' +
+        '<tr><th>Enrollment</th><td>' +
+        feature.properties.ENROLLMENT +
+        '</td></tr>' +
         '<tr><th>Phone</th><td>' +
         feature.properties.TEL +
         '</td></tr>' +
-        '<tr><th>Address</th><td>' +
-        feature.properties.ADDRESS1 +
+        '<tr><th>District</th><td>' +
+        feature.properties.DISTRICT +
         '</td></tr>' +
+        "<tr><th>DOE Info</th><td><a class='url-break' href='" +
+        feature.properties.URL +
+        "' target='_blank'>" +
+        feature.properties.URL +
+        '</a></td></tr>' +
         '<table>';
       layer.on({
         click: function (e) {
@@ -501,17 +518,17 @@ var middles = L.geoJson(null, {
     if (feature.properties) {
       var content =
         "<table class='table table-striped table-bordered table-condensed'>" +
-        '<tr><th>Overview</th><td>' +
-        feature.properties.OVERVIEW +
-        '</td></tr>' +
         '<tr><th>Address</th><td>' +
-        feature.properties.ADDRESS1 +
-        ', ' +
-        feature.properties.CITY +
-        ', ' +
-        feature.properties.STATE +
-        ', ' +
-        feature.properties.ZIP +
+        feature.properties.ADDRESS +
+        '</td></tr>' +
+        '<tr><th>Type</th><td>' +
+        feature.properties.TYPE +
+        '</td></tr>' +
+        '<tr><th>Grades</th><td>' +
+        feature.properties.GRADES +
+        '</td></tr>' +
+        '<tr><th>Enrollment</th><td>' +
+        feature.properties.ENROLLMENT +
         '</td></tr>' +
         '<tr><th>Phone</th><td>' +
         feature.properties.TEL +
