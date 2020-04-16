@@ -191,7 +191,7 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.png"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"></td><td class="feature-name">' +
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -693,7 +693,7 @@ var highs = L.geoJson(null, {
 });
 $.getJSON('data/high.json', function (data) {
   highs.addData(data);
-  // map.addLayer(highLayer);
+  map.addLayer(highLayer);
 });
 
 map = L.map('map', {

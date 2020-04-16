@@ -1,3 +1,4 @@
+@import '_variables.css';
 html,
 body,
 #container {
@@ -14,7 +15,7 @@ input[type='checkbox'] {
 }
 #sidebar {
   display: block;
-  width: 250px;
+  width: 400px;
   height: 100%;
   max-width: 100%;
   float: left;
@@ -34,11 +35,11 @@ input[type='checkbox'] {
   z-index: 20001;
 }
 #features {
-  margin: 0px;
+  margin: 6px;
   border: none;
-  border-radius: 0px;
+  border-radius: 6px;
   -webkit-box-shadow: none;
-  box-shadow: none;
+  box-shadow: var(--shadow);
 }
 #sidebar-hide-btn {
   margin-top: -2px;
@@ -67,14 +68,18 @@ input[type='checkbox'] {
   color: #ffffff;
 }
 .panel-heading {
-  width: 250px;
+  width: 400px;
 }
 .panel-body {
-  width: 250px;
+  width: 400px;
 }
 .feature-row {
   cursor: pointer;
-  width: 250px;
+  /* width: 400px; */
+  /* height: 300px; */
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
 }
 .sidebar-wrapper {
   width: 100%;
@@ -84,6 +89,8 @@ input[type='checkbox'] {
 .sidebar-table {
   position: absolute;
   width: 100%;
+  padding-top: 6px;
+  padding-right: 12px;
   top: 103px;
   bottom: 0px;
   overflow: auto;
@@ -101,12 +108,13 @@ input[type='checkbox'] {
   margin: 2px;
 }
 .table {
-  margin-bottom: 0px;
+  margin-bottom: 40px;
+  /* padding: 20px; */
 }
 .navbar .navbar-brand {
   font-weight: bold;
   font-size: 24px;
-  color: #ffffff;
+  color: #fcc40e;
 }
 .navbar-collapse.in {
   overflow-y: hidden;
@@ -122,10 +130,10 @@ input[type='checkbox'] {
   margin-left: 25px;
 }
 .typeahead {
-  background-color: #ffff00;
+  background-color: #f700ff;
 }
 .tt-dropdown-menu {
-  background-color: #ffffff;
+  background-color: #751313;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px 4px 4px 4px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
