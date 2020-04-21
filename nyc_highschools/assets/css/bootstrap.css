@@ -2643,6 +2643,7 @@ output {
   display: block;
   width: 100%;
   height: 34px;
+  margin-bottom: 4px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -4737,7 +4738,7 @@ fieldset[disabled] .navbar-default .btn-link:hover {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color: rgb(88, 88, 88);
+  background-color: #245580;
   border-color: #3f3f3f;
 }
 .navbar-inverse .navbar-brand {
@@ -6269,11 +6270,23 @@ button.close {
 
 .modal2 {
   position: absolute;
-  top: 32px;
+  top: 56px;
   right: 0;
   bottom: 0;
   left: 6px;
   z-index: 1050;
+  display: none;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+.modal3 {
+  position: fixed;
+  /* top: 56px; */
+  right: 0;
+  bottom: 200px;
+  left: 400px;
+  z-index: 1055;
   display: none;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
@@ -6281,8 +6294,13 @@ button.close {
 }
 .modal-dialog2 {
   position: absolute;
-  width: 360px;
-  margin: 10px;
+  width: 380px;
+  margin: 2px;
+}
+.modal-dialog3 {
+  position: fixed;
+  width: 600px;
+  margin: 2px;
 }
 
 .modal.fade .modal-dialog {

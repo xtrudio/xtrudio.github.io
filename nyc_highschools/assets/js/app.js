@@ -2,8 +2,6 @@ var map,
   featureList,
   stationSearch = [],
   districtSearch = [],
-  elementarySearch = [],
-  middleSearch = [],
   highSearch = [];
 
 $(window).resize(function () {
@@ -142,43 +140,9 @@ function syncSidebar() {
   /* Empty sidebar features */
   $('#feature-list tbody').empty();
 
-  /* Loop through elementary schools layer and add only features which are in the map bounds */
-  elementarys.eachLayer(function (layer) {
-    if (map.hasLayer(elementaryLayer)) {
-      if (map.getBounds().contains(layer.getLatLng())) {
-        $('#feature-list tbody').append(
-          '<tr class="feature-row" id="' +
-            L.stamp(layer) +
-            '" lat="' +
-            layer.getLatLng().lat +
-            '" lng="' +
-            layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/elementary.png"></td><td class="feature-name">' +
-            layer.feature.properties.NAME +
-            '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
-        );
-      }
-    }
-  });
 
-  /* Loop through middle schools layer and add only features which are in the map bounds */
-  middles.eachLayer(function (layer) {
-    if (map.hasLayer(middleLayer)) {
-      if (map.getBounds().contains(layer.getLatLng())) {
-        $('#feature-list tbody').append(
-          '<tr class="feature-row" id="' +
-            L.stamp(layer) +
-            '" lat="' +
-            layer.getLatLng().lat +
-            '" lng="' +
-            layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/middle.png"></td><td class="feature-name">' +
-            layer.feature.properties.NAME +
-            '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
-        );
-      }
-    }
-  });
+
+
 
   /* Loop through high schools layer and add only features which are in the map bounds */
   highs.eachLayer(function (layer) {
@@ -411,191 +375,7 @@ $.getJSON('data/stations.json', function (data) {
   // map.addLayer(stationLayer);
 });
 
-/* Empty layer placeholder to add to layer control for listening when to add/remove elementary schools to markerClusters layer */
-var elementaryLayer = L.geoJson(null);
-var elementarys = L.geoJson(null, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: 'assets/img/elementary.png',
-        iconSize: [24, 27],
-        iconAnchor: [12, 27],
-        popupAnchor: [0, -25],
-      }),
-      title: feature.properties.NAME,
-      riseOnHover: true,
-    });
-  },
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      var content =
-        "<table class='table table-striped table-bordered table-condensed'>" +
-        '<tr><th>Address</th><td>' +
-        feature.properties.ADDRESS +
-        '</td></tr>' +
-        '<tr><th>Type</th><td>' +
-        feature.properties.TYPE +
-        '</td></tr>' +
-        '<tr><th>Grades</th><td>' +
-        feature.properties.GRADES +
-        '</td></tr>' +
-        '<tr><th>Enrollment</th><td>' +
-        feature.properties.ENROLLMENT +
-        '</td></tr>' +
-        '<tr><th>Phone</th><td>' +
-        feature.properties.TEL +
-        '</td></tr>' +
-        '<tr><th>District</th><td>' +
-        feature.properties.DISTRICT +
-        '</td></tr>' +
-        "<tr><th>DOE Info</th><td><a class='url-break' href='" +
-        feature.properties.URL +
-        "' target='_blank'>" +
-        feature.properties.URL +
-        '</a></td></tr>' +
-        '<table>';
-      layer.on({
-        click: function (e) {
-          $('#feature-title').html(feature.properties.NAME);
-          $('#feature-info').html(content);
-          $('#featureModal').modal('show');
-          highlight
-            .clearLayers()
-            .addLayer(
-              L.circleMarker(
-                [
-                  feature.geometry.coordinates[1],
-                  feature.geometry.coordinates[0],
-                ],
-                highlightStyle
-              )
-            );
-        },
-      });
-      $('#feature-list tbody').append(
-        '<tr class="feature-row" id="' +
-          L.stamp(layer) +
-          '" lat="' +
-          layer.getLatLng().lat +
-          '" lng="' +
-          layer.getLatLng().lng +
-          '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/elementary.png"></td><td class="feature-name">' +
-          layer.feature.properties.NAME +
-          '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
-      );
-      elementarySearch.push({
-        name: layer.feature.properties.NAME,
-        address: layer.feature.properties.ADRESS1,
-        source: 'Elementarys',
-        id: L.stamp(layer),
-        lat: layer.feature.geometry.coordinates[1],
-        lng: layer.feature.geometry.coordinates[0],
-      });
-    }
-  },
-});
-$.getJSON('data/elementary.json', function (data) {
-  elementarys.addData(data);
-  // map.addLayer(elementaryLayer);
-});
 
-/* Empty layer placeholder to add to layer control for listening when to add/remove middle schools to markerClusters layer */
-var middleLayer = L.geoJson(null);
-var middles = L.geoJson(null, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: 'assets/img/middle.png',
-        iconSize: [24, 27],
-        iconAnchor: [12, 27],
-        popupAnchor: [0, -25],
-      }),
-      title: feature.properties.NAME,
-      riseOnHover: true,
-    });
-  },
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      var content =
-        "<table class='table table-striped table-bordered table-condensed'>" +
-        '<tr><th>Address</th><td>' +
-        feature.properties.ADDRESS +
-        '</td></tr>' +
-        '<tr><th>Type</th><td>' +
-        feature.properties.TYPE +
-        '</td></tr>' +
-        '<tr><th>Grades</th><td>' +
-        feature.properties.GRADES +
-        '</td></tr>' +
-        '<tr><th>Enrollment</th><td>' +
-        feature.properties.ENROLLMENT +
-        '</td></tr>' +
-        '<tr><th>Phone</th><td>' +
-        feature.properties.TEL +
-        '</td></tr>' +
-        '<tr><th>Subway</th><td>' +
-        feature.properties.SUBWAY +
-        '</td></tr>' +
-        '<tr><th>Bus</th><td>' +
-        feature.properties.BUS +
-        '</td></tr>' +
-        "<tr><th>Website</th><td><a class='url-break' href='" +
-        feature.properties.WEBSITE +
-        "' target='_blank'>" +
-        feature.properties.WEBSITE +
-        '</a></td></tr>' +
-        "<tr><th>DOE Info</th><td><a class='url-break' href='" +
-        feature.properties.URL +
-        "' target='_blank'>" +
-        feature.properties.URL +
-        '</a></td></tr>' +
-        '<table>';
-      layer.on({
-        click: function (e) {
-          $('#feature-title').html(feature.properties.NAME);
-          $('#feature-info').html(content);
-          $('#featureModal').modal('show');
-          highlight
-            .clearLayers()
-            .addLayer(
-              L.circleMarker(
-                [
-                  feature.geometry.coordinates[1],
-                  feature.geometry.coordinates[0],
-                ],
-                highlightStyle
-              )
-            );
-        },
-      });
-
-      $('#feature-list tbody').append(
-        '<tr class="feature-row" id="' +
-          L.stamp(layer) +
-          '" lat="' +
-          layer.getLatLng().lat +
-          '" lng="' +
-          layer.getLatLng().lng +
-          '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/middle.png"></td><td class="feature-name">' +
-          layer.feature.properties.NAME +
-          '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
-      );
-
-      middleSearch.push({
-        name: layer.feature.properties.NAME,
-        address: layer.feature.properties.ADRESS1,
-        source: 'Middles',
-        id: L.stamp(layer),
-        lat: layer.feature.geometry.coordinates[1],
-        lng: layer.feature.geometry.coordinates[0],
-      });
-    }
-  },
-});
-$.getJSON('data/middle.json', function (data) {
-  middles.addData(data);
-  // map.addLayer(middleLayer);
-});
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
 var highLayer = L.geoJson(null);
@@ -603,10 +383,10 @@ var highs = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, {
       icon: L.icon({
-        iconUrl: 'assets/img/high.png',
-        iconSize: [24, 27],
-        iconAnchor: [12, 27],
-        popupAnchor: [0, -25],
+        iconUrl: 'assets/img/high.svg',
+        iconSize: [12, 12],
+        // iconAnchor: [12, 12],
+        // popupAnchor: [0, 25],
       }),
       title: feature.properties.NAME,
       riseOnHover: true,
@@ -617,7 +397,10 @@ var highs = L.geoJson(null, {
       var content =
         "<table class='table table-striped table-bordered table-condensed'>" +
         '<tr><th>Focus</th><td>' +
-        feature.properties.INTEREST +
+        feature.properties.FOCUS +
+        '</td></tr>' +
+        '<tr><th>Overview</th><td>' +
+        feature.properties.OVERVIEW +
         '</td></tr>' +
         '<tr><th>Enrollment</th><td>' +
         feature.properties.ENROLLMENT +
@@ -656,6 +439,7 @@ var highs = L.geoJson(null, {
           $('#feature-title').html(feature.properties.NAME);
           $('#feature-info').html(content);
           $('#featureModal').modal('show');
+          // $('#chartModal').modal('show');
           highlight
             .clearLayers()
             .addLayer(
@@ -676,7 +460,7 @@ var highs = L.geoJson(null, {
           layer.getLatLng().lat +
           '" lng="' +
           layer.getLatLng().lng +
-          '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.png"></td><td class="feature-name">' +
+          '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.svg"></td><td class="feature-name">' +
           layer.feature.properties.NAME +
           '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
       );
@@ -706,14 +490,14 @@ map = L.map('map', {
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on('overlayadd', function (e) {
-  if (e.layer === elementaryLayer) {
-    markerClusters.addLayer(elementarys);
-    syncSidebar();
-  }
-  if (e.layer === middleLayer) {
-    markerClusters.addLayer(middles);
-    syncSidebar();
-  }
+  // if (e.layer === elementaryLayer) {
+  //   markerClusters.addLayer(elementarys);
+  //   syncSidebar();
+  // }
+  // if (e.layer === middleLayer) {
+  //   markerClusters.addLayer(middles);
+  //   syncSidebar();
+  // }
   if (e.layer === highLayer) {
     markerClusters.addLayer(highs);
     syncSidebar();
@@ -721,14 +505,14 @@ map.on('overlayadd', function (e) {
 });
 
 map.on('overlayremove', function (e) {
-  if (e.layer === elementaryLayer) {
-    markerClusters.removeLayer(elementarys);
-    syncSidebar();
-  }
-  if (e.layer === middleLayer) {
-    markerClusters.removeLayer(middles);
-    syncSidebar();
-  }
+  // if (e.layer === elementaryLayer) {
+  //   markerClusters.removeLayer(elementarys);
+  //   syncSidebar();
+  // }
+  // if (e.layer === middleLayer) {
+  //   markerClusters.removeLayer(middles);
+  //   syncSidebar();
+  // }
   if (e.layer === highLayer) {
     markerClusters.removeLayer(highs);
     syncSidebar();
@@ -913,12 +697,9 @@ var baseLayers = {
 };
 
 var groupedOverlays = {
-  Schools: {
-    "<img src='assets/img/elementary.png' width='16' height='18'>&nbsp;Elementary": elementaryLayer,
-    "<img src='assets/img/middle.png' width='16' height='18'>&nbsp;Middle": middleLayer,
+  
+  Layers: {
     "<img src='assets/img/high.png' width='16' height='18'>&nbsp;High": highLayer,
-  },
-  Reference: {
     "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
     "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
     "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations,
@@ -947,6 +728,9 @@ $('#featureModal').on('hidden.bs.modal', function (e) {
   $(document).on('mouseout', '.feature-row', clearHighlight);
 });
 
+$('#chartModal').on('hidden.bs.modal', function (e) {
+  $(document).on('mouseout', '.feature-row', clearHighlight);
+});
 /* Typeahead search functionality */
 $(document).one('ajaxStop', function () {
   $('#loading').hide();
@@ -966,25 +750,6 @@ $(document).one('ajaxStop', function () {
     limit: 10,
   });
 
-  var elementarysBH = new Bloodhound({
-    name: 'Elementarys',
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: elementarySearch,
-    limit: 10,
-  });
-
-  var middlesBH = new Bloodhound({
-    name: 'Middles',
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: middleSearch,
-    limit: 10,
-  });
 
   var highsBH = new Bloodhound({
     name: 'Highs',
@@ -1040,8 +805,7 @@ $(document).one('ajaxStop', function () {
     limit: 10,
   });
   districtsBH.initialize();
-  elementarysBH.initialize();
-  middlesBH.initialize();
+
   highsBH.initialize();
   geonamesBH.initialize();
 
@@ -1061,30 +825,7 @@ $(document).one('ajaxStop', function () {
           header: "<h5 class='typeahead-header'>Districts</h5>",
         },
       },
-      {
-        name: 'Elementarys',
-        displayKey: 'name',
-        source: elementarysBH.ttAdapter(),
-        templates: {
-          header:
-            "<h5 class='typeahead-header'><img src='assets/img/elementary.png' width='16' height='18'>&nbsp;Elementary Schools</h5>",
-          suggestion: Handlebars.compile(
-            ['{{name}}<br>&nbsp;<small>{{address}}</small>'].join('')
-          ),
-        },
-      },
-      {
-        name: 'Middles',
-        displayKey: 'name',
-        source: middlesBH.ttAdapter(),
-        templates: {
-          header:
-            "<h5 class='typeahead-header'><img src='assets/img/middle.png' width='16' height='18'>&nbsp;Middle Schools</h5>",
-          suggestion: Handlebars.compile(
-            ['{{name}}<br>&nbsp;<small>{{address}}</small>'].join('')
-          ),
-        },
-      },
+
       {
         name: 'Highs',
         displayKey: 'name',
@@ -1111,24 +852,7 @@ $(document).one('ajaxStop', function () {
       if (datum.source === 'Districts') {
         map.fitBounds(datum.bounds);
       }
-      if (datum.source === 'Elementarys') {
-        if (!map.hasLayer(elementaryLayer)) {
-          map.addLayer(elementaryLayer);
-        }
-        map.setView([datum.lat, datum.lng], 16);
-        if (map._layers[datum.id]) {
-          map._layers[datum.id].fire('click');
-        }
-      }
-      if (datum.source === 'Middles') {
-        if (!map.hasLayer(middleLayer)) {
-          map.addLayer(middleLayer);
-        }
-        map.setView([datum.lat, datum.lng], 16);
-        if (map._layers[datum.id]) {
-          map._layers[datum.id].fire('click');
-        }
-      }
+   
       if (datum.source === 'Highs') {
         if (!map.hasLayer(highLayer)) {
           map.addLayer(highLayer);
