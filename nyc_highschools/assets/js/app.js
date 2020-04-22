@@ -151,7 +151,7 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="12" height="12" src="assets/img/high.svg"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.png"></td><td class="feature-name">' +
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -384,19 +384,19 @@ var highLayer = L.geoJson(null);
 var highs = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
     var marker = L.circleMarker(latlng, school_marker);
-    marker.bindPopup(
-      '<strong>' +
-        feature.properties.NAME +
-        '</strong><br />' +
-        'Focus : ' +
-        feature.properties.FOCUS +
-        '<br />' +
-        'Graduation Rate : ' +
-        feature.properties.GRADUATION_RATE +
-        '<br />' +
-        'College Admission Rate : ' +
-        feature.properties.COLLEGE_RATE
-    );
+    // marker.bindPopup(
+    //   '<strong>' +
+    //     feature.properties.SCHOOLNAME +
+    //     '</strong><br />' +
+    //     feature.properties.SCH_TYPE +
+    //     '<br />' +
+    //     'Grades ' +
+    //     feature.properties.GRADES +
+    //     '<br />' +
+    //     'District ' +
+    //     feature.properties.ADMIN_DIST
+    // );
+
     // marker.bindTooltip('bhg').openTooltip();
     return marker;
   },
@@ -706,7 +706,7 @@ var baseLayers = {
 
 var groupedOverlays = {
   Layers: {
-    "<img src='assets/img/high.svg' width='12' height='12'>&nbsp;High School": highLayer,
+    "<img src='assets/img/high.png' width='16' height='18'>&nbsp;High": highLayer,
     "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
     "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
     "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations,
