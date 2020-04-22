@@ -151,7 +151,7 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="12" height="12" src="assets/img/high.svg"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.png"></td><td class="feature-name">' +
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -372,33 +372,19 @@ $.getJSON('data/stations.json', function (data) {
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
-var school_marker = {
-  radius: 3,
-  fillColor: '#ff7800',
-  color: '#FF8C00',
-  weight: 1,
-  opacity: 1,
-  fillOpacity: 0.8,
-};
 var highLayer = L.geoJson(null);
 var highs = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    var marker = L.circleMarker(latlng, school_marker);
-    marker.bindPopup(
-      '<strong>' +
-        feature.properties.NAME +
-        '</strong><br />' +
-        'Focus : ' +
-        feature.properties.FOCUS +
-        '<br />' +
-        'Graduation Rate : ' +
-        feature.properties.GRADUATION_RATE +
-        '<br />' +
-        'College Admission Rate : ' +
-        feature.properties.COLLEGE_RATE
-    );
-    // marker.bindTooltip('bhg').openTooltip();
-    return marker;
+    return L.marker(latlng, {
+      icon: L.icon({
+        iconUrl: 'assets/img/high.svg',
+        iconSize: [12, 12],
+        // iconAnchor: [12, 12],
+        // popupAnchor: [0, 25],
+      }),
+      title: feature.properties.NAME,
+      riseOnHover: true,
+    });
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
@@ -706,7 +692,7 @@ var baseLayers = {
 
 var groupedOverlays = {
   Layers: {
-    "<img src='assets/img/high.svg' width='12' height='12'>&nbsp;High School": highLayer,
+    "<img src='assets/img/high.png' width='16' height='18'>&nbsp;High": highLayer,
     "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
     "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
     "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations,
