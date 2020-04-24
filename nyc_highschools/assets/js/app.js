@@ -397,7 +397,6 @@ var highs = L.geoJson(null, {
     //     feature.properties.ADMIN_DIST
     // );
 
-    // marker.bindTooltip('bhg').openTooltip();
     return marker;
   },
   onEachFeature: function (feature, layer) {
@@ -442,6 +441,14 @@ var highs = L.geoJson(null, {
         feature.properties.URL +
         '</a></td></tr>' +
         '<table>';
+      var pop =
+        feature.properties.NAME +
+        '</br>' +
+        'Focus: ' +
+        feature.properties.FOCUS +
+        '</br>' +
+        'Enrollment: ' +
+        feature.properties.ENROLLMENT;
       layer.on({
         click: function (e) {
           $('#feature-title').html(feature.properties.NAME);
@@ -460,6 +467,16 @@ var highs = L.geoJson(null, {
               )
             );
         },
+      });
+      layer.bindPopup(pop, {
+        closeButton: false,
+        offset: L.point(0, 0),
+      });
+      layer.on('mouseover', function () {
+        layer.openPopup();
+      });
+      layer.on('mouseout', function () {
+        layer.closePopup();
       });
       $('#feature-list tbody').append(
         '<tr class="feature-row" id="' +
