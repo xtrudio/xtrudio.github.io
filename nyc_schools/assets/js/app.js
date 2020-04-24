@@ -410,7 +410,20 @@ $.getJSON('data/stations.json', function (data) {
   stations.addData(data);
   // map.addLayer(stationLayer);
 });
+// var LeafIcon = L.Icon.extend({
+//   options: {
+//     shadowUrl: 'assets/img/shadow.png',
+//     iconSize: [24, 27],
+//     shadowSize: [24, 27],
+//     iconAnchor: [12, 27],
+//     shadowAnchor: [12, 27],
+//     popupAnchor: [15, 27],
+//   },
+// });
 
+// var elementaryIcon = new LeafIcon({ iconUrl: 'assets/img/elementary.png' }),
+//   middleIcon = new LeafIcon({ iconUrl: 'assets/imgleaf-red.png' }),
+//   highIcon = new LeafIcon({ iconUrl: 'assets/high.png' });
 /* Empty layer placeholder to add to layer control for listening when to add/remove elementary schools to markerClusters layer */
 var elementaryLayer = L.geoJson(null);
 var elementarys = L.geoJson(null, {
@@ -426,6 +439,7 @@ var elementarys = L.geoJson(null, {
       riseOnHover: true,
     });
   },
+
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
       var content =
@@ -454,6 +468,14 @@ var elementarys = L.geoJson(null, {
         feature.properties.URL +
         '</a></td></tr>' +
         '<table>';
+      // var pop =
+      //   feature.properties.NAME +
+      //   '</br>' +
+      //   'Focus: ' +
+      //   feature.properties.TYPE +
+      //   '</br>' +
+      //   'Enrollment: ' +
+      //   feature.properties.ENROLLMENT;
       layer.on({
         click: function (e) {
           $('#feature-title').html(feature.properties.NAME);
@@ -472,6 +494,16 @@ var elementarys = L.geoJson(null, {
             );
         },
       });
+      // layer.bindPopup(pop, {
+      //   closeButton: false,
+      //   offset: L.point(0, 0),
+      // });
+      // layer.on('mouseover', function () {
+      //   layer.openPopup();
+      // });
+      // layer.on('mouseout', function () {
+      //   layer.closePopup();
+      // });
       $('#feature-list tbody').append(
         '<tr class="feature-row" id="' +
           L.stamp(layer) +
