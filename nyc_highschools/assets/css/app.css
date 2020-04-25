@@ -111,6 +111,22 @@ input[type='checkbox'] {
   margin-bottom: 0px;
   /* padding: 20px; */
 }
+.table th {
+  font-weight: 500;
+  /* color: #555; */
+}
+.table-cat {
+  color: #337ab7;
+  font-weight: 700;
+  font-size: 16px;
+}
+.table-par {
+  font-weight: normal;
+}
+.chart {
+  /* background-color: #337ab7; */
+  height: 100px;
+}
 .navbar .navbar-brand {
   font-weight: bold;
   font-size: 24px;

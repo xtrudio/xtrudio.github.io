@@ -403,15 +403,7 @@ var highs = L.geoJson(null, {
     if (feature.properties) {
       var content =
         "<table class='table table-striped table-bordered table-condensed'>" +
-        '<tr><th>Focus</th><td>' +
-        feature.properties.FOCUS +
-        '</td></tr>' +
-        '<tr><th>Overview</th><td>' +
-        feature.properties.OVERVIEW +
-        '</td></tr>' +
-        '<tr><th>Enrollment</th><td>' +
-        feature.properties.ENROLLMENT +
-        '</td></tr>' +
+        
         '<tr><th>Address</th><td>' +
         feature.properties.ADDRESS1 +
         ', ' +
@@ -424,22 +416,91 @@ var highs = L.geoJson(null, {
         '<tr><th>Phone</th><td>' +
         feature.properties.TEL +
         '</td></tr>' +
+        '<tr><th>Fax</th><td>' +
+        feature.properties.FAX +
+        '</td></tr>' +
+        // '<tr><th>Email</th><td>' +
+        // feature.properties.EMAIL +
+        // '</td></tr>' +
+        "<tr><th>Website</th><td><a class='url-break' href='" +
+        feature.properties.WEBSITE +
+        "' target='_blank'>" +
+        feature.properties.WEBSITE +
+        '</a></td></tr>' +
+        '<tr><th>Accessibility</th><td>' +
+        feature.properties.ACCESSIBILITY +
+        '</td></tr>' +
         '<tr><th>Subway</th><td>' +
         feature.properties.SUBWAY +
         '</td></tr>' +
         '<tr><th>Bus</th><td>' +
         feature.properties.BUS +
         '</td></tr>' +
-        "<tr><th>Website</th><td><a class='url-break' href='" +
-        feature.properties.WEBSITE +
-        "' target='_blank'>" +
-        feature.properties.WEBSITE +
-        '</a></td></tr>' +
-        "<tr><th>DOE Info</th><td><a class='url-break' href='" +
+        '<tr><th colspan="2" class="table-cat">Overview</th></tr>' +
+        '<tr><td colspan="2">' +
+        feature.properties.OVERVIEW +
+        '</td></tr>' +
+        '<tr><th colspan="2" class="table-cat">Performance</th></tr>' +
+        
+        '<tr><th colspan="2">'+ feature.properties.GRADUATION_RATE * 100 +'% <span class="table-par">of students graduate in four years</span></th></tr>' +
+        '<tr><th colspan="2">'+ feature.properties.COLLEGE_RATE * 100 +'% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
+        '<tr><th colspan="2">'+ feature.properties.ATTENDANCE_RATE * 100 +'% <span class="table-par">student attendance rate</span></th></tr>' +
+        '<tr><th colspan="2">'+ feature.properties.SAFETY_RATE * 100 +'% <span class="table-par">of students feel safe in the hallways, bathrooms, locker room, and cafeteria</span></th></tr>' +
+        '<tr><th colspan="2">'+ feature.properties.MIX_RATE * 100 +'% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart">CHART</td></tr>' +
+        "<tr><td colspan='2' ><a class='url-break' href='" +
         feature.properties.URL +
-        "' target='_blank'>" +
-        feature.properties.URL +
-        '</a></td></tr>' +
+        "' target='_blank'>See the DOE School Quality Snapshot</a></td></tr>" +
+        '<tr><th colspan="2" class="table-cat">Academics</th></tr>' +
+        '<tr><th>Focus</th><td>' +
+        feature.properties.FOCUS +
+        '</td></tr>' +
+        '<tr><th>Program Description</th><td>' +
+        feature.properties.PROGRAMDESCRIPTION +
+        '</td></tr>' +
+        '<tr><th>Main Program</th><td>' +
+        feature.properties.PROGRAM1 +
+        '</td></tr>' +
+        '<tr><th>Languages</th><td>' +
+        feature.properties.LANGUAGES +
+        '</td></tr>' +
+        '<tr><th>Academic Opportunities</th><td>' +
+        feature.properties.ACADEMICOPS1 +
+        '</td></tr>' +
+        '<tr><th>Advanced Placement</th><td>' +
+        feature.properties.ADVPLACEMENT +
+        '</td></tr>' +
+        '<tr><th>Admission Method</th><td>' +
+        feature.properties.ADMISSION_METHOD +
+        '</td></tr>' +
+        '<tr><th>Admission Priority</th><td>' +
+        feature.properties.ADMISSION_PRIORITY +
+        '</td></tr>' +
+        '<tr><th colspan="2" class="table-cat">Activties</th></tr>' +
+        '<tr><th>Activities</th><td>' +
+        feature.properties.ACTIVITIES +
+        '</td></tr>' +
+        '<tr><th>Girls Team Sports</th><td>' +
+        feature.properties.SPORTS_GIRLS +
+        '</td></tr>' +
+        '<tr><th>Boys Team Sports</th><td>' +
+        feature.properties.SPORTS_BOYS +
+        '</td></tr>' +
+        '<tr><th colspan="2" class="table-cat">Additional School Information</th></tr>' +
+        '<tr><th>Enrollment</th><td>' +
+        feature.properties.ENROLLMENT +
+        '</td></tr>' +
+        '<tr><th>Grades</th><td>' +
+        feature.properties.GRADES2018 +
+        '</td></tr>' +
+        '<tr><th>School Hours</th><td>' +
+        feature.properties.START_TIME +
+        ' to '+
+        feature.properties.END_TIME +
+        '</td></tr>' +
+        '<tr><th>Programs</th><td>' +
+        feature.properties.ADDINFO +
+        '</td></tr>' +
         '<table>';
       var pop =
         feature.properties.NAME +
