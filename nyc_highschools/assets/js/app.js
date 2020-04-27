@@ -151,7 +151,7 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.png"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"><img width="14" height="14" src="assets/img/blueCircle.png"></td><td class="feature-name">' +
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -373,9 +373,9 @@ $.getJSON('data/stations.json', function (data) {
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
 var school_marker = {
-  radius: 3,
-  fillColor: '#ff7800',
-  color: '#FF8C00',
+  radius: 6,
+  fillColor: '#245580',
+  color: '#245580',
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8,
@@ -546,7 +546,7 @@ var highs = L.geoJson(null, {
           layer.getLatLng().lat +
           '" lng="' +
           layer.getLatLng().lng +
-          '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/high.svg"></td><td class="feature-name">' +
+          '"><td style="vertical-align: middle;"><img width="16" height="16" src="assets/img/blueCircle.png"></td><td class="feature-name">' +
           layer.feature.properties.NAME +
           '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
       );
@@ -784,7 +784,7 @@ var baseLayers = {
 
 var groupedOverlays = {
   Layers: {
-    "<img src='assets/img/high.png' width='16' height='18'>&nbsp;High": highLayer,
+    "<img src='assets/img/blueCircle.png' width='14' height='14'>&nbsp;High School": highLayer,
     "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
     "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
     "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations,
@@ -916,7 +916,7 @@ $(document).one('ajaxStop', function () {
         source: highsBH.ttAdapter(),
         templates: {
           header:
-            "<h5 class='typeahead-header'><img src='assets/img/high.png' width='16' height='18'>&nbsp;High Schools</h5>",
+            "<h5 class='typeahead-header'><img src='assets/img/blueCircle.png' width='14' height='14'>&nbsp;High Schools</h5>",
           suggestion: Handlebars.compile(
             ['{{name}}<br>&nbsp;<small>{{address}}</small>'].join('')
           ),

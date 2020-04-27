@@ -1,85 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="NYC High School Explorer" />
+    <meta name="author" content="Horia Popa" />
+    <title>NYC High School Explorer</title>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="NYC High School Explorer" />
-  <meta name="author" content="Horia Popa" />
-  <title>NYC High School Explorer</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css"
+    />
+    <link rel="stylesheet" href="assets/css/app.css" />
 
-  <link rel="stylesheet" href="assets/css/bootstrap.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="assets/css/leaflet.css" />
-  <link rel="stylesheet"
-    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css" />
-  <link rel="stylesheet"
-    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css" />
-  <link rel="stylesheet"
-    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css" />
-  <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css" />
-  <link rel="stylesheet" href="assets/css/app.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="assets/img/favicon-76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="assets/img/favicon-120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="assets/img/favicon-152.png"
+    />
+    <link rel="icon" sizes="196x196" href="assets/img/favicon-196.png" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+  </head>
 
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon-120.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon-152.png" />
-  <link rel="icon" sizes="196x196" href="assets/img/favicon-196.png" />
-  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-</head>
-
-<body>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <div class="navbar-icon-container">
-          <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
-          <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i
-              class="fa fa-search fa-lg white"></i></a>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-icon-container">
+            <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"
+              ><i class="fa fa-bars fa-lg white"></i
+            ></a>
+            <a
+              href="#"
+              class="navbar-icon pull-right visible-xs"
+              id="sidebar-toggle-btn"
+              ><i class="fa fa-search fa-lg white"></i
+            ></a>
+          </div>
+          <a class="navbar-brand" href="#">NYC High School Explorer</a>
         </div>
-        <a class="navbar-brand" href="#">NYC High School Explorer</a>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a
+                href="#"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.in"
+                id="about-btn"
+                ><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--/.navbar-collapse -->
       </div>
-      <div class="navbar-collapse collapse">
-
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i
-                class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a>
-          </li>
-
-
-
-        </ul>
-      </div>
-      <!--/.navbar-collapse -->
     </div>
-  </div>
 
-  <div id="container">
-    <div id="sidebar">
-      <div class="sidebar-wrapper">
-        <div class="panel panel-default" id="features">
-
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-xs-8 col-md-8">
-                <input type="text" class="form-control search" placeholder="Student's Address" />
+    <div id="container">
+      <div id="sidebar">
+        <div class="sidebar-wrapper">
+          <div class="panel panel-default" id="features">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-8 col-md-8">
+                  <input
+                    type="text"
+                    class="form-control search"
+                    placeholder="Student's Address"
+                  />
+                </div>
+                <div class="col-xs-4 col-md-4"></div>
               </div>
-              <div class="col-xs-4 col-md-4">
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-md-10">
-                <input type="text" class="form-control search"
-                  placeholder="Search by school name, interests, etc..." /><span id="searchicon"
-                  class="fa fa-search my-form-control-feedback"></span>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                <!-- <button
+              <div class="row">
+                <div class="col-xs-10 col-md-10">
+                  <input
+                    type="text"
+                    class="form-control search"
+                    placeholder="Search by school name, interests, etc..."
+                  /><span
+                    id="searchicon"
+                    class="fa fa-search my-form-control-feedback"
+                  ></span>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <!-- <button
                     type="button"
                     class="btn btn-primary pull-right sort"
                     data-sort="feature-name"
@@ -87,296 +126,360 @@
                   >
                     <i class="fa fa-sort"></i>&nbsp;&nbsp;Sort
                   </button> -->
+                </div>
               </div>
             </div>
-          </div>
-          <div class="sidebar-table">
-            <table class="table table-hover" id="feature-list">
-              <thead class="hidden">
-
-                <tr></tr>
-                <tr>
-                  <th>Name</th>
-                </tr>
-                <tr></tr>
-                <tr>
-                  <th>Chevron</th>
-                </tr>
-                <tr></tr>
-              </thead>
-              <tbody class="list"></tbody>
-            </table>
+            <div class="sidebar-table">
+              <table class="table table-hover" id="feature-list">
+                <thead class="hidden">
+                  <tr></tr>
+                  <tr>
+                    <th>Name</th>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <th>Chevron</th>
+                  </tr>
+                  <tr></tr>
+                </thead>
+                <tbody class="list"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="map">
-
-      <span id="legend-hide-btn">
-        <button type="button" class="btn btn-xs btn-default pull-right">
-          <i id="chevron" class="fa fa-chevron-right"></i>
-        </button>
-      </span>
-    </div>
-    <div>
-      <span id="legend-hide-btn" style="display: block;">
-        <button type="button" class="btn btn-xs btn-default pull-right">
-          <i class="fa fa-chevron-right"></i>
-        </button>
-      </span>
-    </div>
-  </div>
-  <div id="loading">
-    <div class="loading-indicator">
-      <div class="progress progress-striped active">
-        <div class="progress-bar progress-bar-info progress-bar-full"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
-            &times;
+      <div id="map">
+        <span id="legend-hide-btn">
+          <button type="button" class="btn btn-xs btn-default pull-right">
+            <i id="chevron" class="fa fa-chevron-right"></i>
           </button>
-          <h4 class="modal-title">
-            Welcome to the NYC High School Explorer!
-          </h4>
+        </span>
+      </div>
+      <div>
+        <span id="legend-hide-btn" style="display: block;">
+          <button type="button" class="btn btn-xs btn-default pull-right">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div id="loading">
+      <div class="loading-indicator">
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-info progress-bar-full"></div>
         </div>
-        <div class="modal-body">
-          <ul class="nav nav-tabs nav-justified" id="aboutTabs">
-            <li class="active">
-              <a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;The project</a>
-            </li>
-            <li>
-              <a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a>
-            </li>
-            <li>
-              <a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i>&nbsp;Metadata
-                <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#districts-tab" data-toggle="tab">School Districts</a>
-                </li>
-                <li>
-                  <a href="#schools-tab" data-toggle="tab">Schools</a>
-                </li>
-                <li>
-                  <a href="#subways-tab" data-toggle="tab">Subway</a>
-                </li>
-                <li>
-                  <a href="#stations-tab" data-toggle="tab">Subway Stations</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <div class="tab-content" id="aboutTabsContent">
-            <div class="tab-pane fade active in" id="about">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                in nisl nec ligula accumsan hendrerit vitae porttitor tellus.
-              </p>
-              <div class="panel panel-primary">
-                <div class="panel-heading">User Guide</div>
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    Vestibulum at nulla ut felis fringilla ultricies. Sed
-                    consectetur neque vestibulum lacus dignissim eleifend.
+      </div>
+    </div>
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+            <h4 class="modal-title">
+              Welcome to the NYC High School Explorer!
+            </h4>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs nav-justified" id="aboutTabs">
+              <li class="active">
+                <a href="#about" data-toggle="tab"
+                  ><i class="fa fa-question-circle"></i>&nbsp;The project</a
+                >
+              </li>
+              <li>
+                <a href="#contact" data-toggle="tab"
+                  ><i class="fa fa-envelope"></i>&nbsp;Contact us</a
+                >
+              </li>
+              <li>
+                <a href="#disclaimer" data-toggle="tab"
+                  ><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a
+                >
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  ><i class="fa fa-globe"></i>&nbsp;Metadata
+                  <b class="caret"></b
+                ></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#districts-tab" data-toggle="tab"
+                      >School Districts</a
+                    >
                   </li>
-                  <li class="list-group-item">
-                    Donec quis nisi sit amet erat eleifend efficitur.
-                    Vestibulum pharetra, velit vitae auctor faucibus, diam
-                    lectus pharetra nibh, sed egestas tellus justo eu nunc.
+                  <li>
+                    <a href="#schools-tab" data-toggle="tab">Schools</a>
                   </li>
-                  <li class="list-group-item">
-                    Sed pellentesque eget magna a hendrerit. Integer nisl
-                    orci, gravida id aliquam at, dignissim a est
+                  <li>
+                    <a href="#subways-tab" data-toggle="tab">Subway</a>
                   </li>
-                  <li class="list-group-item">
-                    Vestibulum feugiat interdum felis et placerat. Donec
-                    consequat diam metus, id lobortis nisi lobortis quis.
-                    Aenean sit amet massa neque.
-                  </li>
-                  <li class="list-group-item">
-                    Maecenas varius, tortor eu laoreet dapibus, nisl lectus
-                    venenatis turpis, sed laoreet urna risus consequat tellus.
-                    Nunc imperdiet et justo sed eleifend.
-                  </li>
-                  <li class="list-group-item">
-                    Phasellus vehicula, mauris ut efficitur ullamcorper, nisl
-                    dui vulputate velit, a ornare risus est a libero. Sed vel
-                    tortor malesuada, fringilla magna at, sagittis lorem.
-                    Pellentesque aliquet ac orci vitae porta.
+                  <li>
+                    <a href="#stations-tab" data-toggle="tab"
+                      >Subway Stations</a
+                    >
                   </li>
                 </ul>
+              </li>
+            </ul>
+            <div class="tab-content" id="aboutTabsContent">
+              <div class="tab-pane fade active in" id="about">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                  in nisl nec ligula accumsan hendrerit vitae porttitor tellus.
+                </p>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">User Guide</div>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      The New York City High School Explorer supports students
+                      and parents chosing the right public high school by
+                      offering comprehensive information based on data provided
+                      by the Department of Education, as well as a map showing
+                      location and proximity to the public transit network. The
+                      high schools are grouped into several main academic areas,
+                      such as STEM, Arts and Social Studies.
+                    </li>
+                    <li class="list-group-item">
+                      To help identify schools that are a good fit, an user is
+                      able to explore the following categories: <br/>The commute<br/>School size <br/>Competitiveness <br/>Performance <br/>Learning style
+                      <br/>Curriculum <br/>Programs <br/>Activities
+                    </li>
+                    <li class="list-group-item">
+                      Sed pellentesque eget magna a hendrerit. Integer nisl
+                      orci, gravida id aliquam at, dignissim a est
+                    </li>
+                    <li class="list-group-item">
+                      Vestibulum feugiat interdum felis et placerat. Donec
+                      consequat diam metus, id lobortis nisi lobortis quis.
+                      Aenean sit amet massa neque.
+                    </li>
+                    <li class="list-group-item">
+                      Maecenas varius, tortor eu laoreet dapibus, nisl lectus
+                      venenatis turpis, sed laoreet urna risus consequat tellus.
+                      Nunc imperdiet et justo sed eleifend.
+                    </li>
+                    <li class="list-group-item">
+                      Phasellus vehicula, mauris ut efficitur ullamcorper, nisl
+                      dui vulputate velit, a ornare risus est a libero. Sed vel
+                      tortor malesuada, fringilla magna at, sagittis lorem.
+                      Pellentesque aliquet ac orci vitae porta.
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div id="disclaimer" class="tab-pane fade text-danger">
-              <p>
-                The datasets are intended for public access and use.
-              </p>
-              <p>
-                <a href="https://www1.nyc.gov/home/terms-of-use.page" target="_blank">See Terms of Use.</a>
-              </p>
-            </div>
-            <div class="tab-pane fade" id="contact">
-              <form id="contact-form">
-                <div class="well well-sm">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="first-name">First Name:</label>
-                        <input type="text" class="form-control" id="first-name" />
+              <div id="disclaimer" class="tab-pane fade text-danger">
+                <p>
+                  The datasets are intended for public access and use.
+                </p>
+                <p>
+                  <a
+                    href="https://www1.nyc.gov/home/terms-of-use.page"
+                    target="_blank"
+                    >See Terms of Use.</a
+                  >
+                </p>
+              </div>
+              <div class="tab-pane fade" id="contact">
+                <form id="contact-form">
+                  <div class="well well-sm">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="first-name">First Name:</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="first-name"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="last-name">Last Name:</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="last-email"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input type="text" class="form-control" id="email" />
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <label for="last-name">Last Name:</label>
-                        <input type="text" class="form-control" id="last-email" />
+                      <div class="col-md-8">
+                        <label for="message">Message:</label>
+                        <textarea
+                          class="form-control"
+                          rows="8"
+                          id="message"
+                        ></textarea>
                       </div>
-                      <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="text" class="form-control" id="email" />
+                      <div class="col-md-12">
+                        <p>
+                          <button
+                            type="submit"
+                            class="btn btn-primary pull-right"
+                            data-dismiss="modal"
+                          >
+                            Submit
+                          </button>
+                        </p>
                       </div>
-                    </div>
-                    <div class="col-md-8">
-                      <label for="message">Message:</label>
-                      <textarea class="form-control" rows="8" id="message"></textarea>
-                    </div>
-                    <div class="col-md-12">
-                      <p>
-                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">
-                          Submit
-                        </button>
-                      </p>
                     </div>
                   </div>
-                </div>
-              </form>
-            </div>
-            <div class="tab-pane fade" id="districts-tab">
-              <p>
-                School district data from
-                <a href="https://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/nysd_metadata.pdf?r=18d"
-                  target="_blank">the New York City Department of Education</a>
-              </p>
-            </div>
-            <div class="tab-pane fade" id="schools-tab">
-              <p>
-                School data from
-                <a href="https://catalog.data.gov/harvest/object/fd9eba2b-7e3a-4e10-853d-ece87104e2b4"
-                  target="_blank">the New York City Department of Education</a>
-              </p>
-            </div>
-            <div class="tab-pane fade" id="subways-tab">
-              <p>
-                Subway data from
-                <a href="https://catalog.data.gov/dataset/subway-lines" target="_blank">NYC Open Data</a>
-              </p>
-            </div>
-            <div class="tab-pane fade" id="stations-tab">
-              <p>
-                Subway stations data from
-                <a href="https://data.cityofnewyork.us/Transportation/Subway-Stations/arq3-7z49" target="_blank">NYC
-                  Open Data</a>
-              </p>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="districts-tab">
+                <p>
+                  School district data from
+                  <a
+                    href="https://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/nysd_metadata.pdf?r=18d"
+                    target="_blank"
+                    >the New York City Department of Education</a
+                  >
+                </p>
+              </div>
+              <div class="tab-pane fade" id="schools-tab">
+                <p>
+                  School data from
+                  <a
+                    href="https://catalog.data.gov/harvest/object/fd9eba2b-7e3a-4e10-853d-ece87104e2b4"
+                    target="_blank"
+                    >the New York City Department of Education</a
+                  >
+                </p>
+              </div>
+              <div class="tab-pane fade" id="subways-tab">
+                <p>
+                  Subway data from
+                  <a
+                    href="https://catalog.data.gov/dataset/subway-lines"
+                    target="_blank"
+                    >NYC Open Data</a
+                  >
+                </p>
+              </div>
+              <div class="tab-pane fade" id="stations-tab">
+                <p>
+                  Subway stations data from
+                  <a
+                    href="https://data.cityofnewyork.us/Transportation/Subway-Stations/arq3-7z49"
+                    target="_blank"
+                    >NYC Open Data</a
+                  >
+                </p>
+              </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Close
-          </button>
-        </div>
+        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-content -->
+      <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+    <!-- /.modal -->
 
-
-  <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
-            &times;
-          </button>
-          <h4 class="modal-title text-primary" id="feature-title"></h4>
+    <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+            <h4 class="modal-title text-primary" id="feature-title"></h4>
+          </div>
+          <div class="modal-body" id="feature-info"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
-        <div class="modal-body" id="feature-info"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Close
-          </button>
-        </div>
+        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-content -->
+      <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+    <!-- /.modal -->
 
-  <div class="modal3 fade" id="chartModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog3">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
-            &times;
-          </button>
-          <h4 class="modal-title text-primary" id="feature-title"></h4>
+    <div class="modal3 fade" id="chartModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog3">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+            <h4 class="modal-title text-primary" id="feature-title"></h4>
+          </div>
+          <div class="modal-body" id="feature-info"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
-        <div class="modal-body" id="feature-info"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Close
-          </button>
-        </div>
+        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-content -->
+      <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+    <!-- /.modal -->
 
-  <div class="modal fade" id="attributionModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
-            &times;
-          </button>
-          <h4 class="modal-title">
-            Developed by <a href="http://xtrudio.com">Horia Popa</a>
-          </h4>
+    <div class="modal fade" id="attributionModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+            <h4 class="modal-title">
+              Developed by <a href="http://xtrudio.com">Horia Popa</a>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <div id="attribution"></div>
+          </div>
         </div>
-        <div class="modal-body">
-          <div id="attribution"></div>
-        </div>
+        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-content -->
+      <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+    <!-- /.modal -->
 
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-  <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js">
-  </script>
-  <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js">
-  </script>
-  <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
-  <script src="assets/js/app.js"></script>
-</body>
-
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
+    <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
 </html>
