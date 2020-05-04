@@ -445,6 +445,7 @@ var highs = L.geoJson(null, {
         '<tr><th colspan="2">' +
         feature.properties.GRADUATION_RATE * 100 +
         '% <span class="table-par">of students graduate in four years</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Graduation Rate Comparison Chart</div><div class="chartbox"> <canvas id="chart"></canvas></div></div></td></tr>' +
         '<tr><th colspan="2">' +
         feature.properties.COLLEGE_RATE * 100 +
         '% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
@@ -457,7 +458,6 @@ var highs = L.geoJson(null, {
         '<tr><th colspan="2">' +
         feature.properties.MIX_RATE * 100 +
         '% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
-        '<tr><td colspan="2" class ="chart">          <div id="chart-title">Graduation Rate</div><div class="chartbox"> <canvas id="chart"></canvas></div></div></td></tr>' +
         "<tr><td colspan='2' ><a class='url-break' href='" +
         feature.properties.URL +
         "' target='_blank'>See the DOE School Quality Snapshot</a></td></tr>" +
