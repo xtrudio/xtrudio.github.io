@@ -457,7 +457,7 @@ var highs = L.geoJson(null, {
         '<tr><th colspan="2">' +
         feature.properties.MIX_RATE * 100 +
         '% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
-        '<tr><td colspan="2" class ="chart">CHART</td></tr>' +
+        '<tr><td colspan="2" class ="chart">          <div id="chart-title">Graduation Rate</div><div class="chartbox"> <canvas id="chart"></canvas></div></div></td></tr>' +
         "<tr><td colspan='2' ><a class='url-break' href='" +
         feature.properties.URL +
         "' target='_blank'>See the DOE School Quality Snapshot</a></td></tr>" +
@@ -1017,7 +1017,7 @@ function initChart() {
       return d.GRADUATION_RATE;
     });
     var schoolColors = schools.map(function (d) {
-      return d.DBN === schoolDBN ? '#F15F36' : '#19A0AA';
+      return d.DBN === schoolDBN ? '#F15F36' : '#0064b4';
     });
     console.log(schoolDBN);
     console.log(schoolColors);
