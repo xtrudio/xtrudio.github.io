@@ -1,3 +1,5 @@
+var schoolDBN;
+
 var map,
   featureList,
   stationSearch = [],
@@ -403,7 +405,6 @@ var highs = L.geoJson(null, {
     if (feature.properties) {
       var content =
         "<table class='table table-striped table-bordered table-condensed'>" +
-        
         '<tr><th>Address</th><td>' +
         feature.properties.ADDRESS1 +
         ', ' +
@@ -441,12 +442,21 @@ var highs = L.geoJson(null, {
         feature.properties.OVERVIEW +
         '</td></tr>' +
         '<tr><th colspan="2" class="table-cat">Performance</th></tr>' +
-        
-        '<tr><th colspan="2">'+ feature.properties.GRADUATION_RATE * 100 +'% <span class="table-par">of students graduate in four years</span></th></tr>' +
-        '<tr><th colspan="2">'+ feature.properties.COLLEGE_RATE * 100 +'% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
-        '<tr><th colspan="2">'+ feature.properties.ATTENDANCE_RATE * 100 +'% <span class="table-par">student attendance rate</span></th></tr>' +
-        '<tr><th colspan="2">'+ feature.properties.SAFETY_RATE * 100 +'% <span class="table-par">of students feel safe in the hallways, bathrooms, locker room, and cafeteria</span></th></tr>' +
-        '<tr><th colspan="2">'+ feature.properties.MIX_RATE * 100 +'% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
+        '<tr><th colspan="2">' +
+        feature.properties.GRADUATION_RATE * 100 +
+        '% <span class="table-par">of students graduate in four years</span></th></tr>' +
+        '<tr><th colspan="2">' +
+        feature.properties.COLLEGE_RATE * 100 +
+        '% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
+        '<tr><th colspan="2">' +
+        feature.properties.ATTENDANCE_RATE * 100 +
+        '% <span class="table-par">student attendance rate</span></th></tr>' +
+        '<tr><th colspan="2">' +
+        feature.properties.SAFETY_RATE * 100 +
+        '% <span class="table-par">of students feel safe in the hallways, bathrooms, locker room, and cafeteria</span></th></tr>' +
+        '<tr><th colspan="2">' +
+        feature.properties.MIX_RATE * 100 +
+        '% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
         '<tr><td colspan="2" class ="chart">CHART</td></tr>' +
         "<tr><td colspan='2' ><a class='url-break' href='" +
         feature.properties.URL +
@@ -495,7 +505,7 @@ var highs = L.geoJson(null, {
         '</td></tr>' +
         '<tr><th>School Hours</th><td>' +
         feature.properties.START_TIME +
-        ' to '+
+        ' to ' +
         feature.properties.END_TIME +
         '</td></tr>' +
         '<tr><th>Programs</th><td>' +
@@ -515,6 +525,9 @@ var highs = L.geoJson(null, {
           $('#feature-title').html(feature.properties.NAME);
           $('#feature-info').html(content);
           $('#featureModal').modal('show');
+          initChart();
+          schoolDBN = feature.properties.DBN;
+          console.log(feature.properties.DBN);
           // $('#chartModal').modal('show');
           highlight
             .clearLayers()
@@ -992,4 +1005,51 @@ if (!L.Browser.touch) {
   );
 } else {
   L.DomEvent.disableClickPropagation(container);
+}
+function initChart() {
+  d3.csv('data/gradRate.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var gradRate = schools.map(function (d) {
+      return d.GRADUATION_RATE;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#F15F36' : '#19A0AA';
+    });
+    console.log(schoolDBN);
+    console.log(schoolColors);
+    var chart = new Chart('chart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        // maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: gradRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
 }

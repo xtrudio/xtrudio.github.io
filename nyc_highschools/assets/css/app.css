@@ -64,6 +64,35 @@ input[type='checkbox'] {
 #aboutTabsContent {
   padding-top: 10px;
 }
+
+.chartContainer {
+  position: relative;
+  background-color: #ddd;
+  align-items: center;
+  width: 95%;
+  /* padding: 15px; */
+  margin-left: 15px;
+  /* margin-right: 14px; */
+}
+.chartbox {
+  /* background-color: blue; */
+  width: 100%;
+  /* height: 200px; */
+}
+canvas {
+  /* position: relative; */
+  width: 100%;
+  height: 100%;
+}
+
+#chart-title {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  /* letter-spacing: -0.01em; */
+  color: #333;
+}
 .progress-bar-full {
   width: 100%;
 }
@@ -91,7 +120,7 @@ input[type='checkbox'] {
 .sidebar-table {
   position: absolute;
   width: 100%;
-  top: 103px;
+  top: 93px;
   bottom: 0px;
   overflow: auto;
 }
@@ -208,6 +237,12 @@ input[type='checkbox'] {
   }
 }
 @media (max-width: 767px) {
+  .chartContainer {
+    width: 93%;
+    /* padding: 15px; */
+
+    /* margin-right: 14px; */
+  }
   #legend-hide-btn {
     display: none;
   }
