@@ -153,7 +153,7 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="14" height="14" src="assets/img/blueCircle.png"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"><img width="14" height="14" src="assets/img/socialCircle.png"></td><td class="feature-name">' +
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -482,15 +482,19 @@ var highs = L.geoJson(null, {
         '<tr><th colspan="2">' +
         feature.properties.COLLEGE_RATE * 100 +
         '% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">College Admission Rate Comparison Chart</div><div class="chartbox"> <canvas id="collegeChart"></canvas></div></div></td></tr>' +
         '<tr><th colspan="2">' +
         feature.properties.ATTENDANCE_RATE * 100 +
         '% <span class="table-par">student attendance rate</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Attendance Rate Comparison Chart</div><div class="chartbox"> <canvas id="attendanceChart"></canvas></div></div></td></tr>' +
         '<tr><th colspan="2">' +
         feature.properties.SAFETY_RATE * 100 +
         '% <span class="table-par">of students feel safe in the hallways, bathrooms, locker room, and cafeteria</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Safety Comparison Chart</div><div class="chartbox"> <canvas id="safetyChart"></canvas></div></div></td></tr>' +
         '<tr><th colspan="2">' +
         feature.properties.MIX_RATE * 100 +
         '% <span class="table-par">of students think that the mix of programs, courses and activities is adequate.</span></th></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Curriculum Mix Comparison Chart</div><div class="chartbox"> <canvas id="mixChart"></canvas></div></div></td></tr>' +
         "<tr><td colspan='2' ><a class='url-break' href='" +
         feature.properties.URL +
         "' target='_blank'>See the DOE School Quality Snapshot</a></td></tr>" +
@@ -533,6 +537,7 @@ var highs = L.geoJson(null, {
         '<tr><th>Enrollment</th><td>' +
         feature.properties.ENROLLMENT +
         '</td></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Enrollment Comparison Chart</div><div class="chartbox"> <canvas id="enrollmentChart"></canvas></div></div></td></tr>' +
         '<tr><th>Grades</th><td>' +
         feature.properties.GRADES2018 +
         '</td></tr>' +
@@ -562,6 +567,11 @@ var highs = L.geoJson(null, {
           $('#feature-info').html(content);
           $('#featureModal').modal('show');
           initGraduationChart();
+          initCollegeChart();
+          initSafetyChart();
+          initMixChart();
+          initAttendanceChart();
+          initEnrollmentChart();
           schoolDBN = feature.properties.DBN;
           // console.log(feature.properties.DBN);
           highlight
@@ -587,17 +597,21 @@ var highs = L.geoJson(null, {
       layer.on('mouseout', function () {
         layer.closePopup();
       });
-      $('#feature-list tbody').append(
-        '<tr class="feature-row" id="' +
-          L.stamp(layer) +
-          '" lat="' +
-          layer.getLatLng().lat +
-          '" lng="' +
-          layer.getLatLng().lng +
-          '"><td style="vertical-align: middle;"><img width="16" height="16" src="assets/img/blueCircle.png"></td><td class="feature-name">' +
-          layer.feature.properties.NAME +
-          '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
-      );
+      // $('#feature-list tbody').append(function () {
+      //   if (feature.properties.FOCUS == 'Humanities & Interdisciplinary') {
+      //     return (
+      //       '<tr class="feature-row" id="' +
+      //       L.stamp(layer) +
+      //       '" lat="' +
+      //       layer.getLatLng().lat +
+      //       '" lng="' +
+      //       layer.getLatLng().lng +
+      //       '"><td style="vertical-align: middle;"><img width="16" height="16" src="assets/img/socialCircle.png"></td><td class="feature-name">' +
+      //       'boo' +
+      //       '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
+      //     );
+      //   }
+      // });
       highSearch.push({
         name: layer.feature.properties.NAME,
         address: layer.feature.properties.ADRESS1,
@@ -1043,6 +1057,8 @@ if (!L.Browser.touch) {
 } else {
   L.DomEvent.disableClickPropagation(container);
 }
+
+//*****************Graduation Chart************ */
 function initGraduationChart() {
   d3.csv('data/graduation.csv').then(makeChart);
 
@@ -1083,6 +1099,245 @@ function initGraduationChart() {
         datasets: [
           {
             data: gradRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
+}
+
+//*****************College Chart************ */
+function initCollegeChart() {
+  d3.csv('data/college.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var collegeRate = schools.map(function (d) {
+      return d.COLLEGE_RATE * 100;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
+    });
+    var chart = new Chart('collegeChart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        // maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: collegeRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
+}
+
+//*****************Attendance Chart************ */
+function initAttendanceChart() {
+  d3.csv('data/attendance.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var attendanceRate = schools.map(function (d) {
+      return d.ATTENDANCE_RATE * 100;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
+    });
+    // console.log(schoolDBN);
+    // console.log(schoolColors);
+    var chart = new Chart('attendanceChart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        // maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: attendanceRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
+}
+
+//*****************Safety Chart************ */
+function initSafetyChart() {
+  d3.csv('data/safety.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var safetyRate = schools.map(function (d) {
+      return d.SAFETY_RATE * 100;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
+    });
+    // console.log(schoolDBN);
+    // console.log(schoolColors);
+    var chart = new Chart('safetyChart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        // maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: safetyRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
+}
+
+//*****************Mix Chart************ */
+function initMixChart() {
+  d3.csv('data/mix.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var mixRate = schools.map(function (d) {
+      return d.MIX_RATE * 100;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
+    });
+    var chart = new Chart('mixChart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: mixRate,
+            backgroundColor: schoolColors,
+          },
+        ],
+      },
+    });
+  }
+}
+
+//*****************Enrollment Chart************ */
+function initEnrollmentChart() {
+  d3.csv('data/enrollment.csv').then(makeChart);
+
+  function makeChart(schools) {
+    var schoolLabels = schools.map(function (d) {
+      return d.DBN;
+    });
+    var enrollmentRate = schools.map(function (d) {
+      return d.ENROLLMENT;
+    });
+    var schoolColors = schools.map(function (d) {
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
+    });
+    var chart = new Chart('enrollmentChart', {
+      type: 'bar',
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+        },
+        maintainAspectRatio: true,
+        legend: {
+          display: false,
+        },
+      },
+      data: {
+        labels: schoolLabels,
+        datasets: [
+          {
+            data: enrollmentRate,
             backgroundColor: schoolColors,
           },
         ],

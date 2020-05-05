@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="assets/css/app.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
 
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png" />
   <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon-120.png" />
@@ -170,10 +171,7 @@
           </ul>
           <div class="tab-content" id="aboutTabsContent">
             <div class="tab-pane fade active in" id="about">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                in nisl nec ligula accumsan hendrerit vitae porttitor tellus.
-              </p>
+
               <div class="panel panel-primary">
                 <div class="panel-heading">User Guide</div>
                 <ul class="list-group">
@@ -193,25 +191,26 @@
                     <br />Curriculum <br />Programs <br />Activities
                   </li>
                   <li class="list-group-item">
-                    Sed pellentesque eget magna a hendrerit. Integer nisl
-                    orci, gravida id aliquam at, dignissim a est
+                    The user can search schools by name or browse the map. Upon clicking on any high school marker on
+                    the map will bring up detailed information, including links to the schools websites and their
+                    respective pages on the Department of Education site, for even more information.
                   </li>
                   <li class="list-group-item">
-                    Vestibulum feugiat interdum felis et placerat. Donec
-                    consequat diam metus, id lobortis nisi lobortis quis.
-                    Aenean sit amet massa neque.
+                    On the information panel the Performance section features bar graphs showing how that particular
+                    high school compares with
+                    all the others. The metrics include graduation, attendance, college admission, curriculum mix and
+                    safety rates. The Enrollment section has the same feature.
                   </li>
                   <li class="list-group-item">
-                    Maecenas varius, tortor eu laoreet dapibus, nisl lectus
-                    venenatis turpis, sed laoreet urna risus consequat tellus.
-                    Nunc imperdiet et justo sed eleifend.
+                    When the mapp is zoomed in at the school local level, the subway lines and stations become visible
+                    and the user has the possibility to check the transit service in the area.
                   </li>
-                  <li class="list-group-item">
+                  <!-- <li class="list-group-item">
                     Phasellus vehicula, mauris ut efficitur ullamcorper, nisl
                     dui vulputate velit, a ornare risus est a libero. Sed vel
                     tortor malesuada, fringilla magna at, sagittis lorem.
                     Pellentesque aliquet ac orci vitae porta.
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -247,7 +246,8 @@
                     </div>
                     <div class="col-md-12">
                       <p>
-                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">
+                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" value="Send Email"
+                          action="mailto:horia@horiapopa.com" method="post">
                           Submit
                         </button>
                       </p>
@@ -256,7 +256,7 @@
                 </div>
               </form>
             </div>
-            <div class="tab-pane fade" id="districts-tab">
+            <div class=" tab-pane fade" id="districts-tab">
               <p>
                 School district data from
                 <a href="https://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/nysd_metadata.pdf?r=18d"
