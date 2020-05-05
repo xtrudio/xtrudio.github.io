@@ -67,34 +67,34 @@ $('#nav-btn').click(function () {
 
 $('#sidebar-toggle-btn').click(function () {
   animateSidebar();
-  hideBtn();
+  // hideBtn();
   return false;
 });
 
-$('#sidebar-hide-btn').click(function () {
-  animateSidebar();
-  hideBtn();
-  return false;
-});
+// $('#sidebar-hide-btn').click(function () {
+//   animateSidebar();
+//   hideBtn();
+//   return false;
+// });
 
-$('#sidebar-show-btn').click(function () {
-  hideBtn();
-  animateSidebar();
-  return false;
-});
+// $('#sidebar-show-btn').click(function () {
+//   hideBtn();
+//   animateSidebar();
+//   return false;
+// });
 
 $('#legend-hide-btn').click(function () {
   hideLegend();
   return false;
 });
 
-function hideBtn() {
-  if (document.getElementById('sidebar-show-btn').style.display === 'none') {
-    document.getElementById('sidebar-show-btn').style.display = 'block';
-  } else {
-    document.getElementById('sidebar-show-btn').style.display = 'none';
-  }
-}
+// function hideBtn() {
+//   if (document.getElementById('sidebar-show-btn').style.display === 'none') {
+//     document.getElementById('sidebar-show-btn').style.display = 'block';
+//   } else {
+//     document.getElementById('sidebar-show-btn').style.display = 'none';
+//   }
+// }
 function hideLegend() {
   let x = document.getElementsByClassName('leaflet-control-layers');
 
@@ -130,7 +130,7 @@ function clearHighlight() {
 function sidebarClick(id) {
   var layer = markerClusters.getLayer(id);
   map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 16);
-  layer.fire('click');
+  // layer.fire('click');
   /* Hide sidebar and go to the map on small screens */
   if (document.body.clientWidth <= 767) {
     $('#sidebar').hide();
@@ -184,9 +184,9 @@ var cartoLight = L.tileLayer(
 /* Overlay Layers */
 var highlight = L.geoJson(null);
 var highlightStyle = {
-  stroke: false,
-  fillColor: '#00FFFF',
-  fillOpacity: 0.5,
+  color: 'crimson',
+  weight: 5,
+  fill: false,
   radius: 10,
 };
 
@@ -296,7 +296,7 @@ var markerClusters = new L.MarkerClusterGroup({
   spiderfyOnMaxZoom: true,
   showCoverageOnHover: false,
   zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 15,
+  disableClusteringAtZoom: 12,
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove stations to markerClusters layer */
@@ -373,18 +373,66 @@ $.getJSON('data/stations.json', function (data) {
   // map.addLayer(stationLayer);
 });
 
-/* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
-var school_marker = {
-  radius: 6,
-  fillColor: '#245580',
-  color: '#245580',
-  weight: 1,
-  opacity: 1,
-  fillOpacity: 0.8,
+//Create a color dictionary based on school emphasis
+var highSchoolColors = {
+  'Animal Science': '#ab6565',
+  'Health Professions': '#ab6965',
+  'Computer Science & Technology': '#ab6e65',
+  'Computer Science, Math & Technology': '#ab7365',
+  Architecture: '#ab7865',
+  Engineering: '#ab7c65',
+  'Environmental Science': '#ab8165',
+  'Science & Math': '#ab8665',
+  'Humanities & Interdisciplinary': '#86ab65',
+  'Law & Government': '#6cab65',
+  'Project-Based Learning': '#65ab71',
+  Teaching: '#65ab7c',
+  Communications: '#65ab88',
+  'Film/Video': '#7c65ab',
+  'Performing Arts': '#8e65ab',
+  'Visual Art & Design': '#9f65ab',
+  'Performing Arts/Visual Art & Design': '#ab65a5',
+  'Culinary Arts': '#ab6594',
+  'Hospitality, Travel, & Tourism': '#6599ab',
+  Business: '#6588ab',
+  JROTC: '#6576ab',
 };
+
+// var subwayLines = L.geoJson(null, {
+//   style: function (feature) {
+//     return {
+//       color: subwayColors[feature.properties.rt_symbol],
+//       weight: 2,
+//       opacity: 1,
+//     };
+//   },
+
+/* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
+
+// {
+//   style: function (feature) {
+//     return {
+//   radius: 6,
+//   fillColor: highSchoolColors[feature.properties.FOCUS],
+//   color: '#245580',
+//   weight: 1,
+//   opacity: 1,
+//   fillOpacity: 0.8,
+// };
+// }
+// },
+var ALayer = L.geoJson(null);
 var highLayer = L.geoJson(null);
 var highs = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
+    var school_marker = {
+      radius: 6,
+      fillColor: highSchoolColors[feature.properties.FOCUS],
+      stroke: false,
+      // weight: 1,
+      // opacity: 1,
+      fillOpacity: 1,
+    };
     var marker = L.circleMarker(latlng, school_marker);
     // marker.bindPopup(
     //   '<strong>' +
@@ -420,9 +468,6 @@ var highs = L.geoJson(null, {
         '<tr><th>Fax</th><td>' +
         feature.properties.FAX +
         '</td></tr>' +
-        // '<tr><th>Email</th><td>' +
-        // feature.properties.EMAIL +
-        // '</td></tr>' +
         "<tr><th>Website</th><td><a class='url-break' href='" +
         feature.properties.WEBSITE +
         "' target='_blank'>" +
@@ -445,7 +490,7 @@ var highs = L.geoJson(null, {
         '<tr><th colspan="2">' +
         feature.properties.GRADUATION_RATE * 100 +
         '% <span class="table-par">of students graduate in four years</span></th></tr>' +
-        '<tr><td colspan="2" class ="chart"><div id="chart-title">Graduation Rate Comparison Chart</div><div class="chartbox"> <canvas id="chart"></canvas></div></div></td></tr>' +
+        '<tr><td colspan="2" class ="chart"><div id="chart-title">Graduation Rate Comparison Chart</div><div class="chartbox"> <canvas id="graduationChart"></canvas></div></div></td></tr>' +
         '<tr><th colspan="2">' +
         feature.properties.COLLEGE_RATE * 100 +
         '% <span class="table-par">of students enroll in college or career programs</span></th></tr>' +
@@ -462,7 +507,7 @@ var highs = L.geoJson(null, {
         feature.properties.URL +
         "' target='_blank'>See the DOE School Quality Snapshot</a></td></tr>" +
         '<tr><th colspan="2" class="table-cat">Academics</th></tr>' +
-        '<tr><th>Focus</th><td>' +
+        '<tr><th>Emphasis</th><td>' +
         feature.properties.FOCUS +
         '</td></tr>' +
         '<tr><th>Program Description</th><td>' +
@@ -513,22 +558,16 @@ var highs = L.geoJson(null, {
         '</td></tr>' +
         '<table>';
       var pop =
-        feature.properties.NAME +
-        '</br>' +
-        'Focus: ' +
-        feature.properties.FOCUS +
-        '</br>' +
-        'Enrollment: ' +
-        feature.properties.ENROLLMENT;
+        '<h5>' + feature.properties.NAME + '</h5>' + feature.properties.FOCUS;
       layer.on({
         click: function (e) {
           $('#feature-title').html(feature.properties.NAME);
+          $('#feature-dbn').html('(' + feature.properties.DBN + ')');
           $('#feature-info').html(content);
           $('#featureModal').modal('show');
-          initChart();
+          initGraduationChart();
           schoolDBN = feature.properties.DBN;
-          console.log(feature.properties.DBN);
-          // $('#chartModal').modal('show');
+          // console.log(feature.properties.DBN);
           highlight
             .clearLayers()
             .addLayer(
@@ -797,7 +836,9 @@ var baseLayers = {
 
 var groupedOverlays = {
   Layers: {
-    "<img src='assets/img/blueCircle.png' width='14' height='14'>&nbsp;High School": highLayer,
+    "&nbsp;High Schools</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='assets/img/stemCircle.png' width='12' height='12'>&nbsp;STEM</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='assets/img/socialCircle.png' width='12' height='12'>&nbsp;Social Studies</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='assets/img/artCircle.png' width='12' height='12'>&nbsp;Arts</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='assets/img/otherCircle.png' width='12' height='12'>&nbsp;Other": highLayer,
+  },
+  Reference: {
     "<img src='assets/img/district.png' width='16' height='16'>&nbsp;School Districts": districts,
     "<img src='assets/img/lines.png' width='16' height='16'>&nbsp;Subway Lines": subwayLines,
     "<img src='assets/img/station.png' width='16' height='18'>&nbsp;Stations": stations,
@@ -1006,22 +1047,22 @@ if (!L.Browser.touch) {
 } else {
   L.DomEvent.disableClickPropagation(container);
 }
-function initChart() {
-  d3.csv('data/gradRate.csv').then(makeChart);
+function initGraduationChart() {
+  d3.csv('data/graduation.csv').then(makeChart);
 
   function makeChart(schools) {
     var schoolLabels = schools.map(function (d) {
       return d.DBN;
     });
     var gradRate = schools.map(function (d) {
-      return d.GRADUATION_RATE;
+      return d.GRADUATION_RATE * 100;
     });
     var schoolColors = schools.map(function (d) {
-      return d.DBN === schoolDBN ? '#F15F36' : '#0064b4';
+      return d.DBN === schoolDBN ? '#ff0000' : '#0064b4';
     });
-    console.log(schoolDBN);
-    console.log(schoolColors);
-    var chart = new Chart('chart', {
+    // console.log(schoolDBN);
+    // console.log(schoolColors);
+    var chart = new Chart('graduationChart', {
       type: 'bar',
       options: {
         scales: {
