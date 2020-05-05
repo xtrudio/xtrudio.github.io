@@ -528,7 +528,7 @@ var elementarys = L.geoJson(null, {
 });
 $.getJSON('data/elementary.json', function (data) {
   elementarys.addData(data);
-  // map.addLayer(elementaryLayer);
+  map.addLayer(elementaryLayer);
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove middle schools to markerClusters layer */
@@ -626,7 +626,7 @@ var middles = L.geoJson(null, {
 });
 $.getJSON('data/middle.json', function (data) {
   middles.addData(data);
-  // map.addLayer(middleLayer);
+  map.addLayer(middleLayer);
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
@@ -725,7 +725,7 @@ var highs = L.geoJson(null, {
 });
 $.getJSON('data/high.json', function (data) {
   highs.addData(data);
-  // map.addLayer(highLayer);
+  map.addLayer(highLayer);
 });
 
 map = L.map('map', {
