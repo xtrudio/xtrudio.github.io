@@ -375,27 +375,27 @@ $.getJSON('data/stations.json', function (data) {
 
 //Create a color dictionary based on school emphasis
 var highSchoolColors = {
-  'Animal Science': '#ab6565',
-  'Health Professions': '#ab6965',
-  'Computer Science & Technology': '#ab6e65',
-  'Computer Science, Math & Technology': '#ab7365',
-  Architecture: '#ab7865',
-  Engineering: '#ab7c65',
-  'Environmental Science': '#ab8165',
-  'Science & Math': '#ab8665',
-  'Humanities & Interdisciplinary': '#86ab65',
-  'Law & Government': '#6cab65',
-  'Project-Based Learning': '#65ab71',
-  Teaching: '#65ab7c',
-  Communications: '#65ab88',
-  'Film/Video': '#7c65ab',
-  'Performing Arts': '#8e65ab',
-  'Visual Art & Design': '#9f65ab',
-  'Performing Arts/Visual Art & Design': '#ab65a5',
-  'Culinary Arts': '#ab6594',
-  'Hospitality, Travel, & Tourism': '#6599ab',
-  Business: '#6588ab',
-  JROTC: '#6576ab',
+  'Animal Science': '#00deb9',
+  'Health Professions': '#00de94',
+  'Computer Science & Technology': '#00de6f',
+  'Computer Science, Math & Technology': '#00de4a',
+  Architecture: '#00de25',
+  Engineering: '#00de00',
+  'Environmental Science': '#25de00',
+  'Science & Math': '#4ade00',
+  'Humanities & Interdisciplinary': '#de9400',
+  'Law & Government': '#de6f00',
+  'Project-Based Learning': '#de4a00',
+  Teaching: '#de2500',
+  Communications: '#de0000',
+  'Film/Video': '#de00cf',
+  'Performing Arts': '#cc00de',
+  'Visual Art & Design': '#a700de',
+  'Performing Arts/Visual Art & Design': '#8100de',
+  'Culinary Arts': '#006fde',
+  'Hospitality, Travel, & Tourism': '#0094de',
+  Business: '#0025de',
+  JROTC: '#00b9de',
 };
 
 // var subwayLines = L.geoJson(null, {
@@ -434,18 +434,6 @@ var highs = L.geoJson(null, {
       fillOpacity: 1,
     };
     var marker = L.circleMarker(latlng, school_marker);
-    // marker.bindPopup(
-    //   '<strong>' +
-    //     feature.properties.SCHOOLNAME +
-    //     '</strong><br />' +
-    //     feature.properties.SCH_TYPE +
-    //     '<br />' +
-    //     'Grades ' +
-    //     feature.properties.GRADES +
-    //     '<br />' +
-    //     'District ' +
-    //     feature.properties.ADMIN_DIST
-    // );
 
     return marker;
   },
@@ -558,7 +546,15 @@ var highs = L.geoJson(null, {
         '</td></tr>' +
         '<table>';
       var pop =
-        '<h5>' + feature.properties.NAME + '</h5>' + feature.properties.FOCUS;
+        '<h5>' +
+        feature.properties.NAME +
+        '</h5>' +
+        // '<img width="16" height="16" src="assets/img/blueCircle.png">' +
+        '<h6 style="color:' +
+        highSchoolColors[feature.properties.FOCUS] +
+        '">' +
+        feature.properties.FOCUS +
+        '</h6>';
       layer.on({
         click: function (e) {
           $('#feature-title').html(feature.properties.NAME);
