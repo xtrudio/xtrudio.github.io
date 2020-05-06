@@ -71,30 +71,11 @@ $('#sidebar-toggle-btn').click(function () {
   return false;
 });
 
-// $('#sidebar-hide-btn').click(function () {
-//   animateSidebar();
-//   hideBtn();
-//   return false;
-// });
-
-// $('#sidebar-show-btn').click(function () {
-//   hideBtn();
-//   animateSidebar();
-//   return false;
-// });
-
 $('#legend-hide-btn').click(function () {
   hideLegend();
   return false;
 });
 
-// function hideBtn() {
-//   if (document.getElementById('sidebar-show-btn').style.display === 'none') {
-//     document.getElementById('sidebar-show-btn').style.display = 'block';
-//   } else {
-//     document.getElementById('sidebar-show-btn').style.display = 'none';
-//   }
-// }
 function hideLegend() {
   let x = document.getElementsByClassName('leaflet-control-layers');
 
@@ -144,6 +125,9 @@ function syncSidebar() {
 
   /* Loop through high schools layer and add only features which are in the map bounds */
   highs.eachLayer(function (layer) {
+
+
+
     if (map.hasLayer(highLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
         $('#feature-list tbody').append(
@@ -153,7 +137,8 @@ function syncSidebar() {
             layer.getLatLng().lat +
             '" lng="' +
             layer.getLatLng().lng +
-            '"><td style="vertical-align: middle;"><img width="14" height="14" src="assets/img/socialCircle.png"></td><td class="feature-name">' +
+            '"><td style="vertical-align: middle;"><svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"         x="0px" y="0px" width="16px" height="16px" viewBox="4 4 16 16" enable-background="new 4 4 16 16" xml:space="preserve">      <path fill="'+ highSchoolColors[layer.feature.properties.FOCUS] +'" d="M12,5.025c-3.854,0-6.975,3.122-6.975,6.975S8.146,18.975,12,18.975s6.975-3.121,6.975-6.975S15.854,5.025,12,5.025z"/>            </svg></td><td class="feature-name">' +
+        
             layer.feature.properties.NAME +
             '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>'
         );
@@ -184,9 +169,10 @@ var cartoLight = L.tileLayer(
 /* Overlay Layers */
 var highlight = L.geoJson(null);
 var highlightStyle = {
-  color: 'crimson',
+  color: 'red',
   weight: 5,
   fill: false,
+  opacity: 1,
   radius: 10,
 };
 
@@ -198,7 +184,7 @@ var districts = L.geoJson(null, {
       fill: false,
       weight: 2,
       opacity: 0.3,
-      clickable: true,
+      clickable: false,
     };
   },
   onEachFeature: function (feature, layer) {
@@ -409,18 +395,7 @@ var highSchoolColors = {
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove high schools to markerClusters layer */
 
-// {
-//   style: function (feature) {
-//     return {
-//   radius: 6,
-//   fillColor: highSchoolColors[feature.properties.FOCUS],
-//   color: '#245580',
-//   weight: 1,
-//   opacity: 1,
-//   fillOpacity: 0.8,
-// };
-// }
-// },
+
 var ALayer = L.geoJson(null);
 var highLayer = L.geoJson(null);
 var highs = L.geoJson(null, {

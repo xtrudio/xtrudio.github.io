@@ -120,7 +120,7 @@ canvas {
 .sidebar-table {
   position: absolute;
   width: 100%;
-  top: 93px;
+  top: 80px;
   bottom: 0px;
   overflow: auto;
 }
