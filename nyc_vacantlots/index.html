@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Lab4</title>
+    <link rel="stylesheet" href="src/css/styles.css" />
+    <link rel="stylesheet" href="src/leaflet.css" />
+    <link rel="stylesheet" href="src/jquery-ui.min.css" />
+
+    <!-- <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"
+    /> -->
+    <link rel="stylesheet" href="src/css/bootstrap.css" />
+    <link
+      rel="stylesheet"
+      href="plugins/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css"
+    />
+    <link rel="stylesheet" href="plugins/Leaflet.EasyButton/easy-button.css" />
+    <link
+      rel="stylesheet"
+      href="plugins/Leafet.Sidebar/L.Control.Sidebar.css"
+    />
+    <link
+      rel="stylesheet"
+      href="plugins/Leaflet.StyleEditor/css/Leaflet.StyleEditor.min.css"
+    />
+    <link rel="stylesheet" href="src/css/fontawesome-all.min.css" />
+    <link
+      rel="stylesheet"
+      href="plugins/Leaflet.awesomemarker/leaflet.awesome-markers.css"
+    />
+    <link rel="stylesheet" href="plugins/Leaflet.MapKeyIcons/MapkeyIcons.css" />
+    <link
+      rel="stylesheet"
+      href="plugins/Leaflet.MapKeyIcons/L.Icon.Mapkey.css"
+    />
+    <link rel="stylesheet" href="plugins/MarkerCluster.css" />
+    <link rel="stylesheet" href="plugins/MarkerCluster.Default.css" />
+    <link
+      rel="stylesheet"
+      href="plugins/Leaflet.Fullscreen/Control.FullScreen.css"
+    />
+    <link href="plugins/Leaflet.Search/leaflet-search.css" rel="stylesheet" />
+
+    <script src="src/leaflet-src.js"></script>
+    <script src="src/jquery-3.3.1.js"></script>
+    <script src="src/jquery-ui.min.js"></script>
+    <script src="src/turf.min.js"></script>
+    <script src="plugins/Leaflet.MousePosition/L.Control.MousePosition.js"></script>
+    <script src="plugins/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+    <script src="plugins/Leaflet.EasyButton/easy-button.js"></script>
+    <script src="plugins/Leafet.Sidebar/L.Control.Sidebar.js"></script>
+    <script src="plugins/leaflet-providers.js"></script>
+    <script src="plugins/Leaflet.StyleEditor/javascript/Leaflet.StyleEditor.min.js"></script>
+    <script src="plugins/leaflet.ajax.min.js"></script>
+    <script src="plugins/leaflet.sprite.js"></script>
+    <script src="plugins/Leaflet.awesomemarker/leaflet.awesome-markers.min.js"></script>
+    <script src="plugins/Leaflet.MapKeyIcons/L.Icon.Mapkey.js"></script>
+    <!-- <script src="plugins/leaflet.markercluster.js"></script> -->
+    <script src="plugins/Leaflet.Fullscreen/Control.FullScreen.js"></script>
+    <script src="plugins/Leaflet.Search/leaflet-search.js"></script>
+  </head>
+
+  <body>
+    <nav class="mynavbar">
+      <div class="title">
+        <span>VALO &#8227;</span> NYC Vacant Lots Suitable for Residential
+        Development
+      </div>
+      <a href="#" class="toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </a>
+      <div class="mynavbar-links">
+        <ul>
+          <li id="btnAbout"><a href="#">About</a></li>
+          <li id="btnFeatures"><a href="#">Features</a></li>
+          <li id="btnData"><a href="#">Data</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content">
+      <aside>
+        <div id="side-bar" class="col-md-12 col-sm-12">
+          <button id="btnLocate" class="btn btn-primary btn-block">
+            Locate</button
+          ><br />
+          <button id="btnShowLegend" class="btn btn-primary btn-block">
+            Legend
+          </button>
+
+          <div id="legend">
+            <h5 class="text-center">
+              Vacant Lots &nbsp<i id="btnLots" class="pointer fa fa-server"></i>
+            </h5>
+            <div id="lgndLotsItems">
+              <svg height="100px" class="svg_legend box">
+                <rect
+                  x="10"
+                  y="10"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #428045;
+                    fill: #6acc6f;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="36" y="23" cursor="pointer" id="lgndBlock">
+                  Block
+                </text>
+                <rect
+                  x="10"
+                  y="40"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #b08100;
+                    fill: #ffbb00;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="36" y="53" cursor="pointer" id="lgndWaterfront">
+                  Waterfront
+                </text>
+                <rect
+                  x="115"
+                  y="40"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #74498a;
+                    fill: #ae6dcf;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="141" y="53" cursor="pointer" id="lgndCorner">
+                  Corner
+                </text>
+                <rect
+                  x="115"
+                  y="10"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #8a0f0f;
+                    fill: #f01a1a;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="141" y="23" cursor="pointer" id="lgndThrough">
+                  Through
+                </text>
+                <rect
+                  x="225"
+                  y="40"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #1560bd;
+                    fill: #1a7af0;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="251" y="53" cursor="pointer" id="lgndInside">
+                  Inside
+                </text>
+                <rect
+                  x="225"
+                  y="10"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #3c6e73;
+                    fill: #6ac4cc;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="251" y="23" cursor="pointer" id="lgndInterior">
+                  Interior
+                </text>
+                <rect
+                  x="10"
+                  y="70"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #5a733c;
+                    fill: #aad971;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="36" y="83" cursor="pointer" id="lgndIsland">
+                  Island
+                </text>
+                <rect
+                  x="115"
+                  y="70"
+                  width="18"
+                  height="18"
+                  style="
+                    stroke-width: 2;
+                    stroke: #6e5f59;
+                    fill: #917e76;
+                    fill-opacity: 0.5;
+                  "
+                />
+                <text x="141" y="83" cursor="pointer" id="lgndAlley">
+                  Alley
+                </text>
+              </svg>
+            </div>
+            <div>
+              <h5 class="text-center">
+                Zoning Districts &nbsp<i
+                  id="btnZones"
+                  class="pointer fa fa-server"
+                ></i>
+              </h5>
+              <div id="lgndZonesItems">
+                <svg height="130px" class="svg_legend box">
+                  <rect
+                    x="10"
+                    y="10"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #428045;
+                      fill: #6acc6f;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="36" y="23" cursor="pointer" id="lgndR1">
+                    R1
+                  </text>
+                  <rect
+                    x="10"
+                    y="40"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #8a0f0f;
+                      fill: #f01a1a;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="36" y="53">
+                    R4
+                  </text>
+                  <rect
+                    x="115"
+                    y="40"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #1560bd;
+                      fill: #1a7af0;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="141" y="53">
+                    R5
+                  </text>
+                  <rect
+                    x="115"
+                    y="10"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #b08100;
+                      fill: #ffbb00;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="141" y="23">
+                    R2
+                  </text>
+                  <rect
+                    x="225"
+                    y="40"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #3c6e73;
+                      fill: #6ac4cc;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="251" y="53">
+                    R6
+                  </text>
+                  <rect
+                    x="225"
+                    y="10"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #74498a;
+                      fill: #ae6dcf;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="251" y="23">
+                    R3
+                  </text>
+                  <rect
+                    x="10"
+                    y="70"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #63733c;
+                      fill: #c6d971;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="36" y="83">
+                    R7
+                  </text>
+                  <rect
+                    x="115"
+                    y="70"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #1596bd;
+                      fill: #1ae2f0;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="141" y="83">
+                    R8
+                  </text>
+                  <rect
+                    x="225"
+                    y="70"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #966526;
+                      fill: #b67f37;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="251" y="83">
+                    R9
+                  </text>
+                  <rect
+                    x="10"
+                    y="100"
+                    width="18"
+                    height="18"
+                    style="
+                      stroke-width: 1;
+                      stroke: #6e5f59;
+                      fill: #917e76;
+                      fill-opacity: 0.5;
+                    "
+                  />
+                  <text x="36" y="113">
+                    R10
+                  </text>
+                </svg>
+              </div>
+            </div>
+
+            <h5 class="text-center">
+              Subway Lines &nbsp<i
+                id="btnSubLines"
+                class="pointer fa fa-server"
+              ></i>
+            </h5>
+            <div id="lgndSubLinesItems">
+              <svg height="70px" width="100%" class="svg_legend box">
+                <line
+                  x1="10"
+                  y1="15"
+                  x2="40"
+                  y2="15"
+                  style="stroke-width: 3; stroke: #ee352e;"
+                />
+                <text x="50" y="20">
+                  1, 2, 3
+                </text>
+                <line
+                  x1="115"
+                  y1="15"
+                  x2="145"
+                  y2="15"
+                  style="stroke-width: 3; stroke: #00933c;"
+                />
+                <text x="155" y="20">
+                  4, 5, 6
+                </text>
+                <line
+                  x1="225"
+                  y1="15"
+                  x2="255"
+                  y2="15"
+                  style="stroke-width: 3; stroke: #b933ad;"
+                />
+                <text x="265" y="20">
+                  7
+                </text>
+                <line
+                  x1="10"
+                  y1="35"
+                  x2="40"
+                  y2="35"
+                  style="stroke-width: 3; stroke: #0039a6;"
+                />
+                <text x="50" y="40">
+                  A, C, E
+                </text>
+                <line
+                  x1="115"
+                  y1="35"
+                  x2="145"
+                  y2="35"
+                  style="stroke-width: 3; stroke: #ff6319;"
+                />
+                <text x="155" y="40">
+                  B, D, F, M
+                </text>
+                <line
+                  x1="225"
+                  y1="35"
+                  x2="255"
+                  y2="35"
+                  style="stroke-width: 3; stroke: #6cbe45;"
+                />
+                <text x="265" y="40">
+                  G
+                </text>
+                <line
+                  x1="10"
+                  y1="55"
+                  x2="40"
+                  y2="55"
+                  style="stroke-width: 3; stroke: #996633;"
+                />
+                <text x="50" y="60">
+                  J, Z
+                </text>
+                <line
+                  x1="115"
+                  y1="55"
+                  x2="145"
+                  y2="55"
+                  style="stroke-width: 3; stroke: #fccc0a;"
+                />
+                <text x="155" y="60">
+                  N, Q, R
+                </text>
+                <line
+                  x1="225"
+                  y1="55"
+                  x2="255"
+                  y2="55"
+                  style="stroke-width: 3; stroke: #a7a9ac;"
+                />
+                <text x="265" y="60">
+                  L
+                </text>
+              </svg>
+            </div>
+          </div>
+
+          <div id="divLot" class="col-xs-12">
+            <div id="divLotLabel" class="text-center col-xs-12">
+              <h5 id="lblLot">Lots</h5>
+            </div>
+            <div id="divLotError" class="errorMsg col-xs-12"></div>
+            <div id="divFindLot" class="form-group">
+              <div class="col-xs-9">
+                <input
+                  type="text"
+                  id="txtFindLot"
+                  class="form-control"
+                  placeholder="Lot ID"
+                />
+              </div>
+              <div class="col-xs-3">
+                <button
+                  id="btnFindLot"
+                  class="btn btn-primary btn-block"
+                  disabled
+                >
+                  Find
+                </button>
+              </div>
+            </div>
+            <div id="divLotLabel" class="text-center col-xs-12">
+              <h5 id="lblLot">Lot Filters</h5>
+            </div>
+            <div id="divLotFltType" class="text-left col-xs-12">
+              <h5 id="lblLot">Filter by type</h5>
+            </div>
+            <div id="divFilterLots" class="mycol-xs-12">
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Block"
+                  checked
+                />Block<br />
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Waterfront"
+                  checked
+                />Waterfront
+                <button id="btnLotFilterAll" class="btn btn-primary btn-block">
+                  Check All
+                </button>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Through"
+                  checked
+                />Through<br />
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Interior"
+                  checked
+                />Interior
+                <button id="btnLotFilterNone" class="btn btn-primary btn-block">
+                  Uncheck
+                </button>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Corner"
+                  checked
+                />Corner<br />
+                <input
+                  type="checkbox"
+                  name="fltLot"
+                  value="Inside"
+                  checked
+                />Inside
+                <button id="btnLotFilter" class="btn btn-primary btn-block">
+                  Filter
+                </button>
+              </div>
+            </div>
+            <div class="" id="divLotData"></div>
+          </div>
+          <!-- <div id="divZone" class="col-xs-12">
+          <div id="divZoneLabel" class="text-center col-xs-12">
+            <h4 id="lblZone">Linear Zones</h4>
+          </div>
+          <div id="divZoneError" class="errorMsg col-xs-12"></div>
+          <div id="divFindZone" class="form-group has-error">
+            <div class="col-xs-6">
+              <input type="text" id="txtFindZone" class="form-control" placeholder="Zone ID" />
+            </div>
+            <div class="col-xs-6">
+              <button id="btnFindZone" class="btn btn-primary btn-block" disabled>
+                Find Zone
+              </button>
+            </div>
+          </div>
+          <div class="" id="divZoneData"></div>
+        </div> -->
+
+          <!-- <div id="divBUOWL" class="col-xs-12">
+        <div id="divBUOWLLabel" class="text-center col-xs-12">
+          <h4 id="lblBUOWL">BUOWL</h4>
+        </div>
+        <div id="divBUOWLError" class="errorMsg col-xs-12"></div>
+        <div id="divFindBUOWL" class="form-group has-error">
+          <div class="col-xs-6">
+            <input
+              type="text"
+              id="txtFindBUOWL"
+              class="form-control"
+              placeholder="Habitat ID"
+            />
+          </div>
+          <div class="col-xs-6">
+            <button
+              id="btnFindBUOWL"
+              class="btn btn-primary btn-block"
+              disabled
+            >
+              Find BUOWL
+            </button>
+          </div>
+        </div>
+        <div class="" id="divBUOWLData"></div>
+      </div> -->
+
+          <!-- <div id="divRaptor" class="col-xs-12">
+            <div id="divRaptorLabel" class="text-center col-xs-12">
+                <h4 id="lblRaptor">Raptor Nests</h4>
+            </div>
+            <div id="divRaptorError" class="errorMsg col-xs-12"></div>
+            <div id="divFindRaptor" class="form-group has-error">
+                <div class="col-xs-6">
+                    <input type="text" id="txtFindRaptor" class="form-control" placeholder="Raptor Nest ID">
+                </div>
+                <div class="col-xs-6">
+                    <button id="btnFindRaptor" class="btn btn-primary btn-block" disabled>Find Raptor Nest</button>
+                </div>
+            </div>
+            <div class="" id="divRaptorData"></div>
+        </div> -->
+        </div>
+      </aside>
+      <main>
+        <div id="mapdiv"></div>
+      </main>
+      <div id="infoPanel" class="infoPanel">
+        <div class="col-md-12 col-sm-12">
+          <div>
+            <button
+              id="infoPanelBtn"
+              onclick="closeInfoPanel()"
+              class="close-button"
+            ></button>
+          </div>
+          <div id="content-area" class="col-xs-12 col-xs-12 box">
+            <h4>Welcome to NYC's Residential Zoning & Vacant Lots Map</h4>
+            <p>
+              The map provides a simple way to research vacant lots suitable for
+              residential development and zoning regulations.
+            </p>
+            <p>
+              Find the zoning for the lots of interest, discover new proposals
+              for your neighborhood, and learn where City Planning initiatives
+              are happening throughout the City.
+            </p>
+            <h5>Zoning Questions</h5>
+            <p>
+              For general zoning questions, read the Zoning Help Desk FAQ. If
+              your question isn't answered there, call 212-720-3291 during
+              business hours (8:30AM–5:30PM, Monday–Friday, closed on legal
+              holidays). Leave a detailed message with your block and lot
+              information, and a zoning specialist will get back to you within
+              two business days. Or fill out the Zoning Information Inquiry
+              Form.
+            </p>
+            <h5>Application Feedback</h5>
+            <p>
+              To let @xtrudioLabs know how this app could be better, add a
+              GitHub Issue, Tweet #reimagineVALO, or send an email to
+              valogis@xtrudio.com.
+            </p>
+            <p class="italic">
+              <span>VALO</span> was developed by Horia Popa as the final project
+              for the ...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
