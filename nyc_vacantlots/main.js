@@ -107,8 +107,8 @@ lyrStations = L.geoJSON
   .ajax('data/stations.json', {
     pointToLayer: returnStationMarker,
     onEachFeature: processStations,
-  })
-  .bindTooltip();
+  });
+  // .bindTooltip();
 // .addTo(mymap);
 lyrStations.bringToFront();
 
@@ -440,7 +440,7 @@ $('#btnLotFilter').click(function () {
 
 function processZones(json, lyr) {
   var att = json.properties;
-  lyr.bindTooltip('<h6> ' + att.ZONE + '</h6>');
+  lyr.bindTooltip('<strong> ' + att.ZONE + '</strong>');
   lyr.on({
     mouseover: function (e) {
       e.target.setStyle({ fillColor: 'yellow', opacity: 1 });
@@ -669,7 +669,7 @@ function styleSubwayLines(json) {
 
 function processStations(json, lyr) {
   var att = json.properties;
-  lyr.bindTooltip('<h5>' + att.name + '</h5>' + att.line);
+  lyr.bindTooltip('<strong>' + att.name + '</strong><br>' + att.line +'<br>' + att.notes);
   arStations.push(json.geometry);
   // lyr.on('click', function () {
   //   document.getElementById('infoPanel').style.display = 'block';

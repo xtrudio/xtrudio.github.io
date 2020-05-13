@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Lab4</title>
+    <title>VALO | Vacant Lots NYC</title>
     <link rel="stylesheet" href="src/css/styles.css" />
     <link rel="stylesheet" href="src/leaflet.css" />
     <link rel="stylesheet" href="src/jquery-ui.min.css" />
@@ -515,60 +515,133 @@
             <div id="divLotLabel" class="text-center col-xs-12">
               <h5 id="lblLot">Lot Filters</h5>
             </div>
-            <div id="divLotFltType" class="text-left col-xs-12">
-              <h5 id="lblLot">Filter by type</h5>
+            <div>
+              <div id="divLotFltType" class="text-left col-xs-12">
+                <h5 id="lblLot">Filter by type</h5>
+              </div>
+              <div id="divFilterLots" class="mycol-xs-12">
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Block"
+                    checked
+                  />Block<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Waterfront"
+                    checked
+                  />Waterfront
+                  <button
+                    id="btnLotFilterAll"
+                    class="btn btn-primary btn-block"
+                  >
+                    Check All
+                  </button>
+                </div>
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Through"
+                    checked
+                  />Through<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Interior"
+                    checked
+                  />Interior
+                  <button
+                    id="btnLotFilterNone"
+                    class="btn btn-primary btn-block"
+                  >
+                    Uncheck
+                  </button>
+                </div>
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Corner"
+                    checked
+                  />Corner<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Inside"
+                    checked
+                  />Inside
+                  <button id="btnLotFilter" class="btn btn-primary btn-block">
+                    Filter
+                  </button>
+                </div>
+              </div>
             </div>
-            <div id="divFilterLots" class="mycol-xs-12">
-              <div class="mycol-xs-4">
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Block"
-                  checked
-                />Block<br />
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Waterfront"
-                  checked
-                />Waterfront
-                <button id="btnLotFilterAll" class="btn btn-primary btn-block">
-                  Check All
-                </button>
+
+            <div>
+              <div id="divLotFltSize" class="text-left col-xs-12">
+                <h5 id="lblLot">Filter by size</h5>
               </div>
-              <div class="mycol-xs-4">
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Through"
-                  checked
-                />Through<br />
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Interior"
-                  checked
-                />Interior
-                <button id="btnLotFilterNone" class="btn btn-primary btn-block">
-                  Uncheck
-                </button>
-              </div>
-              <div class="mycol-xs-4">
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Corner"
-                  checked
-                />Corner<br />
-                <input
-                  type="checkbox"
-                  name="fltLot"
-                  value="Inside"
-                  checked
-                />Inside
-                <button id="btnLotFilter" class="btn btn-primary btn-block">
-                  Filter
-                </button>
+              <div id="divFilterLots" class="mycol-xs-12">
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Under500"
+                    checked
+                  />Under 500<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Waterfront"
+                    checked
+                  />Waterfront
+                  <button
+                    id="btnLotFilterAll"
+                    class="btn btn-primary btn-block"
+                  >
+                    Check All
+                  </button>
+                </div>
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Through"
+                    checked
+                  />Through<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Interior"
+                    checked
+                  />Interior
+                  <button
+                    id="btnLotFilterNone"
+                    class="btn btn-primary btn-block"
+                  >
+                    Uncheck
+                  </button>
+                </div>
+                <div class="mycol-xs-4">
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Corner"
+                    checked
+                  />Corner<br />
+                  <input
+                    type="checkbox"
+                    name="fltLot"
+                    value="Inside"
+                    checked
+                  />Inside
+                  <button id="btnLotFilter" class="btn btn-primary btn-block">
+                    Filter
+                  </button>
+                </div>
               </div>
             </div>
             <div class="" id="divLotData"></div>
