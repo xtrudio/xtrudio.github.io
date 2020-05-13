@@ -14,8 +14,6 @@
   border: 0;
 }
 
-
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
     sans-serif, Apple Color Emoji, Segoe UI Emoji;
@@ -28,7 +26,7 @@ body {
   font: 1em sans-serif;
 }
 .text-small {
-  font-size: .8125em;
+  font-size: 0.8125em;
   line-height: 1.7;
 }
 
@@ -155,7 +153,7 @@ main {
   cursor: pointer;
   margin-top: -4px;
   margin-right: 3px;
-  background-image: url('/src/images/close_btn.png');
+  background-image: url('https://xtrudio.github.io/nyc_vacantlots/src/images/close_btn.png');
 }
 #content-area {
   margin-top: 30px;
@@ -166,7 +164,6 @@ main {
 .mycol-xs-6,
 .mycol-xs-4,
 .mycol-xs-3 {
-  
   position: relative;
   min-height: 1px;
   /* padding: 1px; */
@@ -175,8 +172,8 @@ main {
   padding-bottom: 6px;
 }
 .mycol-xs-4 {
-width: 33.33333333%;
-float: left;
+  width: 33.33333333%;
+  float: left;
 }
 .mybtn {
   padding: 6px 6px;
@@ -184,7 +181,6 @@ float: left;
 span {
   color: #df9100;
   font-weight: 900;
-  
 }
 .title {
   color: #fff;
@@ -205,9 +201,10 @@ p.italic {
 .svg-inline--fa {
   font-size: inherit;
   height: 1em;
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
 }
-.svg-inline--fa, svg:not(:root).svg-inline--fa {
+.svg-inline--fa,
+svg:not(:root).svg-inline--fa {
   overflow: visible;
 }
 
@@ -271,7 +268,7 @@ p.italic {
   }
   .title {
     color: #fff;
-    font-size: .9em;
+    font-size: 0.9em;
     font-weight: 400;
     margin-left: 12px;
     /* margin-top: 14px; */
