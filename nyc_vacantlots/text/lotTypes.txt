@@ -1,0 +1,15 @@
+<p id="p1"><strong>Block assemblage</strong> – a tax lot that encompasses an entire block</p>
+<p id="p2"><strong>Waterfront lot</strong> – a tax lot bordering on a body of water. Waterfront
+lots may contain a small amount of submerged land.</p>
+<p id="p3"><strong>Corner lot</strong> – a tax lot bordering on two intersecting streets</p>
+<p id="p4"><strong>Through lot</strong> – a tax lot connecting two streets, with frontage on both
+streets. Note that a lot with two frontages is not necessarily a through lot. For example, an L-shaped lot with two frontages is considered an inside lot.</p>
+<p id="p5"><strong>Inside lot</strong> – a tax lot with frontage on only one street. This value comes
+from CAMA, but is only assigned in PLUTO if CAMA has no other lot types for the tax lot.</p>
+<p id="p6"><strong>Interior lot</strong> – a tax lot that has no street frontage.</p>
+<p id="p7"><strong>Island lot</strong> – a tax lot that is entirely surrounded by water.</p>
+<p id="p8"><strong>Alley lot</strong> – a tax lot that is too narrow to accommodate a building.
+The lot is usually 12 feet or less in width.</p>
+<p id="p9"><strong>Submerged land lot</strong> – a tax lot that is totally or almost completely
+submerged.</p>
+
