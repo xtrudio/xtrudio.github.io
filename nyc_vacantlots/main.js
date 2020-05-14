@@ -103,22 +103,21 @@ function returnStationMarker(json, latlng) {
     fillOpacity: 0.5,
   });
 }
-lyrStations = L.geoJSON
-  .ajax('data/stations.json', {
-    pointToLayer: returnStationMarker,
-    onEachFeature: processStations,
-  });
-  // .bindTooltip();
+lyrStations = L.geoJSON.ajax('data/stations.json', {
+  pointToLayer: returnStationMarker,
+  onEachFeature: processStations,
+});
+// .bindTooltip();
 // .addTo(mymap);
 lyrStations.bringToFront();
 
 // **************  Vacant Lots Polygon Layer *************
 
 lyrLots = L.geoJSON
-  .ajax('data/nyc_vacantlots_poly_tg.json', {
+  .ajax('data/lots_poly.json', {
     style: styleLots,
     onEachFeature: processLots,
-    filter: filterLots,
+    filter:  filterLotsbySize,
   })
   .bringToFront()
   .addTo(mymap);
@@ -326,38 +325,76 @@ function processLots(feature, lyr) {
   });
 }
 
-function filterLots(json) {
-  var arLotFilter = [];
-  $('input[name=fltLot]').each(function () {
+function filterLotsByType(json) {
+  var arLotFilterType = [];
+  $('input[name=fltLotType]').each(function () {
     if (this.checked) {
-      arLotFilter.push(this.value);
+      arLotFilterType.push(this.value);
+      // log(this.value);
     }
   });
 
-  var att = json.properties;
+  let att = json.properties;
   switch (att.TYPE) {
     case 'Block':
-      return arLotFilter.indexOf('Block') >= 0;
+      return arLotFilterType.indexOf('Block') >= 0;
     // break;
     case 'Waterfront':
-      return arLotFilter.indexOf('Waterfront') >= 0;
+      return arLotFilterType.indexOf('Waterfront') >= 0;
     // break;
     case 'Through':
-      return arLotFilter.indexOf('Through') >= 0;
+      return arLotFilterType.indexOf('Through') >= 0;
     // break;
     case 'Interior':
-      return arLotFilter.indexOf('Interior') >= 0;
+      return arLotFilterType.indexOf('Interior') >= 0;
     // break;
     case 'Corner':
-      return arLotFilter.indexOf('Corner') >= 0;
+      return arLotFilterType.indexOf('Corner') >= 0;
     // break;
     case 'Inside':
-      return arLotFilter.indexOf('Inside') >= 0;
+      return arLotFilterType.indexOf('Inside') >= 0;
     // break;
     default:
-      return arLotFilter.indexOf('Other') >= 0;
+      return arLotFilterType.indexOf('Other') >= 0;
     // break;
   }
+}
+
+function filterLotsbySize(json) {
+  var arLotFilterSize = [];
+  $('input[name=fltLotSize]').each(function () {
+    if (this.checked) {
+      arLotFilterSize.push(this.value);
+      log(this.value);
+    }
+  });
+
+  let att = json.properties;
+
+  switch (att.AreaCAT) {
+    case 'under 2500':
+      return arLotFilterSize.indexOf('under 2500') >= 0;
+    // break;
+    // case 'Waterfront':
+    //   return arLotFilterSize.indexOf('Waterfront') >= 0;
+    // // break;
+    // case 'Through':
+    //   return arLotFilterSize.indexOf('Through') >= 0;
+    // // break;
+    // case 'Interior':
+    //   return arLotFilterSize.indexOf('Interior') >= 0;
+    // // break;
+    // case 'Corner':
+    //   return arLotFilterSize.indexOf('Corner') >= 0;
+    // // break;
+    // case 'Inside':
+    //   return arLotFilterSize.indexOf('Inside') >= 0;
+    // // break;
+    default:
+      return arLotFilterSize.indexOf('Other') >= 0;
+    // break;
+  }
+
   // if (att.ZONING == 'REMOVED') {
   //   return false;
   // } else {
@@ -426,13 +463,24 @@ $('#lblLot').click(function () {
   $('#divLotData').toggle();
 });
 
-$('#btnLotFilterAll').click(function () {
-  $('input[name=fltLot]').prop('checked', true);
+$('#btnLotFilterTypeAll').click(function () {
+  $('input[name=fltLotType]').prop('checked', true);
 });
-$('#btnLotFilterNone').click(function () {
-  $('input[name=fltLot]').prop('checked', false);
+$('#btnLotFilterTypeNone').click(function () {
+  $('input[name=fltLotType]').prop('checked', false);
 });
-$('#btnLotFilter').click(function () {
+$('#btnLotFilterType').click(function () {
+  arLotIDs = [];
+  lyrLots.refresh();
+});
+
+$('#btnLotFilterSizeAll').click(function () {
+  $('input[name=fltLotSize]').prop('checked', true);
+});
+$('#btnLotFilterSizeNone').click(function () {
+  $('input[name=fltLotSize]').prop('checked', false);
+});
+$('#btnLotFilterSize').click(function () {
   arLotIDs = [];
   lyrLots.refresh();
 });
@@ -669,7 +717,9 @@ function styleSubwayLines(json) {
 
 function processStations(json, lyr) {
   var att = json.properties;
-  lyr.bindTooltip('<strong>' + att.name + '</strong><br>' + att.line +'<br>' + att.notes);
+  lyr.bindTooltip(
+    '<strong>' + att.name + '</strong><br>' + att.line + '<br>' + att.notes
+  );
   arStations.push(json.geometry);
   // lyr.on('click', function () {
   //   document.getElementById('infoPanel').style.display = 'block';
@@ -780,9 +830,56 @@ $('#lgndAlley').click(function () {
   $('#content-area').load('./text/lotTypes.txt #p8');
 });
 
+// ********  Legend Zones display functions
+
 $('#lgndR1').click(function () {
   document.getElementById('infoPanel').style.display = 'block';
   $('#content-area').load('./text/zones.txt #p1');
+});
+
+$('#lgndR2').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p2');
+});
+
+$('#lgndR3').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p3');
+});
+
+$('#lgndR4').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p4');
+});
+
+$('#lgndR5').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p5');
+});
+
+$('#lgndR6').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p6');
+});
+
+$('#lgndR7').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p7');
+});
+
+$('#lgndR8').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p8');
+});
+
+$('#lgndR9').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p9');
+});
+
+$('#lgndR10').click(function () {
+  document.getElementById('infoPanel').style.display = 'block';
+  $('#content-area').load('./text/zones.txt #p10');
 });
 
 // ************    Nav Functions
