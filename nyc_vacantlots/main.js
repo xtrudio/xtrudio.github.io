@@ -8,6 +8,7 @@ var lyrStationsBuffer;
 var jsnStationsBuffer;
 var lyrSubwayLines;
 var lyrLots;
+var lyrLots2;
 var lyrLotPoints;
 var lyrZones;
 var lyrSearch;
@@ -25,6 +26,7 @@ var objOverlays;
 var arStations = [];
 var arLotIDs = [];
 var arLots = [];
+let checkboxStates;
 
 //  ********* Map Initialization ****************
 
@@ -61,26 +63,27 @@ ctlMouseposition = L.control.mousePosition().addTo(mymap);
 //   *********** Layer Initialization **********
 
 // lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-// lyrCartoLight = L.tileLayer(
-//   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-//   {
-//     minNativeZoom: 9,
-//     maxNativeZoom: 17,
-//     subdomains: '1234',
-//     bounds: L.latLngBounds([39.3682, -75.9374], [42.0329, -71.7187]),
-//   }
-// );
+lyrCartoLight = L.tileLayer(
+  'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+  {
+    minNativeZoom: 9,
+    maxNativeZoom: 17,
+    subdomains: '1234',
+    bounds: L.latLngBounds([39.3682, -75.9374], [42.0329, -71.7187]),
+  }
+);
 
-// mymap.addLayer(lyrCartoLight);
+mymap.addLayer(lyrCartoLight);
 
 // **************  Zoning Districts Layer *************
 
-lyrZones = L.geoJSON.ajax('data/zoning.json', {
-  style: styleZones,
-  onEachFeature: processZones,
-});
-// .bindTooltip('Zone...')
-// .addTo(mymap);
+lyrZones = L.geoJSON
+  .ajax('data/zoning.json', {
+    style: styleZones,
+    onEachFeature: processZones,
+  })
+  // .bindTooltip('Zone...')
+  .addTo(mymap);
 
 lyrZones.on('data:loaded', function () {
   // log('zones');
@@ -113,27 +116,82 @@ lyrStations.bringToFront();
 
 // **************  Vacant Lots Polygon Layer *************
 
-lyrLots = L.geoJSON
-  .ajax('data/lots_poly.json', {
-    style: styleLots,
-    onEachFeature: processLots,
-    filter:  filterLotsbySize,
-  })
-  .bringToFront()
-  .addTo(mymap);
+// lyrLots = L.geoJSON.ajax('data/lots_poly.json', {
+//     style: styleLots,
+//     onEachFeature: processLots,
+//     filter:  filterLots,
+// });
+//   .bringToFront()
+//   .addTo(mymap);
+
+lyrLots = L.geoJSON(null, {
+  style: styleLots,
+  onEachFeature: processLots,
+  filter: (feature) => {
+    const isTypeChecked = checkboxStates.types.includes(
+      feature.properties.TYPE
+    );
+    const isAreaChecked = checkboxStates.areas.includes(
+      feature.properties.AreaCAT
+    );
+    return isTypeChecked && isAreaChecked; //only true if both are true
+  },
+})
+.addTo(mymap);
+lyrLots.bringToFront();
+
+function updateCheckboxStates() {
+  checkboxStates = {
+    types: [],
+    areas: [],
+  };
+
+  for (let input of document.querySelectorAll('input')) {
+    if (input.checked) {
+      switch (input.className) {
+        case 'TYPE':
+          checkboxStates.types.push(input.value);
+          break;
+        case 'areaCAT':
+          checkboxStates.areas.push(input.value);
+          break;
+      }
+    }
+  }
+}
+
+for (let input of document.querySelectorAll('input')) {
+  //Listen to 'change' event of all inputs
+  input.onchange = (e) => {
+    lyrLots.clearLayers();
+    updateCheckboxStates();
+
+    $.getJSON('data/lots_poly.json', function (data) {
+      lyrLots.addData(data);
+      lyrLots.bringToFront();
+    });
+  };
+}
+var lotData;
+/****** INIT ******/
+updateCheckboxStates();
+$.getJSON('data/lots_poly.json', function (data) {
+  lyrLots.addData(data);
+  lyrLots.bringToFront();
+});
 // log('lots loaded');
 // log(arLotIDs);
-lyrLots.on('data:loaded', function () {
-  // log(data);
-  arLotIDs.sort(function (a, b) {
-    // log(arLotIDs[0]);
-    return a - b;
-  });
+// lyrLots.on('data:loaded', function () {
+//   // log(data);
+//   arLotIDs.sort(function (a, b) {
+//     log(arLotIDs[0]);
+//     return a - b;
+//   });
 
-  $('#txtFindLot').autocomplete({
-    source: arLotIDs,
-  });
-});
+//   $('#txtFindLot').autocomplete({
+//     source: arLotIDs,
+//   });
+// });
 
 // **************  Vacant Lots Centerpoint Layer *************
 
@@ -167,20 +225,34 @@ function LotMarker(json, latlng) {
 }
 
 // ********* Setup Layer Control  ***************
-
+/* Larger screens get expanded layer control and visible sidebar */
+if (document.body.clientWidth <= 767) {
+  var isCollapsed = true;
+} else {
+  var isCollapsed = false;
+}
 objBasemaps = {
-  // 'Carto Light': lyrCartoLight,
-  // 'Open Street Maps': lyrOSM,
+  'Carto Light': lyrCartoLight,
+  // 'Open Street Maps': lyrOSM,Zones: lyrZones,
 };
 
 objOverlays = {
-  'Vacant Lots': lyrLots,
-  'Subway Stations': lyrStations,
-  'Subway Lines': lyrSubwayLines,
-  Zones: lyrZones,
+  Reference: {
+    Zones: lyrZones,
+  },
+  Layers: {
+    'Vacant Lots': lyrLots,
+    'Subway Stations': lyrStations,
+    'Subway Lines': lyrSubwayLines,
+  },
+  
 };
 //
-ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
+ctlLayers = L.control
+  .groupedLayers(objBasemaps, objOverlays, {
+    collapsed: isCollapsed,
+  })
+  .addTo(mymap);
 
 // **************  Locate function *************
 
@@ -203,8 +275,8 @@ mymap.on('locationerror', function (e) {
 // **************  Map Search Control *************
 
 var searchControl = new L.Control.Search({
-  layer: lyrZones,
-  propertyName: 'NTAName',
+  layer: lyrLots,
+  propertyName: 'id',
   marker: false,
   moveToLocation: function (latlng, title, mymap) {
     mymap.fitBounds(latlng.layer.getBounds());
@@ -220,9 +292,9 @@ searchControl
     if (e.layer._popup) e.layer.openPopup();
   })
   .on('search:collapsed', function (e) {
-    lyrNTAS.eachLayer(function (layer) {
+    lyrLots.eachLayer(function (layer) {
       //restore feature color
-      lyrNTAS.resetStyle(layer);
+      lyrLots.resetStyle(layer);
     });
   });
 
@@ -325,9 +397,68 @@ function processLots(feature, lyr) {
   });
 }
 
+function filterLots(json) {
+  var arLotFilter = [];
+  $('input[name=fltLot]').each(function () {
+    if (this.checked) {
+      arLotFilter.push(this.value);
+      // log(this.value);
+    }
+  });
+
+  let att = json.properties;
+
+  switch (att.AreaCAT) {
+    case 'under 2500':
+      return arLotFilter.indexOf('under 2500') >= 0;
+    // break;
+    // case 'Waterfront':
+    //   return arLotFilterSize.indexOf('Waterfront') >= 0;
+    // // break;
+    // case 'Through':
+    //   return arLotFilterSize.indexOf('Through') >= 0;
+    // // break;
+    // case 'Interior':
+    //   return arLotFilterSize.indexOf('Interior') >= 0;
+    // // break;
+    // case 'Corner':
+    //   return arLotFilterSize.indexOf('Corner') >= 0;
+    // // break;
+    // case 'Inside':
+    //   return arLotFilterSize.indexOf('Inside') >= 0;
+    // // break;
+    default:
+      return arLotFilter.indexOf('Other') >= 0;
+    // break;
+  }
+  switch (att.TYPE) {
+    case 'Block':
+      return arLotFilter.indexOf('Block') >= 0;
+    // break;
+    case 'Waterfront':
+      return arLotFilter.indexOf('Waterfront') >= 0;
+    // break;
+    case 'Through':
+      return arLotFilter.indexOf('Through') >= 0;
+    // break;
+    case 'Interior':
+      return arLotFilter.indexOf('Interior') >= 0;
+    // break;
+    case 'Corner':
+      return arLotFilter.indexOf('Corner') >= 0;
+    // break;
+    case 'Inside':
+      return arLotFilter.indexOf('Inside') >= 0;
+    // break;
+    default:
+      return arLotFilter.indexOf('Other') >= 0;
+    // break;
+  }
+}
+
 function filterLotsByType(json) {
   var arLotFilterType = [];
-  $('input[name=fltLotType]').each(function () {
+  $('input[name=fltLot]').each(function () {
     if (this.checked) {
       arLotFilterType.push(this.value);
       // log(this.value);
@@ -404,9 +535,9 @@ function filterLotsbySize(json) {
 }
 
 $('#txtFindLot').on('keyup paste', function () {
-  log('lots found');
+  // log('lots found');
   var val = $('#txtFindLot').val();
-  log(val);
+  // log(val);
   testLayerAttribute(
     arLotIDs,
     val,
@@ -463,13 +594,13 @@ $('#lblLot').click(function () {
   $('#divLotData').toggle();
 });
 
-$('#btnLotFilterTypeAll').click(function () {
-  $('input[name=fltLotType]').prop('checked', true);
+$('#btnLotFilterAll').click(function () {
+  $('input[name=fltLot]').prop('checked', true);
 });
-$('#btnLotFilterTypeNone').click(function () {
-  $('input[name=fltLotType]').prop('checked', false);
+$('#btnLotFilterNone').click(function () {
+  $('input[name=fltLot]').prop('checked', false);
 });
-$('#btnLotFilterType').click(function () {
+$('#btnLotFilter').click(function () {
   arLotIDs = [];
   lyrLots.refresh();
 });

@@ -39,6 +39,10 @@
       rel="stylesheet"
       href="plugins/Leaflet.MapKeyIcons/L.Icon.Mapkey.css"
     />
+    <link
+      rel="stylesheet"
+      href="plugins/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css"
+    />
     <link rel="stylesheet" href="plugins/MarkerCluster.css" />
     <link rel="stylesheet" href="plugins/MarkerCluster.Default.css" />
     <link
@@ -307,7 +311,7 @@
                   <text x="141" y="53" cursor="pointer" id="lgndR5">
                     R5
                   </text>
-                  
+
                   <rect
                     x="225"
                     y="40"
@@ -323,7 +327,7 @@
                   <text x="251" y="53" cursor="pointer" id="lgndR6">
                     R6
                   </text>
-                  
+
                   <rect
                     x="10"
                     y="70"
@@ -492,160 +496,124 @@
 
           <div id="divLot" class="col-xs-12">
             <div id="divLotLabel" class="text-center col-xs-12">
-              <h5 id="lblLot">Lots</h5>
-            </div>
-            <div id="divLotError" class="errorMsg col-xs-12"></div>
-            <div id="divFindLot" class="form-group">
-              <div class="col-xs-9">
-                <input
-                  type="text"
-                  id="txtFindLot"
-                  class="form-control"
-                  placeholder="Lot ID"
-                />
-              </div>
-              <div class="col-xs-3">
-                <button
-                  id="btnFindLot"
-                  class="btn btn-primary btn-block"
-                  disabled
-                >
-                  Find
-                </button>
-              </div>
-            </div>
-            <div id="divLotLabel" class="text-center col-xs-12">
               <h5 id="lblLot">Lot Filters</h5>
             </div>
-            <div>
-              <div id="divLotFltType" class="text-left col-xs-12">
-                <h5 id="lblLot">Filter by type</h5>
-              </div>
-              <div id="divFilterLots" class="mycol-xs-12">
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Block"
-                    checked
-                  />Block<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Waterfront"
-                    checked
-                  />Waterfront
-                  <button
-                    id="btnLotFilterTypeAll"
-                    class="btn btn-primary btn-block"
-                  >
-                    Check All
-                  </button>
-                </div>
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Through"
-                    checked
-                  />Through<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Interior"
-                    checked
-                  />Interior
-                  <button
-                    id="btnLotFilterTypeNone"
-                    class="btn btn-primary btn-block"
-                  >
-                    Uncheck
-                  </button>
-                </div>
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Corner"
-                    checked
-                  />Corner<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotType"
-                    value="Inside"
-                    checked
-                  />Inside
-                  <button id="btnLotFilterType" class="btn btn-primary btn-block">
-                    Filter
-                  </button>
-                </div>
-              </div>
+            
+            <div id="divLotFltType" class="text-left col-xs-12">
+              <h5 id="lblLot">Filter by type</h5>
+            </div>
+            
+            <div class="inputs" id="types">
+              <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Block"
+                value="Block"
+                checked="true"
+              />
+              <label for="Block">Block</label><br>
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Waterfront"
+                value="Waterfront"
+                checked="true"
+              />
+              <label for="trade">Waterfront</label>
+            </div>
+            <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Through"
+                value="Through"
+                checked="true"
+              />
+              <label for="Through">Through</label><br>
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Interior"
+                value="Interior"
+                checked="true"
+              />
+              <label for="Interior">Interior</label>
+            </div>
+            <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Corner"
+                value="Corner"
+                checked="true"
+              />
+              <label for="Corner">Corner</label><br>
+              <input
+                type="checkbox"
+                class="TYPE"
+                name="Inside"
+                value="Inside"
+                checked="true"
+              />
+              <label for="Inside">Inside</label>
+            </div></div>
+            <div id="divLotFltSize" class="text-left col-xs-12">
+              <h5 id="lblLot">Filter by size</h5>
+            </div>
+            <div class="inputs" id="areas">
+              <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="areaCAT"
+                name="under 2500"
+                value="under 2500"
+                checked="true"
+              />
+              <label for="under 2500">&lt 2500</label><br>
+              <input
+                type="checkbox"
+                class="areaCAT"
+                value="4000-5000"
+                checked="true"
+              />
+              <label for="4000-5000">4000-5000</label>
+            </div>
+            <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="areaCAT"
+                value="2500-3000"
+                checked="true"
+              />
+              <label for="2500-3000">2500-3000</label><br>
+              <input
+                type="checkbox"
+                class="areaCAT"
+                value="5000-10000"
+                checked="true"
+              />
+              <label for="5000-10000">5000-10000</label>
+            </div>
+            <div class="mycol-xs-4">
+              <input
+                type="checkbox"
+                class="areaCAT"
+                value="3000-4000"
+                checked="true"
+              />
+              <label for="3000-4000">3000-4000</label><br>
+              <input
+                type="checkbox"
+                class="areaCAT"
+                value="over 10000"
+                checked="true"
+              />
+              <label for="over 10000">over 10000</label>
             </div>
 
-            <div>
-              <div id="divLotFltSize" class="text-left col-xs-12">
-                <h5 id="lblLot">Filter by size</h5>
-              </div>
-              <div id="divFilterLots" class="mycol-xs-12">
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="under 2500"
-                    checked
-                  />Under 2500<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="Waterfront"
-                    checked
-                  />4000-5000
-                  <button
-                    id="btnLotFilterSizeAll"
-                    class="btn btn-primary btn-block"
-                  >
-                    Check All
-                  </button>
-                </div>
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="2500-3000"
-                    checked
-                  />2500-3000<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="5000-10000"
-                    checked
-                  />5000.10000
-                  <button
-                    id="btnLotFilterSizeNone"
-                    class="btn btn-primary btn-block"
-                  >
-                    Uncheck
-                  </button>
-                </div>
-                <div class="mycol-xs-4">
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="3000-4000"
-                    checked
-                  />3000-4000<br />
-                  <input
-                    type="checkbox"
-                    name="fltLotSize"
-                    value="over 10000"
-                    checked
-                  />over 10000
-                  <button id="btnLotFilterSize" class="btn btn-primary btn-block">
-                    Filter
-                  </button>
-                </div>
-              </div>
-            </div>
+
+
             <div class="" id="divLotData"></div>
           </div>
           <!-- <div id="divZone" class="col-xs-12">
@@ -757,7 +725,7 @@
         </div>
       </div>
     </div>
-
+    <script src="plugins/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

@@ -1,0 +1,15 @@
+:root {
+  --shadow: 0 1px 2px rgba(182, 182, 182, 0.8);
+  --shadow-dark: 0 1px 4px rgba(83, 83, 83, 0.8);
+  --dark: #333;
+  --light: #fefefe;
+  --primary: #ddd;
+}
+
+.btn {
+  background: var(--dark);
+  color: var(--light);
+  padding: 0.6rem 1.3rem;
+  text-decoration: none;
+  border: 0;
+}

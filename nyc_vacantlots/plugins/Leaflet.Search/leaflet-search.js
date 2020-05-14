@@ -79,7 +79,7 @@
       autoCollapseTime: 1200, //delay for autoclosing alert and collapse after blur
       textErr: 'Location not found', //error message
       textCancel: 'Cancel', //title in cancel button
-      textPlaceholder: 'Search neighborhood...', //placeholder value
+      textPlaceholder: 'Search lot by id...', //placeholder value
       hideMarkerOnCollapse: false, //remove circle and marker on search control collapsed
       position: 'topleft',
       marker: {
