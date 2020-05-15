@@ -86,8 +86,7 @@ lyrCartoLight = L.tileLayer(
 
 mymap.addLayer(lyrCartoLight);
 
-fgpDrawnItems = new L.FeatureGroup();
-                fgpDrawnItems.addTo(mymap);
+
 
 // **************  Zoning Districts Layer *************
 
@@ -148,7 +147,10 @@ lyrLots = L.geoJSON(null, {
     const isAreaChecked = checkboxStates.areas.includes(
       feature.properties.AreaCAT
     );
-    return isTypeChecked && isAreaChecked; //only true if both are true
+    const isFarChecked = checkboxStates.fars.includes(
+      feature.properties.FARCAT
+    );
+    return isTypeChecked && isFarChecked && isAreaChecked; //only true if all are true
   },
 })
 .addTo(mymap);
@@ -158,6 +160,7 @@ function updateCheckboxStates() {
   checkboxStates = {
     types: [],
     areas: [],
+    fars: [],
   };
 
   for (let input of document.querySelectorAll('input')) {
@@ -168,6 +171,9 @@ function updateCheckboxStates() {
           break;
         case 'areaCAT':
           checkboxStates.areas.push(input.value);
+          break;
+        case 'FARCAT':
+          checkboxStates.fars.push(input.value);
           break;
       }
     }
@@ -266,11 +272,11 @@ objBasemaps = {
 
 objOverlays = {
   Reference: {
-    Zones: lyrZones,
+    Zoning: lyrZones,
   },
   Layers: {
     'Lots Poly': lyrLots,
-    'Subway Stations': lyrStations,
+    'Stations': lyrStations,
     'Subway Lines': lyrSubwayLines,
    },
   Analysis: {
@@ -432,142 +438,142 @@ function processLots(feature, lyr) {
   });
 }
 
-function filterLots(json) {
-  var arLotFilter = [];
-  $('input[name=fltLot]').each(function () {
-    if (this.checked) {
-      arLotFilter.push(this.value);
-      // log(this.value);
-    }
-  });
+// function filterLots(json) {
+//   var arLotFilter = [];
+//   $('input[name=fltLot]').each(function () {
+//     if (this.checked) {
+//       arLotFilter.push(this.value);
+//       // log(this.value);
+//     }
+//   });
 
-  let att = json.properties;
+//   let att = json.properties;
 
-  switch (att.AreaCAT) {
-    case 'under 2500':
-      return arLotFilter.indexOf('under 2500') >= 0;
-    // break;
-    // case 'Waterfront':
-    //   return arLotFilterSize.indexOf('Waterfront') >= 0;
-    // // break;
-    // case 'Through':
-    //   return arLotFilterSize.indexOf('Through') >= 0;
-    // // break;
-    // case 'Interior':
-    //   return arLotFilterSize.indexOf('Interior') >= 0;
-    // // break;
-    // case 'Corner':
-    //   return arLotFilterSize.indexOf('Corner') >= 0;
-    // // break;
-    // case 'Inside':
-    //   return arLotFilterSize.indexOf('Inside') >= 0;
-    // // break;
-    default:
-      return arLotFilter.indexOf('Other') >= 0;
-    // break;
-  }
-  switch (att.TYPE) {
-    case 'Block':
-      return arLotFilter.indexOf('Block') >= 0;
-    // break;
-    case 'Waterfront':
-      return arLotFilter.indexOf('Waterfront') >= 0;
-    // break;
-    case 'Through':
-      return arLotFilter.indexOf('Through') >= 0;
-    // break;
-    case 'Interior':
-      return arLotFilter.indexOf('Interior') >= 0;
-    // break;
-    case 'Corner':
-      return arLotFilter.indexOf('Corner') >= 0;
-    // break;
-    case 'Inside':
-      return arLotFilter.indexOf('Inside') >= 0;
-    // break;
-    default:
-      return arLotFilter.indexOf('Other') >= 0;
-    // break;
-  }
-}
+//   switch (att.AreaCAT) {
+//     case 'under 2500':
+//       return arLotFilter.indexOf('under 2500') >= 0;
+//     // break;
+//     // case 'Waterfront':
+//     //   return arLotFilterSize.indexOf('Waterfront') >= 0;
+//     // // break;
+//     // case 'Through':
+//     //   return arLotFilterSize.indexOf('Through') >= 0;
+//     // // break;
+//     // case 'Interior':
+//     //   return arLotFilterSize.indexOf('Interior') >= 0;
+//     // // break;
+//     // case 'Corner':
+//     //   return arLotFilterSize.indexOf('Corner') >= 0;
+//     // // break;
+//     // case 'Inside':
+//     //   return arLotFilterSize.indexOf('Inside') >= 0;
+//     // // break;
+//     default:
+//       return arLotFilter.indexOf('Other') >= 0;
+//     // break;
+//   }
+//   switch (att.TYPE) {
+//     case 'Block':
+//       return arLotFilter.indexOf('Block') >= 0;
+//     // break;
+//     case 'Waterfront':
+//       return arLotFilter.indexOf('Waterfront') >= 0;
+//     // break;
+//     case 'Through':
+//       return arLotFilter.indexOf('Through') >= 0;
+//     // break;
+//     case 'Interior':
+//       return arLotFilter.indexOf('Interior') >= 0;
+//     // break;
+//     case 'Corner':
+//       return arLotFilter.indexOf('Corner') >= 0;
+//     // break;
+//     case 'Inside':
+//       return arLotFilter.indexOf('Inside') >= 0;
+//     // break;
+//     default:
+//       return arLotFilter.indexOf('Other') >= 0;
+//     // break;
+//   }
+// }
 
-function filterLotsByType(json) {
-  var arLotFilterType = [];
-  $('input[name=fltLot]').each(function () {
-    if (this.checked) {
-      arLotFilterType.push(this.value);
-      // log(this.value);
-    }
-  });
+// function filterLotsByType(json) {
+//   var arLotFilterType = [];
+//   $('input[name=fltLot]').each(function () {
+//     if (this.checked) {
+//       arLotFilterType.push(this.value);
+//       // log(this.value);
+//     }
+//   });
 
-  let att = json.properties;
-  switch (att.TYPE) {
-    case 'Block':
-      return arLotFilterType.indexOf('Block') >= 0;
-    // break;
-    case 'Waterfront':
-      return arLotFilterType.indexOf('Waterfront') >= 0;
-    // break;
-    case 'Through':
-      return arLotFilterType.indexOf('Through') >= 0;
-    // break;
-    case 'Interior':
-      return arLotFilterType.indexOf('Interior') >= 0;
-    // break;
-    case 'Corner':
-      return arLotFilterType.indexOf('Corner') >= 0;
-    // break;
-    case 'Inside':
-      return arLotFilterType.indexOf('Inside') >= 0;
-    // break;
-    default:
-      return arLotFilterType.indexOf('Other') >= 0;
-    // break;
-  }
-}
+//   let att = json.properties;
+//   switch (att.TYPE) {
+//     case 'Block':
+//       return arLotFilterType.indexOf('Block') >= 0;
+//     // break;
+//     case 'Waterfront':
+//       return arLotFilterType.indexOf('Waterfront') >= 0;
+//     // break;
+//     case 'Through':
+//       return arLotFilterType.indexOf('Through') >= 0;
+//     // break;
+//     case 'Interior':
+//       return arLotFilterType.indexOf('Interior') >= 0;
+//     // break;
+//     case 'Corner':
+//       return arLotFilterType.indexOf('Corner') >= 0;
+//     // break;
+//     case 'Inside':
+//       return arLotFilterType.indexOf('Inside') >= 0;
+//     // break;
+//     default:
+//       return arLotFilterType.indexOf('Other') >= 0;
+//     // break;
+//   }
+// }
 
-function filterLotsbySize(json) {
-  var arLotFilterSize = [];
-  $('input[name=fltLotSize]').each(function () {
-    if (this.checked) {
-      arLotFilterSize.push(this.value);
-      log(this.value);
-    }
-  });
+// function filterLotsbySize(json) {
+//   var arLotFilterSize = [];
+//   $('input[name=fltLotSize]').each(function () {
+//     if (this.checked) {
+//       arLotFilterSize.push(this.value);
+//       log(this.value);
+//     }
+//   });
 
-  let att = json.properties;
+//   let att = json.properties;
 
-  switch (att.AreaCAT) {
-    case 'under 2500':
-      return arLotFilterSize.indexOf('under 2500') >= 0;
-    // break;
-    // case 'Waterfront':
-    //   return arLotFilterSize.indexOf('Waterfront') >= 0;
-    // // break;
-    // case 'Through':
-    //   return arLotFilterSize.indexOf('Through') >= 0;
-    // // break;
-    // case 'Interior':
-    //   return arLotFilterSize.indexOf('Interior') >= 0;
-    // // break;
-    // case 'Corner':
-    //   return arLotFilterSize.indexOf('Corner') >= 0;
-    // // break;
-    // case 'Inside':
-    //   return arLotFilterSize.indexOf('Inside') >= 0;
-    // // break;
-    default:
-      return arLotFilterSize.indexOf('Other') >= 0;
-    // break;
-  }
+//   switch (att.AreaCAT) {
+//     case 'under 2500':
+//       return arLotFilterSize.indexOf('under 2500') >= 0;
+//     // break;
+//     // case 'Waterfront':
+//     //   return arLotFilterSize.indexOf('Waterfront') >= 0;
+//     // // break;
+//     // case 'Through':
+//     //   return arLotFilterSize.indexOf('Through') >= 0;
+//     // // break;
+//     // case 'Interior':
+//     //   return arLotFilterSize.indexOf('Interior') >= 0;
+//     // // break;
+//     // case 'Corner':
+//     //   return arLotFilterSize.indexOf('Corner') >= 0;
+//     // // break;
+//     // case 'Inside':
+//     //   return arLotFilterSize.indexOf('Inside') >= 0;
+//     // // break;
+//     default:
+//       return arLotFilterSize.indexOf('Other') >= 0;
+//     // break;
+//   }
 
-  // if (att.ZONING == 'REMOVED') {
-  //   return false;
-  // } else {
-  //   // log('lots filtered');
-  //   return true;
-  // }
-}
+//   // if (att.ZONING == 'REMOVED') {
+//   //   return false;
+//   // } else {
+//   //   // log('lots filtered');
+//   //   return true;
+//   // }
+// }
 
 $('#txtFindLot').on('keyup paste', function () {
   // log('lots found');

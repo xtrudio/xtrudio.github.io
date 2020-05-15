@@ -555,11 +555,11 @@
               <input
                 type="checkbox"
                 class="TYPE"
-                name="Waterfront"
-                value="Waterfront"
+                name="Island Lot"
+                value="Island Lot"
                 checked="true"
               />
-              <label for="trade">Waterfront</label>
+              <label for="Island Lot">Island</label>
             </div>
             <div class="mycol-xs-4">
               <input
@@ -573,11 +573,11 @@
               <input
                 type="checkbox"
                 class="TYPE"
-                name="Interior"
-                value="Interior"
+                name="Interior Lot"
+                value="Interior Lot"
                 checked="true"
               />
-              <label for="Interior">Interior</label>
+              <label for="Interior Lot">Interior</label>
             </div>
             <div class="mycol-xs-4">
               <input
@@ -596,9 +596,10 @@
                 checked="true"
               />
               <label for="Inside">Inside</label>
-            </div></div>
+            </div>
+          </div>
             <div id="divLotFltSize" class="text-left col-xs-12">
-              <h5 id="lblLot">Filter by size</h5>
+              <h5 id="lblLot">Filter by Area (sq.ft.)</h5>
             </div>
             <div class="inputs" id="areas">
               <div class="mycol-xs-4">
@@ -613,6 +614,7 @@
               <input
                 type="checkbox"
                 class="areaCAT"
+                name="4000-5000"
                 value="4000-5000"
                 checked="true"
               />
@@ -622,6 +624,7 @@
               <input
                 type="checkbox"
                 class="areaCAT"
+                name="2500-3000"
                 value="2500-3000"
                 checked="true"
               />
@@ -629,6 +632,7 @@
               <input
                 type="checkbox"
                 class="areaCAT"
+                name="5000-10000"
                 value="5000-10000"
                 checked="true"
               />
@@ -638,6 +642,7 @@
               <input
                 type="checkbox"
                 class="areaCAT"
+                name="3000-4000"
                 value="3000-4000"
                 checked="true"
               />
@@ -645,16 +650,79 @@
               <input
                 type="checkbox"
                 class="areaCAT"
+                name="over 10000"
                 value="over 10000"
                 checked="true"
               />
               <label for="over 10000">over 10000</label>
             </div>
+          </div>
+
+          <div id="divLotFltSize" class="text-left col-xs-12">
+            <h5 id="lblLot">Filter by FAR</h5>
+          </div>
+          <div class="inputs" id="areas">
+            <div class="mycol-xs-4">
+            <input
+              type="checkbox"
+              class="FARCAT"
+              name="0.5-1"
+              value="0.5-1"
+              checked="true"
+            />
+            <label for="0.5-1">0.5-1</label><br>
+            <input
+              type="checkbox"
+              class="FARCAT"
+              name="1-2"
+              value="1-2"
+              checked="true"
+            />
+            <label for="1-2">1-2</label>
+          </div>
+          <div class="mycol-xs-4">
+            <input
+              type="checkbox"
+              class="areaCAT"
+              name="2-3"
+              value="2-3"
+              checked="true"
+            />
+            <label for="2-3">2-3</label><br>
+            <input
+              type="checkbox"
+              class="FARCAT"
+              name="3-4"
+              value="3-4"
+              checked="true"
+            />
+            <label for="3-4">3-4</label>
+          </div>
+          <div class="mycol-xs-4">
+            <input
+              type="checkbox"
+              class="FARCAT"
+              name="4-5"
+              value="4-5"
+              checked="true"
+            />
+            <label for="4-5">4-5</label><br>
+            <input
+              type="checkbox"
+              class="FARCAT"
+              name="5-6"
+              value="5-6"
+              checked="true"
+            />
+            <label for="5-6">5-6</label>
+          </div>
+        </div>
+
+
             <div id="divLotLabel" class="text-center col-xs-12">
-              <h5 id="lblLot">Spatial Analysis</h5>
+              <h5 id="lblLot">Lot Spatial Analysis</h5>
             </div>
             
-
             <input
             type="checkbox"
             class=""
