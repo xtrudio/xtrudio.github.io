@@ -1,3 +1,4 @@
+
 let log = console.log;
 var mymap;
 var lyrOSM;
@@ -9,7 +10,8 @@ var jsnStationsBuffer;
 var lyrSubwayLines;
 var lyrLots;
 var lyrLots2;
-var lyrLotPoints;
+var lyrLotPointsResDen;
+var lyrLotPointsBus;
 var lyrZones;
 var lyrSearch;
 var mrkCurrentLocation;
@@ -18,7 +20,10 @@ var ctlScale;
 var ctlFullScreen;
 var ctlMouseposition;
 var ctlEasybutton;
+var fgpDrawnItems;
+var ctlDraw;
 var ctlSidebar;
+var ctlMeasure;
 var ctlLayers;
 var ctlStyle;
 var objBasemaps;
@@ -26,7 +31,13 @@ var objOverlays;
 var arStations = [];
 var arLotIDs = [];
 var arLots = [];
-let checkboxStates;
+var checkboxStates;
+
+
+
+// d3.csv("data/resdens.csv").then(function(data) {
+//   console.log(data[0]); // [{"Hello": "world"}, …]
+// });
 
 //  ********* Map Initialization ****************
 
@@ -74,6 +85,9 @@ lyrCartoLight = L.tileLayer(
 );
 
 mymap.addLayer(lyrCartoLight);
+
+fgpDrawnItems = new L.FeatureGroup();
+                fgpDrawnItems.addTo(mymap);
 
 // **************  Zoning Districts Layer *************
 
@@ -193,36 +207,50 @@ $.getJSON('data/lots_poly.json', function (data) {
 //   });
 // });
 
-// **************  Vacant Lots Centerpoint Layer *************
+// **************  Vacant Lots Point Layer *************
 
-// function LotMarker(json, latlng) {
-//   return L.circle(latlng, {
-//     radius: 3,
-//     weight: 1,
-//     color: 'red',
-//     // fillColor: 'gray',
-//     fillOpacity: 1,
-//   });
-// }
-
-// lyrLotPoints = L.geoJSON
-//   .ajax('data/lots_point.json', {
-//     pointToLayer: LotMarker,
-//     onEachFeature: processLotPoints,
-//   })
-//   .bindTooltip();
-//   lyrLotPoints.addTo(mymap);
+lyrLotPointsResDen = L.geoJSON
+  .ajax('data/lots_point.json', {
+    pointToLayer: function (feature, latlng) {
+      let school_marker = {
+        radius: 5,
+        fillColor: resDenColors[feature.properties.class_resden],
+        stroke: false,
+        // weight: 1,
+        // opacity: 1,
+        fillOpacity: 0.4,
+      };
+      var marker = L.circleMarker(latlng, school_marker);
+  
+      return marker;
+    },
+    onEachFeature: processLotPoints,
+  });
+  // .bindTooltip();
+  // lyrLotPointsResDen.addTo(mymap);
 // lyrLotPoints.bringToFront();
 
-function LotMarker(json, latlng) {
-  return L.circle(latlng, {
-    radius: 8,
-    weight: 2,
-    color: 'red',
-    // fillColor: 'gray',
-    fillOpacity: 1,
+lyrLotPointsBus = L.geoJSON
+  .ajax('data/lots_point.json', {
+    pointToLayer: function (feature, latlng) {
+      var school_marker = {
+        radius: 5,
+        fillColor: busColors[feature.properties.class_bus],
+        stroke: false,
+        // weight: 1,
+        // opacity: 1,
+        fillOpacity: 0.4,
+      };
+      var marker = L.circleMarker(latlng, school_marker);
+  
+      return marker;
+    },
+    onEachFeature: processLotPoints,
   });
-}
+  // .bindTooltip();
+  // lyrLotPointsBus.addTo(mymap);
+// lyrLotPoints.bringToFront();
+
 
 // ********* Setup Layer Control  ***************
 /* Larger screens get expanded layer control and visible sidebar */
@@ -241,9 +269,14 @@ objOverlays = {
     Zones: lyrZones,
   },
   Layers: {
-    'Vacant Lots': lyrLots,
+    'Lots Poly': lyrLots,
     'Subway Stations': lyrStations,
     'Subway Lines': lyrSubwayLines,
+   },
+  Analysis: {
+    'Res. Density': lyrLotPointsResDen,
+    'Proximity to Bus': lyrLotPointsBus
+
   },
   
 };
@@ -253,6 +286,8 @@ ctlLayers = L.control
     collapsed: isCollapsed,
   })
   .addTo(mymap);
+
+  
 
 // **************  Locate function *************
 
@@ -879,9 +914,29 @@ function processStations(json, lyr) {
 
 //  *********  Lot Points Functions  ************
 
+//Create a color dictionary based res dens
+var resDenColors = {
+  'under 10000': '#ffde0a',
+  '10000-15000': '#8fd744',
+  '15000-20000': '#35b779',
+  '20000-30000': '#21908d',
+  '30000-40000': '#31688e',
+  '40000-60000': '#443a82',
+  'over 60000': '#5a066e',
+};
+var busColors = {
+  '0-0.27': '#ffde0a',
+  '0.27-0.60': '#8fd744',
+  '0.60-0.63': '#35b779',
+  '0.63-0.66': '#21908d',
+  '0.66-0.81': '#31688e',
+  '0.81-0.93': '#443a82',
+  '0.93-1.00': '#5a066e',
+};
+
 function processLotPoints(json, lyr) {
-  var att = json.properties;
-  lyr.bindTooltip('<h5>' + 'att.name' + '</h5>');
+  // var att = json.properties;
+  // lyr.bindTooltip('<h5>' + 'att.name' + '</h5>');
   // arStations.push(json.geometry);
   // lyr.on('click', function () {
   //   document.getElementById('infoPanel').style.display = 'block';

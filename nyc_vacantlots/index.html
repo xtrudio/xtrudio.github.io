@@ -50,7 +50,7 @@
       href="plugins/Leaflet.Fullscreen/Control.FullScreen.css"
     />
     <link href="plugins/Leaflet.Search/leaflet-search.css" rel="stylesheet" />
-
+    <script src="src/d3.v5.min.js"></script>
     <script src="src/leaflet-src.js"></script>
     <script src="src/jquery-3.3.1.js"></script>
     <script src="src/jquery-ui.min.js"></script>
@@ -62,12 +62,51 @@
     <script src="plugins/leaflet-providers.js"></script>
     <script src="plugins/Leaflet.StyleEditor/javascript/Leaflet.StyleEditor.min.js"></script>
     <script src="plugins/leaflet.ajax.min.js"></script>
+    <script src="plugins/jquery.csv.js"></script>
     <script src="plugins/leaflet.sprite.js"></script>
+    <script src="plugins/leaflet.geometryutil.js"></script>
     <script src="plugins/Leaflet.awesomemarker/leaflet.awesome-markers.min.js"></script>
     <script src="plugins/Leaflet.MapKeyIcons/L.Icon.Mapkey.js"></script>
     <!-- <script src="plugins/leaflet.markercluster.js"></script> -->
     <script src="plugins/Leaflet.Fullscreen/Control.FullScreen.js"></script>
     <script src="plugins/Leaflet.Search/leaflet-search.js"></script>
+    <!--    ***************  Begin Leaflet.Draw-->
+        
+    <script src="plugins/leaflet-draw/Leaflet.draw.js"></script>
+    <script src="plugins/leaflet-draw/Leaflet.Draw.Event.js"></script>
+    <link rel="stylesheet" href="plugins/leaflet-draw/leaflet.draw.css"/>
+
+    <script src="plugins/leaflet-draw/Toolbar.js"></script>
+    <script src="plugins/leaflet-draw/Tooltip.js"></script>
+
+    <script src="plugins/leaflet-draw/ext/GeometryUtil.js"></script>
+    <script src="plugins/leaflet-draw/ext/LatLngUtil.js"></script>
+    <script src="plugins/leaflet-draw/ext/LineUtil.Intersect.js"></script>
+    <script src="plugins/leaflet-draw/ext/Polygon.Intersect.js"></script>
+    <script src="plugins/leaflet-draw/ext/Polyline.Intersect.js"></script>
+    <script src="plugins/leaflet-draw/ext/TouchEvents.js"></script>
+
+    <script src="plugins/leaflet-draw/draw/DrawToolbar.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Feature.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.SimpleShape.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Polyline.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Circle.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Marker.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Polygon.js"></script>
+    <script src="plugins/leaflet-draw/draw/handler/Draw.Rectangle.js"></script>
+
+
+    <script src="plugins/leaflet-draw/edit/EditToolbar.js"></script>
+    <script src="plugins/leaflet-draw/edit/handler/EditToolbar.Edit.js"></script>
+    <script src="plugins/leaflet-draw/edit/handler/EditToolbar.Delete.js"></script>
+
+    <script src="plugins/leaflet-draw/Control.Draw.js"></script>
+
+    <script src="plugins/leaflet-draw/edit/handler/Edit.Poly.js"></script>
+    <script src="plugins/leaflet-draw/edit/handler/Edit.SimpleShape.js"></script>
+    <!-- <script src="plugins/leaflet-draw/edit/handler/Edit.Circle.js"></script> -->
+    <script src="plugins/leaflet-draw/edit/handler/Edit.Rectangle.js"></script>
+    <script src="plugins/leaflet-draw/edit/handler/Edit.Marker.js"></script>
   </head>
 
   <body>
@@ -117,7 +156,7 @@
                     fill-opacity: 0.5;
                   "
                 />
-                <text x="36" y="23" cursor="pointer" id="lgndBlock">
+                <text x="36" y="23"  cursor="pointer" id="lgndBlock">
                   Block
                 </text>
                 <rect
@@ -611,7 +650,18 @@
               />
               <label for="over 10000">over 10000</label>
             </div>
+            <div id="divLotLabel" class="text-center col-xs-12">
+              <h5 id="lblLot">Spatial Analysis</h5>
+            </div>
+            
 
+            <input
+            type="checkbox"
+            class=""
+            value=""
+            checked="false"
+          />
+          <label for="">Residential density</label>
 
 
             <div class="" id="divLotData"></div>
