@@ -337,7 +337,8 @@
 
 /* layers control */
 
-.leaflet-control-layers {
+.leaflet-control-layers {	
+	width: auto;
 	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 	background: #fff;
 	border-radius: 5px;
@@ -367,6 +368,7 @@
 	padding: 6px 10px 6px 6px;
 	color: #333;
 	background: #fff;
+	width: auto;
 	}
 .leaflet-control-layers-scrollbar {
 	overflow-y: scroll;
@@ -451,6 +453,7 @@
 	}
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
+	width: auto;
 	border: 2px solid rgba(0,0,0,0.2);
 	background-clip: padding-box;
 	}

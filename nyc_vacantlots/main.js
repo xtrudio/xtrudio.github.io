@@ -73,7 +73,7 @@ ctlMouseposition = L.control.mousePosition().addTo(mymap);
 
 //   *********** Layer Initialization **********
 
-// lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
 lyrCartoLight = L.tileLayer(
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
   {
@@ -267,7 +267,7 @@ if (document.body.clientWidth <= 767) {
 }
 objBasemaps = {
   'Carto Light': lyrCartoLight,
-  // 'Open Street Maps': lyrOSM,Zones: lyrZones,
+  'Open Street Map': lyrOSM,
 };
 
 objOverlays = {
@@ -280,7 +280,7 @@ objOverlays = {
     'Subway Lines': lyrSubwayLines,
    },
   Analysis: {
-    'Res. Density': lyrLotPointsResDen,
+    'Residential Density': lyrLotPointsResDen,
     'Proximity to Bus': lyrLotPointsBus
 
   },
@@ -977,6 +977,10 @@ $('#btnLocate').click(function () {
 
 $('#btnShowLegend').click(function () {
   $('#legend').toggle();
+});
+
+$('#btnShowDivLot').click(function () {
+  $('#divLot').toggle();
 });
 
 // ************    Legend Functions    ************
