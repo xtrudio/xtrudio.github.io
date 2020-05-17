@@ -922,13 +922,13 @@ function processStations(json, lyr) {
 
 //Create a color dictionary based res dens
 var resDenColors = {
-  'under 10000': '#ffde0a',
+  'under-10000': '#ffde0a',
   '10000-15000': '#8fd744',
   '15000-20000': '#35b779',
   '20000-30000': '#21908d',
   '30000-40000': '#31688e',
   '40000-60000': '#443a82',
-  'over 60000': '#5a066e',
+  'over-60000': '#5a066e',
 };
 var busColors = {
   '0-0.27': '#ffde0a',
@@ -981,6 +981,10 @@ $('#btnShowLegend').click(function () {
 
 $('#btnShowDivLot').click(function () {
   $('#divLot').toggle();
+});
+
+$('#btnShowDivLotAnalysis').click(function () {
+  $('#divLotAnalysis').toggle();
 });
 
 // ************    Legend Functions    ************

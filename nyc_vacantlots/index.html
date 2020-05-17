@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VALO | Vacant Lots NYC</title>
     <link rel="stylesheet" href="src/css/styles.css" />
     <link rel="stylesheet" href="src/leaflet.css" />
@@ -71,10 +68,10 @@
     <script src="plugins/Leaflet.Fullscreen/Control.FullScreen.js"></script>
     <script src="plugins/Leaflet.Search/leaflet-search.js"></script>
     <!--    ***************  Begin Leaflet.Draw-->
-        
+
     <script src="plugins/leaflet-draw/Leaflet.draw.js"></script>
     <script src="plugins/leaflet-draw/Leaflet.Draw.Event.js"></script>
-    <link rel="stylesheet" href="plugins/leaflet-draw/leaflet.draw.css"/>
+    <link rel="stylesheet" href="plugins/leaflet-draw/leaflet.draw.css" />
 
     <script src="plugins/leaflet-draw/Toolbar.js"></script>
     <script src="plugins/leaflet-draw/Tooltip.js"></script>
@@ -95,7 +92,6 @@
     <script src="plugins/leaflet-draw/draw/handler/Draw.Polygon.js"></script>
     <script src="plugins/leaflet-draw/draw/handler/Draw.Rectangle.js"></script>
 
-
     <script src="plugins/leaflet-draw/edit/EditToolbar.js"></script>
     <script src="plugins/leaflet-draw/edit/handler/EditToolbar.Edit.js"></script>
     <script src="plugins/leaflet-draw/edit/handler/EditToolbar.Delete.js"></script>
@@ -107,14 +103,13 @@
     <!-- <script src="plugins/leaflet-draw/edit/handler/Edit.Circle.js"></script> -->
     <script src="plugins/leaflet-draw/edit/handler/Edit.Rectangle.js"></script>
     <script src="plugins/leaflet-draw/edit/handler/Edit.Marker.js"></script>
-    
   </head>
 
   <body>
     <nav class="mynavbar">
       <div class="title">
-        <span class="orange">VALO &#8227;</span> NYC Vacant Lots Suitable for Residential
-        Development
+        <span class="orange">VALO &#8227;</span> NYC Vacant Lots Suitable for
+        Residential Development
       </div>
       <a href="#" class="toggle-button">
         <span class="bar"></span>
@@ -133,16 +128,23 @@
       <aside>
         <div id="side-bar" class="col-md-12 col-sm-12">
           <button id="btnLocate" class="btn btn-primary btn-block">
-            Your Location</button
+            Your Location
+          </button>
+          <button
+            id="btnShowLegend"
+            class="btn btn-primary btn-block"
+            onclick="$(this).find('i').toggleClass('fa fa-chevron-down fa fa-chevron-up')"
           >
-          <button id="btnShowLegend" class="btn btn-primary btn-block" onclick="$(this).find('i').toggleClass('fa fa-chevron-down fa fa-chevron-up')">
             Legend
             <i class="fa fa-chevron-down"></i>
           </button>
 
           <div id="legend">
             <h5 class="text-center">
-              Vacant Lots &nbsp<i id="btnLots" class="pointer fa fa-server"></i>
+              Vacant Lots &nbsp;<i
+                id="btnLots"
+                class="pointer fa fa-server"
+              ></i>
             </h5>
             <div id="lgndLotsItems">
               <svg height="100px" class="svg_legend box">
@@ -158,7 +160,7 @@
                     fill-opacity: 0.5;
                   "
                 />
-                <text x="36" y="23"  cursor="pointer" id="lgndBlock">
+                <text x="36" y="23" cursor="pointer" id="lgndBlock">
                   Block
                 </text>
                 <rect
@@ -266,12 +268,11 @@
                 <text x="141" y="83" cursor="pointer" id="lgndAlley">
                   Alley
                 </text>
-                
               </svg>
             </div>
             <div>
               <h5 class="text-center">
-                Zoning Districts &nbsp<i
+                Zoning Districts &nbsp;<i
                   id="btnZones"
                   class="pointer fa fa-server"
                 ></i>
@@ -435,7 +436,7 @@
             </div>
 
             <h5 class="text-center">
-              Subway Lines &nbsp<i
+              Subway Lines &nbsp;<i
                 id="btnSubLines"
                 class="pointer fa fa-server"
               ></i>
@@ -535,39 +536,40 @@
               </svg>
             </div>
           </div>
-        
-          <button id="btnShowDivLot" class="btn btn-primary btn-block " onclick="$(this).find('i').toggleClass('fa fa-chevron-down fa fa-chevron-up')">
+
+          <button
+            id="btnShowDivLot"
+            class="btn btn-primary btn-block"
+            onclick="$(this).find('i').toggleClass('fa fa-chevron-down fa fa-chevron-up')"
+          >
             Lots Filters
             <i class="fa fa-chevron-down"></i>
           </button>
 
           <div id="divLot" class="col-xs-12">
-            
-            
             <div id="divLotFltType" class="text-left col-xs-12">
-              <h5 id="lblLot">Filter by type</h5>
-            </div>
-            
-            <div class="inputs" id="types">
-              <div class="mycol-xs-4">
-              <input
-                type="checkbox"
-                class="TYPE"
-                name="Block"
-                value="Block"
-                checked="true"
-              />
-              <label for="Block">Block</label><br>
-              <input
-                type="checkbox"
-                class="TYPE"
-                name="Island Lot"
-                value="Island Lot"
-                checked="true"
-              />
-              <label for="Island Lot">Island</label>
+              <h5 id="lblLotByType">Filter by type</h5>
             </div>
 
+            <div class="inputs" id="types">
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="TYPE"
+                  name="Block"
+                  value="Block"
+                  checked
+                />
+                <label for="Block">Block</label><br />
+                <input
+                  type="checkbox"
+                  class="TYPE"
+                  name="Island Lot"
+                  value="Island Lot"
+                  checked
+                />
+                <label for="Island Lot">Island Lot</label>
+              </div>
             </div>
             <div class="mycol-xs-4">
               <input
@@ -575,15 +577,15 @@
                 class="TYPE"
                 name="Through"
                 value="Through"
-                checked="true"
+                checked
               />
-              <label for="Through">Through</label><br>
+              <label for="Through">Through</label><br />
               <input
                 type="checkbox"
                 class="TYPE"
                 name="Interior Lot"
                 value="Interior Lot"
-                checked="true"
+                checked
               />
               <label for="Interior Lot">Interior</label>
             </div>
@@ -593,139 +595,137 @@
                 class="TYPE"
                 name="Corner"
                 value="Corner"
-                checked="true"
+                checked
               />
-              <label for="Corner">Corner</label><br>
+              <label for="Corner">Corner</label><br />
               <input
                 type="checkbox"
                 class="TYPE"
                 name="Inside"
                 value="Inside"
-                checked="true"
+                checked
               />
               <label for="Inside">Inside</label>
             </div>
-            
-       
+
             <div id="divLotFltSize" class="text-left col-xs-12">
-              <h5 id="lblLot">Filter by Area (sq.ft.)</h5>
+              <h5 id="lblLotBySize">Filter by Area (sq.ft.)</h5>
             </div>
             <div class="inputs" id="areas">
               <div class="mycol-xs-4">
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="under 2500"
-                value="under 2500"
-                checked="true"
-              />
-              <label for="under 2500">&lt 2500</label><br>
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="4000-5000"
-                value="4000-5000"
-                checked="true"
-              />
-              <label for="4000-5000">4000-5000</label>
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="under 2500"
+                  value="under 2500"
+                  checked
+                />
+                <label for="under 2500">&lt; 2500</label><br />
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="4000-5000"
+                  value="4000-5000"
+                  checked
+                />
+                <label for="4000-5000">4000-5000</label>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="2500-3000"
+                  value="2500-3000"
+                  checked
+                />
+                <label for="2500-3000">2500-3000</label><br />
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="5000-10000"
+                  value="5000-10000"
+                  checked
+                />
+                <label for="5000-10000">5000-10000</label>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="3000-4000"
+                  value="3000-4000"
+                  checked
+                />
+                <label for="3000-4000">3000-4000</label><br />
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="over 10000"
+                  value="over 10000"
+                  checked
+                />
+                <label for="over 10000">over 10000</label>
+              </div>
             </div>
-            <div class="mycol-xs-4">
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="2500-3000"
-                value="2500-3000"
-                checked="true"
-              />
-              <label for="2500-3000">2500-3000</label><br>
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="5000-10000"
-                value="5000-10000"
-                checked="true"
-              />
-              <label for="5000-10000">5000-10000</label>
+            <div id="divLotFltFAR" class="text-left col-xs-12">
+              <h5 id="lblLotByFAR">Filter by FAR</h5>
             </div>
-            <div class="mycol-xs-4">
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="3000-4000"
-                value="3000-4000"
-                checked="true"
-              />
-              <label for="3000-4000">3000-4000</label><br>
-              <input
-                type="checkbox"
-                class="areaCAT"
-                name="over 10000"
-                value="over 10000"
-                checked="true"
-              />
-              <label for="over 10000">over 10000</label>
+            <div class="inputs" id="fars">
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="FARCAT"
+                  name="0.5-1"
+                  value="0.5-1"
+                  checked
+                />
+                <label for="0.5-1">0.5-1</label><br />
+                <input
+                  type="checkbox"
+                  class="FARCAT"
+                  name="1-2"
+                  value="1-2"
+                  checked
+                />
+                <label for="1-2">1-2</label>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="areaCAT"
+                  name="2-3"
+                  value="2-3"
+                  checked
+                />
+                <label for="2-3">2-3</label><br />
+                <input
+                  type="checkbox"
+                  class="FARCAT"
+                  name="3-4"
+                  value="3-4"
+                  checked
+                />
+                <label for="3-4">3-4</label>
+              </div>
+              <div class="mycol-xs-4">
+                <input
+                  type="checkbox"
+                  class="FARCAT"
+                  name="4-5"
+                  value="4-5"
+                  checked
+                />
+                <label for="4-5">4-5</label><br />
+                <input
+                  type="checkbox"
+                  class="FARCAT"
+                  name="5-6"
+                  value="5-6"
+                  checked
+                />
+                <label for="5-6">5-6</label>
+              </div>
             </div>
-
-          <div id="divLotFltSize" class="text-left col-xs-12">
-            <h5 id="lblLot">Filter by FAR</h5>
-          </div>
-          <div class="inputs" id="areas">
-            <div class="mycol-xs-4">
-            <input
-              type="checkbox"
-              class="FARCAT"
-              name="0.5-1"
-              value="0.5-1"
-              checked="true"
-            />
-            <label for="0.5-1">0.5-1</label><br>
-            <input
-              type="checkbox"
-              class="FARCAT"
-              name="1-2"
-              value="1-2"
-              checked="true"
-            />
-            <label for="1-2">1-2</label>
-          </div>
-          <div class="mycol-xs-4">
-            <input
-              type="checkbox"
-              class="areaCAT"
-              name="2-3"
-              value="2-3"
-              checked="true"
-            />
-            <label for="2-3">2-3</label><br>
-            <input
-              type="checkbox"
-              class="FARCAT"
-              name="3-4"
-              value="3-4"
-              checked="true"
-            />
-            <label for="3-4">3-4</label>
-          </div>
-          <div class="mycol-xs-4">
-            <input
-              type="checkbox"
-              class="FARCAT"
-              name="4-5"
-              value="4-5"
-              checked="true"
-            />
-            <label for="4-5">4-5</label><br>
-            <input
-              type="checkbox"
-              class="FARCAT"
-              name="5-6"
-              value="5-6"
-              checked="true"
-            />
-            <label for="5-6">5-6</label>
-          </div>
-        </div>
-
 
             <!-- <div id="divLotLabel" class="text-center col-xs-12">
               <h5 id="lblLot">Lot Spatial Analysis</h5>
@@ -738,69 +738,84 @@
             checked="false"
           />
           <label for="">Residential density</label> -->
+          </div>
 
-</div>
-            
-          <!-- <div id="divZone" class="col-xs-12">
-          <div id="divZoneLabel" class="text-center col-xs-12">
-            <h4 id="lblZone">Linear Zones</h4>
-          </div>
-          <div id="divZoneError" class="errorMsg col-xs-12"></div>
-          <div id="divFindZone" class="form-group has-error">
-            <div class="col-xs-6">
-              <input type="text" id="txtFindZone" class="form-control" placeholder="Zone ID" />
-            </div>
-            <div class="col-xs-6">
-              <button id="btnFindZone" class="btn btn-primary btn-block" disabled>
-                Find Zone
-              </button>
-            </div>
-          </div>
-          <div class="" id="divZoneData"></div>
-        </div> -->
+          <button
+            id="btnShowDivLotAnalysis"
+            class="btn btn-primary btn-block"
+            onclick="$(this).find('i').toggleClass('fa fa-chevron-down fa fa-chevron-up')"
+          >
+            Spatial Analysis
+            <i class="fa fa-chevron-down"></i>
+          </button>
 
-          <!-- <div id="divBUOWL" class="col-xs-12">
-        <div id="divBUOWLLabel" class="text-center col-xs-12">
-          <h4 id="lblBUOWL">BUOWL</h4>
-        </div>
-        <div id="divBUOWLError" class="errorMsg col-xs-12"></div>
-        <div id="divFindBUOWL" class="form-group has-error">
-          <div class="col-xs-6">
-            <input
-              type="text"
-              id="txtFindBUOWL"
-              class="form-control"
-              placeholder="Habitat ID"
-            />
-          </div>
-          <div class="col-xs-6">
-            <button
-              id="btnFindBUOWL"
-              class="btn btn-primary btn-block"
-              disabled
-            >
-              Find BUOWL
-            </button>
-          </div>
-        </div>
-        <div class="" id="divBUOWLData"></div>
-      </div> -->
+          <div id="divLotAnalysis" class="col-xs-12">
+            <div id="divLotResDen" class="text-left col-xs-12">
+              <h5 id="lblLotResDen">Residential Density (people/sq.mi.)</h5>
+            </div>
 
-          <!-- <div id="divRaptor" class="col-xs-12">
-            <div id="divRaptorLabel" class="text-center col-xs-12">
-                <h4 id="lblRaptor">Raptor Nests</h4>
+            <div class="inputs" id="types">
+              <div class="mycol-xs-12">
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="under-10000"
+                  value="under-10000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat1 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="under-10000">Under 10000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="10000-15000"
+                  value="10000-15000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat2 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="10000-15000">10000-15000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="15000-20000"
+                  value="15000-20000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat3 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="15000-20000">15000-20000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="20000-30000"
+                  value="20000-30000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat4 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="20000-30000">20000-30000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="30000-40000"
+                  value="30000-40000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat5 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="30000-40000">30000-40000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="40000-60000"
+                  value="40000-60000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat6 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="40000-60000">40000-60000</label><br />
+                <input
+                  type="checkbox"
+                  class="class_resden"
+                  name="over-60000"
+                  value="over-60000"
+                  checked
+                />&nbsp;&nbsp;&nbsp;<i class="fa fa-circle cat7 sa-bullet" aria-hidden="true"></i>&nbsp;
+                <label for="over-60000">Over 60000</label><br />
+                
+              </div>
             </div>
-            <div id="divRaptorError" class="errorMsg col-xs-12"></div>
-            <div id="divFindRaptor" class="form-group has-error">
-                <div class="col-xs-6">
-                    <input type="text" id="txtFindRaptor" class="form-control" placeholder="Raptor Nest ID">
-                </div>
-                <div class="col-xs-6">
-                    <button id="btnFindRaptor" class="btn btn-primary btn-block" disabled>Find Raptor Nest</button>
-                </div>
-            </div>
-            <div class="" id="divRaptorData"></div>
-        </div> -->
+          </div>
         </div>
       </aside>
       <main>
@@ -809,14 +824,17 @@
       <div id="infoPanel" class="infoPanel">
         <div class="col-md-12 col-sm-12">
           <div>
-            <button
+            <div
               id="infoPanelBtn"
               onclick="closeInfoPanel()"
               class="close-button"
-            ></button>
+            ></div>
           </div>
           <div id="content-area" class="col-xs-12 col-xs-12 box">
-            <h3 class="orange">Welcome to NYC<br> Residential Zoning & <br>Vacant Lots Map</h3>
+            <h3 class="orange">
+              Welcome to NYC<br />
+              Residential Zoning & <br />Vacant Lots Map
+            </h3>
             <p>
               The map provides a simple way to research vacant lots suitable for
               residential development and zoning regulations.
