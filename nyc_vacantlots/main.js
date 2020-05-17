@@ -213,28 +213,104 @@ $.getJSON('data/lots_poly.json', function (data) {
 //   });
 // });
 
-// **************  Vacant Lots Point Layer *************
+// **************  Vacant Lots Point Layers *************
 
-lyrLotPointsResDen = L.geoJSON
-  .ajax('data/lots_point.json', {
-    pointToLayer: function (feature, latlng) {
-      let school_marker = {
-        radius: 5,
-        fillColor: resDenColors[feature.properties.class_resden],
-        stroke: false,
-        // weight: 1,
-        // opacity: 1,
-        fillOpacity: 0.4,
-      };
-      var marker = L.circleMarker(latlng, school_marker);
+lyrLotPointsResDen = L.geoJSON(null, {
+  pointToLayer: function (feature, latlng) {
+          let school_marker = {
+            radius: 5,
+            fillColor: resDenColors[feature.properties.class_resden],
+            stroke: false,
+            // weight: 1,
+            // opacity: 1,
+            fillOpacity: 0.4,
+          };
+          var marker = L.circleMarker(latlng, school_marker);
+      
+          return marker;
+        },
+  onEachFeature: processLotPointsResDen,
+  filter: (feature) => {
+    const isClass_ResdenChecked = checkboxStates_sa.resden.includes(
+      feature.properties.class_resden
+    );
+    // const isAreaChecked = checkboxStates_sa.areas.includes(
+    //   feature.properties.AreaCAT
+    // );
+    // const isFarChecked = checkboxStates_sa.fars.includes(
+    //   feature.properties.FARCAT
+    // );
+    return isClass_ResdenChecked; //only true if all are true
+  },
+});
+// .addTo(mymap);
+// lyrLotPointsResDen.bringToFront();
+
+function updateCheckboxStates_sa() {
+  checkboxStates_sa = {
+    resden: [],
+    // areas: [],
+    // fars: [],
+  };
+
+  for (let input of document.querySelectorAll('.class_resden')) {
+    if (input.checked) {
+      switch (input.className) {
+        case 'class_resden':
+          checkboxStates_sa.resden.push(input.value);
+          break;
+        // case 'areaCAT':
+        //   checkboxStates.areas.push(input.value);
+        //   break;
+        // case 'FARCAT':
+        //   checkboxStates.fars.push(input.value);
+        //   break;
+      }
+    }
+  }
+}
+
+
+for (let input of document.querySelectorAll('.class_resden')) {
+  //Listen to 'change' event of all inputs
+  input.onchange = (e) => {
+    lyrLotPointsResDen.clearLayers();
+    updateCheckboxStates_sa();
+
+    $.getJSON('data/lots_point.json', function (data) {
+      lyrLotPointsResDen.addData(data);
+      lyrLotPointsResDen.bringToFront();
+    });
+  };
+}
+/****** INIT ******/
+updateCheckboxStates_sa();
+$.getJSON('data/lots_point.json', function (data) {
+  lyrLotPointsResDen.addData(data);
+  lyrLotPointsResDen.bringToFront();
+});
+
+
+// lyrLotPointsResDen = L.geoJSON
+//   .ajax('data/lots_point.json', {
+//     pointToLayer: function (feature, latlng) {
+//       let school_marker = {
+//         radius: 5,
+//         fillColor: resDenColors[feature.properties.class_resden],
+//         stroke: false,
+//         // weight: 1,
+//         // opacity: 1,
+//         fillOpacity: 0.4,
+//       };
+//       var marker = L.circleMarker(latlng, school_marker);
   
-      return marker;
-    },
-    onEachFeature: processLotPoints,
-  });
-  // .bindTooltip();
-  // lyrLotPointsResDen.addTo(mymap);
-// lyrLotPoints.bringToFront();
+//       return marker;
+//     },
+//     onEachFeature: processLotPoints,
+//   });
+  //*** */ .bindTooltip();
+  //*** */ lyrLotPointsResDen.addTo(mymap);
+//*** */ lyrLotPoints.bringToFront();
 
 lyrLotPointsBus = L.geoJSON
   .ajax('data/lots_point.json', {
@@ -919,7 +995,68 @@ function processStations(json, lyr) {
 }
 
 //  *********  Lot Points Functions  ************
-
+function styleLotsResDen(json) {
+  var att = json.properties;
+  switch (att.class_resden) {
+    case 'under-10000':
+      return {
+        radius: 5,
+        fillColor: '#ffde0a',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case '10000-15000':
+      return {
+        radius: 5,
+        fillColor: '#8fd744',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case '15000-20000':
+      return {
+        radius: 5,
+        fillColor: '#35b779',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case '20000-30000':
+      return {
+        radius: 5,
+        fillColor: '#21908d',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case '30000-40000':
+      return {
+        radius: 5,
+        fillColor: '#31688e',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case '40000-60000':
+      return {
+        radius: 5,
+        fillColor: '#443a82',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    case 'over-60000':
+      return {
+        radius: 5,
+        fillColor: '#5a066e',
+        stroke: false,
+        fillOpacity: 0.4,
+      };
+    // break;
+    
+  }
+}
 //Create a color dictionary based res dens
 var resDenColors = {
   'under-10000': '#ffde0a',
@@ -939,6 +1076,10 @@ var busColors = {
   '0.81-0.93': '#443a82',
   '0.93-1.00': '#5a066e',
 };
+
+function processLotPointsResDen(json, lyr) {
+
+}
 
 function processLotPoints(json, lyr) {
   // var att = json.properties;

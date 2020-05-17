@@ -274,7 +274,7 @@ svg:not(:root).svg-inline--fa {
   padding-top: 5px;
 }
 #legend {
-  display: none;
+  /* display: none; */
   /* padding: 6px; */
   /* background-color: #337ab7; */
 }
