@@ -273,11 +273,11 @@ svg:not(:root).svg-inline--fa {
 .divFindLot {
   padding-top: 5px;
 }
-#legend {
+/* #legend {
   /* display: none; */
   /* padding: 6px; */
   /* background-color: #337ab7; */
-}
+/* } */ */
 
 .errorMsg {
   margin-bottom: 6px;
