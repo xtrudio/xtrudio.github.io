@@ -1,8 +1,0 @@
-<h4>Welcome to NYC's Residential Zoning & Vacant Lots Map</h4>
-<p>The map provides a simple way to research vacant lots suitable for residential development and zoning regulations.</p>
-<p>Find the zoning for the lots of interest, discover new proposals for your neighborhood, and learn where City Planning initiatives are happening throughout the City.</p>
-<h5>Zoning Questions</h5>
-<p>For general zoning questions, read the Zoning Help Desk FAQ. If your question isn't answered there, call 212-720-3291 during business hours (8:30AM–5:30PM, Monday–Friday, closed on legal holidays). Leave a detailed message with your block and lot information, and a zoning specialist will get back to you within two business days. Or fill out the Zoning Information InquiryForm.</p>
-<h5>Application Feedback</h5>
-<p>To let @xtrudioLabs know how this app could be better, add a GitHub Issue, Tweet #reimagineVALO, or send an email to valogis@xtrudio.com.</p> 
-<p class="italic"><span>VALO</span> was developed by Horia Popa as the final project for the ... </p>
